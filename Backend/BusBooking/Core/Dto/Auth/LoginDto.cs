@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace BusBooking.Core.Dto.Auth
 {
     public class LoginDto
     {
-        [Required]
+        [Required(ErrorMessage = "Username is Required")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is Requied")]
         public string Password { get; set; }
     }
 }
