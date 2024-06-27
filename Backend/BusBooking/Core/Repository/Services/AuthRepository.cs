@@ -180,6 +180,14 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
+        public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task<IEnumerable<UserInformation>> UserListAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
