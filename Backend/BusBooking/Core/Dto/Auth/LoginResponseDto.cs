@@ -11,5 +11,6 @@ namespace BusBooking.Core.Dto.Auth
         public string NewToken { get; set; }
 
         public UserInformation UserInfo { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

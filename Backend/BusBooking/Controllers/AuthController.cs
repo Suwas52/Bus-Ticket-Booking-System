@@ -1,6 +1,9 @@
 
+using BusBooking.Constants;
 using BusBooking.Core.Dto.Auth;
+using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusBooking.Controllers
@@ -14,6 +17,15 @@ namespace BusBooking.Controllers
         public AuthController(IAuthRepository authRepository)
         {
             this.authRepository = authRepository;
+        }
+
+        [Authorize(Roles = StaticRoleUser.SUPERADMIN)]
+        [HttpGet]
+        [Route("AllUser")]
+        public async Task<ActionResult<IEnumerable<ApplicationUser>>> UserList()
+        {
+            var allUsers = await authRepository.UserListAsync();
+            return Ok(allUsers);
         }
 
         // Route -> Seed Roles to DB
@@ -41,9 +53,22 @@ namespace BusBooking.Controllers
         {
             var loginDetail = await authRepository.LoginAsync(loginDto);
 
-            if (loginDetail is null)
+            if (loginDetail == null)
             {
-                return Unauthorized("Your credentials are invalid. Please contact to an Admin");
+                return Unauthorized(new
+                {
+                    StatusCode = 401,
+                    Message = "Your credentials are invalid. Please contact an Admin."
+                });
+            }
+
+            if (!string.IsNullOrEmpty(loginDetail.ErrorMessage))
+            {
+                return Unauthorized(new
+                {
+                    StatusCode = 401,
+                    Message = loginDetail.ErrorMessage
+                });
             }
             return Ok(loginDetail);
         }
