@@ -19,13 +19,20 @@ namespace BusBooking.Controllers
             this.authRepository = authRepository;
         }
 
-        [Authorize(Roles = StaticRoleUser.SUPERADMIN)]
+        [Authorize(Roles = StaticRoleUser.OwnerAdmin)]
         [HttpGet]
         [Route("AllUser")]
         public async Task<ActionResult<IEnumerable<ApplicationUser>>> UserList()
         {
-            var allUsers = await authRepository.UserListAsync();
-            return Ok(allUsers);
+            try
+            {
+                var allUsers = await authRepository.UserListAsync();
+                return Ok(allUsers);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
         }
 
         // Route -> Seed Roles to DB
