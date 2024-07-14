@@ -5,6 +5,7 @@ D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\BusBooking.runtimeconfig.json
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\BusBooking.dll
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\BusBooking.pdb
+D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\AutoMapper.dll
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\Azure.Core.dll
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\Azure.Identity.dll
 D:\.net and react project\Bus Booking System\Backend\BusBooking\bin\Debug\net8.0\Humanizer.dll

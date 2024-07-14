@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using BusBooking.Core.Context;
+using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using BusBooking.Core.Repository.Services;
@@ -24,8 +25,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("busBookingConString"));
 });
 
+
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>()

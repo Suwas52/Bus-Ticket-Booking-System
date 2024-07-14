@@ -1,4 +1,5 @@
 
+using BusBooking.Core.Context;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 
@@ -6,9 +7,16 @@ namespace BusBooking.Core.Repository.Services
 {
     public class BusRepo : IBusRepo
     {
-        public Task CreateAsync(Bus model)
+        private readonly ApplicationDbContext _context;
+
+        public BusRepo(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task CreateAsync(Bus model)
+        {
+            await _context.Buses.AddAsync(model);
+            await _context.SaveChangesAsync();
         }
 
         public Task DeleteAsync(int id)
