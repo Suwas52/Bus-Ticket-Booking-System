@@ -10,6 +10,8 @@ namespace BusBooking.Core.Helpers
         {
             CreateMap<Bus, BusReadDto>();
             CreateMap<BusCreateDto, Bus>();
+            CreateMap<BusUpdateDto, Bus>();
+            CreateMap<Bus, BusUpdateDto>();
         }
     }
 }
