@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IRouteRepo, RouteRepo>();
 
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));

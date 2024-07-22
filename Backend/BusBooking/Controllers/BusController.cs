@@ -121,7 +121,7 @@ namespace BusBooking.Controllers
             try
             {
                 var bus = await _busRepo.GetByIdAsync(id).ConfigureAwait(false);
-                if(bus == null)
+                if(bus == null || bus.IsDeleted == true)
                 {
                     return NotFound(new GeneralResponseDto
                     {

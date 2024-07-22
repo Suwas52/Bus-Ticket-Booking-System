@@ -8,10 +8,17 @@ namespace BusBooking.Core.Helpers
     {
         public MapperProfile()
         {
+            //Bus
             CreateMap<Bus, BusReadDto>();
             CreateMap<BusCreateDto, Bus>();
             CreateMap<BusUpdateDto, Bus>();
             CreateMap<Bus, BusUpdateDto>();
+
+            //Route
+            CreateMap<Routes, RouteReadDto>();
+            CreateMap<RouteCreateDto, Routes>();
+            CreateMap<RouteUpdateDto, Routes>();
+            CreateMap<Routes, RouteUpdateDto>();
         }
     }
 }

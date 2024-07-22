@@ -1,5 +1,4 @@
-
-using BusBooking.Core.Context;
+﻿using BusBooking.Core.Context;
 using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
@@ -7,41 +6,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusBooking.Core.Repository.Services
 {
-    public class BusRepo : IBusRepo
+    public class RouteRepo : IRouteRepo
     {
         private readonly ApplicationDbContext _context;
         private readonly IAuthHelper _authHelper;
-
-        public BusRepo(ApplicationDbContext context, IAuthHelper authHelper)
+        public RouteRepo(ApplicationDbContext context, IAuthHelper authHelper)
         {
             _context = context;
             _authHelper = authHelper;
         }
-        public async Task CreateAsync(Bus model)
+        public async Task CreateAsync(Routes model)
         {
             var loginUser = _authHelper.GetCurrentUser();
-
             model.CreatedAt = DateTime.Now;
             model.CreatedBy = loginUser.UserName;
             model.IsDeleted = false;
-            await _context.Buses.AddAsync(model);
-
-            await _context.SaveChangesAsync();
+            await _context.Routes.AddAsync(model);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
         }
-
-        public async Task<IEnumerable<Bus>> GetAllAsync()
+        public async Task<IEnumerable<Routes>> GetAllAsync()
         {
-            var buses = await _context.Buses.Where(x => x.IsDeleted == false).ToListAsync();
-            return buses;
+            return await _context.Routes.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-        public async Task<Bus> GetByIdAsync(int id)
+        public async Task<Routes> GetByIdAsync(int id)
         {
-            var busData = await _context.Buses.FindAsync(id).ConfigureAwait(false);
-            return busData;
+            var route = await _context.Routes.FindAsync(id).ConfigureAwait(false);
+            return route;
         }
 
-        public async Task UpdateAsync(Bus model)
+        public async Task UpdateAsync(Routes model)
         {
             var loginUser = _authHelper.GetCurrentUser();
             if(model.IsDeleted == false)
@@ -51,19 +45,19 @@ namespace BusBooking.Core.Repository.Services
                 _context.Entry(model).State = EntityState.Modified;
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
-        }
 
+        }
         public async Task DeleteAsync(int id)
         {
             var loginUser = _authHelper.GetCurrentUser();
-            var bus = await _context.Buses.FindAsync(id).ConfigureAwait(false);
-            if(bus != null)
-            {
-                bus.IsDeleted = true;
-                bus.UpdatedBy = loginUser.UserName;
-                bus.UpdatedAt = DateTime.Now;
 
-                _context.Entry(bus).State = EntityState.Modified;
+            var route = await _context.Routes.FindAsync(id).ConfigureAwait(false);
+            if (route != null)
+            {
+                route.IsDeleted = true;
+                route.UpdatedBy = loginUser.UserName;
+                route.UpdatedAt = DateTime.Now;
+                _context.Entry(route).State = EntityState.Deleted;
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
