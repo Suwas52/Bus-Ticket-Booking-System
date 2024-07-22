@@ -9,10 +9,10 @@ namespace BusBooking.Core.Context
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Log> Logs { get; set; }
-
         public DbSet<Bus> Buses { get; set; }
-
         public DbSet<Routes> Routes { get; set; }
+        public DbSet<BusSchedule> BusSchedules { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

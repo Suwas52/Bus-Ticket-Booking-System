@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BusBooking.Core.Model
 {
@@ -22,5 +23,8 @@ namespace BusBooking.Core.Model
         public string? UpdatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public bool IsDeleted { get; set; }
-}
+
+        [JsonIgnore]
+        public virtual IEnumerable<BusSchedule> BusSchedules { get; set; }
+    }
 }
