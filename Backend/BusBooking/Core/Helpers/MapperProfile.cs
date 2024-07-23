@@ -25,6 +25,12 @@ namespace BusBooking.Core.Helpers
             CreateMap<BusScheduleCreateDto, BusSchedule>();
             CreateMap<BusScheduleUpdateDto, BusSchedule>();
             CreateMap<BusSchedule, BusScheduleUpdateDto>();
+
+            //Booking
+            CreateMap<Booking, BookingReadDto>();
+            CreateMap<BookingCreateDto, Booking>();
+
+
         }
     }
 }

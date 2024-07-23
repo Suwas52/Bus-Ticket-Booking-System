@@ -19,7 +19,7 @@ namespace BusBooking.Core.Repository.Services
             _authHelper = authHelper;
         }
 
-        public async Task CreateAsync(Bus model)
+        /*public async Task CreateAsync(Bus model)
         {
             var loginUser = _authHelper.GetCurrentUser();
 
@@ -44,7 +44,46 @@ namespace BusBooking.Core.Repository.Services
             }
 
             await _context.SaveChangesAsync();
+        }*/
+
+        public async Task CreateAsync(Bus model)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var loginUser = _authHelper.GetCurrentUser();
+
+                model.CreatedAt = DateTime.Now;
+                model.CreatedBy = loginUser.UserName;
+                model.IsDeleted = false;
+
+                // Add bus first to generate the BusId
+                await _context.Buses.AddAsync(model);
+                await _context.SaveChangesAsync();
+
+                // Initialize seats
+                for (int i = 1; i <= model.Capacity; i++)
+                {
+                    var seat = new Seat
+                    {
+                        BusId = model.BusId,
+                        SeatNumber = i,
+                        Status = SeatStatus.Available
+                    };
+                    await _context.Seats.AddAsync(seat);
+                }
+
+                await _context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
+
 
 
         public async Task<IEnumerable<Bus>> GetAllAsync()

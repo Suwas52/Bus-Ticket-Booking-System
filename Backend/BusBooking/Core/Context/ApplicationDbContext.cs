@@ -13,6 +13,7 @@ namespace BusBooking.Core.Context
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Routes> Routes { get; set; }
         public DbSet<BusSchedule> BusSchedules { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

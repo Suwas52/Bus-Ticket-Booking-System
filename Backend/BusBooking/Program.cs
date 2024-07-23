@@ -31,6 +31,7 @@ builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
 builder.Services.AddScoped<IRouteRepo, RouteRepo>();
 builder.Services.AddScoped<IBusScheduleRepo, BusScheduleRepo>();
+builder.Services.AddScoped<IBookingRepo, BookingRepo>();
 
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
