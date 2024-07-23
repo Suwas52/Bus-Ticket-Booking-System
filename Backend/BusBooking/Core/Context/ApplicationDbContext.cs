@@ -10,6 +10,7 @@ namespace BusBooking.Core.Context
     {
         public DbSet<Log> Logs { get; set; }
         public DbSet<Bus> Buses { get; set; }
+        public DbSet<Seat> Seats { get; set; }
         public DbSet<Routes> Routes { get; set; }
         public DbSet<BusSchedule> BusSchedules { get; set; }
 

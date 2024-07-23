@@ -1,11 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using static BusBooking.Core.Model.Seat;
 
 namespace BusBooking.Core.Model
 {
+
     public class Bus
     {
+
+        public Bus()
+        {
+            BusSchedules = new HashSet<BusSchedule>();
+            
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BusId { get; set; }
@@ -30,7 +39,23 @@ namespace BusBooking.Core.Model
         public bool IsDeleted { get; set; }
 
         [JsonIgnore]
-        public virtual IEnumerable<BusSchedule> BusSchedules  { get; set; }
+        public virtual ICollection<BusSchedule> BusSchedules  { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();  
+    
+        /*public void InitializeSeats()
+        {
+            for(int i = 1; i <= Capacity; i++)
+            {
+                Seats.Add(new Seat
+                {
+                    BusId = this.BusId,
+                    SeatNumber = i,
+                    Status = SeatStatus.Available
+                });
+            }
+        }*/
     }
 
     public enum BusTypes

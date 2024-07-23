@@ -4,6 +4,7 @@ using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using static BusBooking.Core.Model.Seat;
 
 namespace BusBooking.Core.Repository.Services
 {
@@ -17,6 +18,7 @@ namespace BusBooking.Core.Repository.Services
             _context = context;
             _authHelper = authHelper;
         }
+
         public async Task CreateAsync(Bus model)
         {
             var loginUser = _authHelper.GetCurrentUser();
@@ -24,10 +26,26 @@ namespace BusBooking.Core.Repository.Services
             model.CreatedAt = DateTime.Now;
             model.CreatedBy = loginUser.UserName;
             model.IsDeleted = false;
+
+            
             await _context.Buses.AddAsync(model);
+            await _context.SaveChangesAsync();
+
+            // Initialize seats
+            for (int i = 1; i <= model.Capacity; i++)
+            {
+                var seat = new Seat
+                {
+                    BusId = model.BusId,
+                    SeatNumber = i,
+                    Status = SeatStatus.Booked
+                };
+                await _context.Seats.AddAsync(seat);
+            }
 
             await _context.SaveChangesAsync();
         }
+
 
         public async Task<IEnumerable<Bus>> GetAllAsync()
         {
