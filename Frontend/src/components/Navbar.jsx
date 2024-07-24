@@ -5,7 +5,7 @@ const CustomNavbar = () => (
   <Navbar className="bg-body-tertiary" expand="lg">
     <Container>
       <Row>
-        <Col ></Col>
+        <Col></Col>
       </Row>
     </Container>
   </Navbar>
