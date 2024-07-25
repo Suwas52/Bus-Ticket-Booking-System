@@ -293,12 +293,27 @@ h5 {
 //blog
 .blog-section {
   padding: 50px 0;
-  background-color: #f1f1f1;
-}
+  background-color: #f7f7f7;
 
-.blog-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  .description {
+    margin-top: 10px;
+    max-width: 610px;
+    margin-bottom: 30px;
+    color: $light-color;
+  }
+
+  h5 {
+    color: $primary-color;
+  }
+  p {
+    color: $light-color;
+  }
+
+  .icon {
+    font-size: 15px;
+    margin: 5px;
+    color: $green-color;
+  }
 }
 
 //footer
@@ -306,19 +321,33 @@ h5 {
   padding: 50px 0;
   background-color: $blue-color;
   color: white;
+  .social-links a {
+    color: $green-color;
+    margin-right: 10px;
+    font-size: 1.25rem;
+  }
 }
 
 .footer-section h5 {
   font-size: 1.25rem;
   margin-bottom: 20px;
+  color: $green-color;
 }
 
 .footer-section p {
   margin-bottom: 10px;
 }
+ul {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+}
+li {
+  list-style: none;
+  text-decoration: none;
+}
 
-.footer-section .social-links a {
-  color: $blue-color;
-  margin-right: 10px;
-  font-size: 1.25rem;
+li a {
+  text-decoration: none;
+  color: #ffffff;
 }
