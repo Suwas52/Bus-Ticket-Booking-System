@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import React from "react";
+import Test from "./pages/User/test";
 import LandingPage from "./pages/User/LandingPage";
-
-function App() {
-  const [count, setCount] = useState(0);
-
+import "./styles/main.scss";
+const App = () => {
   return (
-    <>
+    <div>
       <LandingPage />
-    </>
+    </div>
   );
-}
+};
 
 export default App;

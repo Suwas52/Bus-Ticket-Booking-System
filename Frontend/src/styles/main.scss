@@ -1,2 +1,184 @@
 @import "./variables";
 @import "./mixins";
+@import url("https://fonts.googleapis.com/css2?family=Georama:wght@400;700&display=swap");
+
+$primary-color: #424248;
+$green-color: #0e9e4d;
+$black-color: #1f1f1f;
+$light-color: #777777;
+$dark-color: #1b273d80;
+$blue-color: #1b273dfc;
+
+.green-btn {
+  background-color: $green-color !important;
+  background-color: none;
+  color: #ffffff !important;
+  border-radius: 5px !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.top-header {
+  height: 46px;
+  background-color: $light-color; // Adjust as needed
+
+  border-bottom: 1px solid #1f1f1f12;
+  box-shadow: 0 3px 20px 1 #1f1f1f12;
+  .contact-info {
+    display: flex;
+    align-items: center;
+    font-size: 14px; // Adjust as needed
+    color: $light-color; // Adjust as needed
+
+    .icon {
+      font-size: 14px;
+      color: $green-color;
+      margin-right: 5px;
+    }
+  }
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+    border: 1px solid #13111112;
+    padding: 3px;
+    button {
+      margin-left: 0.5rem;
+      color: $green-color; // Adjust as needed
+      background: none;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        background-color: $green-color;
+        color: #fff;
+      }
+
+      .icon {
+        font-size: 18px;
+        // color: $green-color;
+        margin-right: 3px;
+      }
+    }
+  }
+}
+
+.navbar-nav.mx-auto {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-brand {
+  margin-right: auto;
+}
+
+.navbar-nav.ms-auto {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav.ms-auto .btn {
+  margin-left: 10px;
+}
+.nav-link {
+  font-family: "Georama", sans-serif;
+  color: #1f1f1f !important;
+  font-size: 1rem !important;
+  //   font-weight: bold !important;
+  font-weight: 400 !important;
+}
+
+.test {
+  //   border: 1px solid black;
+  box-shadow: 0 3px 20px 2 #13111112;
+  margin: 0;
+  padding: 0;
+  //   border-bottom: 1px solid #1f1f1f12;
+}
+
+.search {
+  // border: 1px solid black;
+  margin: 0;
+  padding: 0;
+
+  .ticket-card {
+    background-color: #ffffff !important;
+    box-shadow: 0.2px 0.2px 2px 0px $light-color;
+    border: none !important;
+  }
+}
+
+//steps
+.steps-section {
+  padding: 50px 0;
+  background-color: #ffffff;
+}
+
+.steps-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.step-box {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+//amenities
+
+.amenities-section {
+  padding: 50px 0;
+  background-color: #f1f1f1;
+}
+
+.amenities-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.amenity-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.amenity-box i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+//testimonials
+
+.testimonials-section {
+  padding: 50px 0;
+  background-color: #ffffff;
+}
+
+.testimonials-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.testimonial-box {
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+//blog
+.blog-section {
+  padding: 50px 0;
+  background-color: #f1f1f1;
+}
+
+.blog-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
