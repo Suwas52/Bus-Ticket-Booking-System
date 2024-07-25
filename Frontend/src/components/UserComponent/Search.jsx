@@ -17,8 +17,8 @@ const Search = () => {
       <Container className="mt-5">
         <Row className="justify-content-center">
           <Col md={7} className="">
-            <h2>Get Your Ticket Online,</h2>
-            <h2> Easy and Safely</h2>
+            <h1>Get Your Ticket Online,</h1>
+            <h1> Easy and Safely</h1>
             <button className="btn green-btn mt-2">Get Ticket Now</button>
           </Col>
           <Col md={5}>
@@ -64,9 +64,9 @@ const Search = () => {
             </Card>
           </Col>
         </Row>
-      </Container>
-      <Container className="mt-5">
-        <Image src={Road} height={66} alt="Bus Logo" />
+        <Row className="mt-5">
+          <Image src={Road} height={66} alt="Bus Logo" />
+        </Row>
       </Container>
     </div>
   );

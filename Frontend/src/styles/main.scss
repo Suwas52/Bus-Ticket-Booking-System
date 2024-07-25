@@ -20,6 +20,21 @@ $blue-color: #1b273dfc;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Georama", sans-serif;
+}
+
+h1 {
+  font-weight: 600 !important;
+}
+h2 {
+  font-weight: 600 !important;
+}
+
+h3 {
+  font-weight: 600 !important;
+}
+h4 {
+  font-weight: 600 !important;
 }
 
 .top-header {
@@ -116,11 +131,10 @@ $blue-color: #1b273dfc;
 .steps-section {
   padding: 50px 0;
   background-color: #ffffff;
-}
 
-.steps-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  h2 {
+    font-weight: 600;
+  }
 }
 
 .step-box {
@@ -129,6 +143,75 @@ $blue-color: #1b273dfc;
   border-radius: 8px;
   background-color: #f9f9f9;
   margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .circle {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: #0e9e4d40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $green-color;
+    margin: 15px 0;
+    .icon {
+      font-size: 25px !important;
+    }
+  }
+
+  .circle-no {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: $green-color;
+    top: 15px;
+    right: 152px;
+    color: #fff;
+  }
+
+  // .circle::after {
+  //   content: "";
+  //   width: 35px;
+  //   height: 35px;
+  //   border-radius: 50%;
+  //   position: absolute;
+  //   background-color: $green-color;
+  //   top: -5px;
+  //   left: 65px;
+  //   z-index: 1;
+  // }
+
+  .project-desc::before {
+    content: "";
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #a3ffc1;
+    position: absolute;
+    top: -75px;
+    left: -75px;
+    z-index: -1;
+  }
+  .project-desc::after {
+    content: "";
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #eafff1;
+    position: absolute;
+    bottom: -75px;
+    right: -75px;
+    z-index: -1;
+  }
 }
 
 //amenities
