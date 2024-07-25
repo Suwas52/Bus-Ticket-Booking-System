@@ -10,12 +10,14 @@ const Step = () => {
       <Container>
         <h2>Get Your Tickets With Just 3 Steps</h2>
 
-        <p>
-          Have a look at our popular reason. why you should choose you bus. Just
-          a bus and get a ticket for your great journey{" "}
-        </p>
+        <div className="description text-center container-fluid ">
+          <p>
+            Have a look at our popular reason. why you should choose you bus.
+            Just a bus and get a ticket for your great journey{" "}
+          </p>
+        </div>
 
-        <Row className="mt-4">
+        <Row className="mt-5">
           <Col md={4}>
             <div className="step-box">
               <div className="circle-no">01</div>
