@@ -1,13 +1,11 @@
-
+import React, { useContext } from 'react';
 import Test from "./pages/User/test";
 import LandingPage from "./pages/User/LandingPage";
 import "./styles/main.scss";
 import SignUp from "./pages/Authentication/SignUp";
 import Login from "./pages/Authentication/Login";
-import React, { useContext } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Admin/home/Home'
-import Login from './pages/Admin/login/Login'
 import List from './pages/Admin/list/List'
 import Single from './pages/Admin/single/Single'
 import New from './pages/Admin/new/New'
