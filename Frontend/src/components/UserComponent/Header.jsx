@@ -15,6 +15,7 @@ import Phone from "@mui/icons-material/LocalPhoneOutlined";
 import Email from "@mui/icons-material/MailOutline";
 import SignIn from "@mui/icons-material/Login";
 import SignUp from "@mui/icons-material/PersonAddAlt1";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className="header">
@@ -25,13 +26,17 @@ const Header = () => {
             <Email className="icon" /> example@example.com
           </div>
           <div className="auth-buttons ms-auto">
-            <button className="btn btn-sm">
+            <button className="btn btn-sm"></button>
+            <Link to={"/login"} className="btn btn-sm">
               <SignIn className="icon" /> Sign In
-            </button>
-            <button className="btn btn-sm">
+            </Link>
+            <Link to={"/signup"} className="btn btn-sm">
               <SignUp className="icon" />
               Sign Up
-            </button>
+            </Link>
+            {/* <button className="btn btn-sm">
+              
+            </button> */}
           </div>
         </Container>
       </Navbar>
