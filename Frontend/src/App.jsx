@@ -12,6 +12,7 @@ import New from './pages/Admin/new/New'
 import { productInputs, userInputs } from './Formsource'
 import "./styles/dark.scss"
 import { DarkModeContext } from './pages/Admin/context/DarkModeContext'
+import AboutPage from './pages/User/AboutPage';
 
 const App = () => {
 
@@ -22,7 +23,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/'>
-            <Route index element={<Home />} />
+            <Route index element={<LandingPage />} />
             <Route path='login' element={<Login/>} />
             <Route path='users'>
               <Route index element={<List/>} />
@@ -34,6 +35,7 @@ const App = () => {
               <Route path=':productId' element={<Single/>} />
               <Route path='new' element={<New  inputs={productInputs} title="Add New Product"/>} />
             </Route>
+            <Route path='about' element={<AboutPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
