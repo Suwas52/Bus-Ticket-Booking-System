@@ -44,44 +44,185 @@
 //   );
 // };
 
-import React, { createContext, useState, useEffect } from "react";
-import { login as authLogin, refreshToken } from "../services/AuthService";
+// import React, { createContext, useState, useEffect } from "react";
+// import { login as authLogin, refreshToken } from "../services/AuthService";
 
-const AuthContext = createContext();
+// const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+// const AuthProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const initAuth = async () => {
-      try {
-        const token = await refreshToken();
-        if (token) {
-          setUser(jwtDecode(token));
-        }
-      } catch (error) {
-        console.log("Error refreshing token", error);
+//   useEffect(() => {
+//     const initAuth = async () => {
+//       try {
+//         const token = await refreshToken();
+//         if (token) {
+//           setUser(jwtDecode(token));
+//         }
+//       } catch (error) {
+//         console.log("Error refreshing token", error);
+//       }
+//     };
+
+//     initAuth();
+//   }, []);
+
+//   const login = async (email, password) => {
+//     const data = await authLogin(email, password);
+//     setUser(jwtDecode(data.token));
+//   };
+
+//   const logout = () => {
+//     // Handle logout logic, such as clearing cookies
+//     setUser(null);
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ user, login, logout }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export { AuthProvider, AuthContext };
+
+import {
+  ReactNode,
+  createContext,
+  useReducer,
+  useCallback,
+  useEffect,
+} from "react";
+import { setSession, getSession } from "../auth/auth.utils";
+import axiosInstance from "../services/axiosInstance";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import {
+  LOGIN_URL,
+  PATH_AFTER_LOGIN,
+  PATH_AFTER_LOGOUT,
+  PATH_AFTER_REGISTER,
+  REGISTER_URL,
+} from "../utils/globalConfig";
+import { RolesEnum } from "../auth/role";
+
+//Reducer function for useReducer hook
+
+const authReducer = (state, action) => {
+  switch (action) {
+    case "LOGIN":
+      return {
+        ...state,
+        isAuthenticated: true,
+        isAuthLoading: false,
+        user: action.payload,
+      };
+
+    case "LOGOUT":
+      return {
+        ...state,
+        isAuthenticated: false,
+        isAuthLoading: false,
+        user: undefined,
+      };
+    default:
+      return state;
+  }
+};
+
+// Initial state object for useReducer hook
+const initialAuthState = {
+  isAuthenticated: false,
+  isAuthLoading: true,
+  user: undefined,
+};
+
+export const AuthContext = createContext(null);
+
+const AuthContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialAuthState);
+  const navigate = useNavigate();
+
+  // Initialize Method
+  const initializeAuthContext = useCallback(async () => {
+    try {
+      const token = getSession();
+      if (token) {
+        // validate accessToken by calling backend
+        const response = await axiosInstance.post(ME_URL, { token });
+        const { newToken, userInfo } = response.data;
+        setSession(newToken);
+        dispatch({ type: "LOGIN", payload: userInfo });
+      } else {
+        setSession(null);
+        dispatch({ type: "LOGOUT" });
       }
-    };
-
-    initAuth();
+    } catch (error) {
+      setSession(null);
+      dispatch({ type: "LOGOUT" });
+    }
   }, []);
 
-  const login = async (email, password) => {
-    const data = await authLogin(email, password);
-    setUser(jwtDecode(data.token));
-  };
+  useEffect(() => {
+    console.log("AuthContext Initialization start");
+    initializeAuthContext()
+      .then(() => console.log("initializeAuthContext was successful"))
+      .catch((error) => console.log(error));
+  }, [initializeAuthContext]);
 
-  const logout = () => {
-    // Handle logout logic, such as clearing cookies
-    setUser(null);
+  // Register Method
+  const register = useCallback(
+    async (firstName, lastName, userName, email, password, address) => {
+      const response = await axiosInstance.post(REGISTER_URL, {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        address,
+      });
+      console.log("Register Result:", response);
+      toast.success("Register Was Successful. Please Login.");
+      navigate(PATH_AFTER_REGISTER);
+    },
+    [navigate]
+  );
+
+  // Login Method
+  const login = useCallback(
+    async (userName, password) => {
+      const response = await axiosInstance.post(LOGIN_URL, {
+        userName,
+        password,
+      });
+      toast.success("Login Was Successful");
+      const { newToken, userInfo } = response.data;
+      setSession(newToken);
+      dispatch({ type: "LOGIN", payload: userInfo });
+      navigate(PATH_AFTER_LOGIN);
+    },
+    [navigate]
+  );
+
+  // Logout Method
+  const logout = useCallback(() => {
+    setSession(null);
+    dispatch({ type: "LOGOUT" });
+    navigate(PATH_AFTER_LOGOUT);
+  }, [navigate]);
+
+  const valuesObject = {
+    isAuthenticated: state.isAuthenticated,
+    isAuthLoading: state.isAuthLoading,
+    user: state.user,
+    register,
+    login,
+    logout,
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={valuesObject}>{children}</AuthContext.Provider>
   );
 };
 
-export { AuthProvider, AuthContext };
+export default AuthContextProvider;
