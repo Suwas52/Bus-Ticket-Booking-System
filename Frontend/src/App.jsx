@@ -11,6 +11,8 @@ import New from "./pages/Admin/new/New";
 import { productInputs, userInputs } from "./Formsource";
 import "./styles/dark.scss";
 import { DarkModeContext } from "./pages/Admin/context/DarkModeContext";
+import AboutPage from "../src/pages/User/AboutPage";
+import ContactPage from "./pages/User/ContactPage";
 
 const App = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -21,6 +23,8 @@ const App = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />
