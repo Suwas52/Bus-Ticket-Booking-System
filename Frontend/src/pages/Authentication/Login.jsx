@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 const Login = () => {
