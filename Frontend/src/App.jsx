@@ -4,14 +4,13 @@ import "./styles/main.scss";
 import SignUp from "./pages/Authentication/SignUp";
 import Login from "./pages/Authentication/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Admin/home/Home";
+// import Home from "./pages/Admin/home/Home";
 import List from "./pages/Admin/list/List";
 import Single from "./pages/Admin/single/Single";
 import New from "./pages/Admin/new/New";
 import { productInputs, userInputs } from "./Formsource";
 import "./styles/dark.scss";
 import { DarkModeContext } from "./pages/Admin/context/DarkModeContext";
-
 const App = () => {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -20,7 +19,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route index element={<LandingPage />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />
