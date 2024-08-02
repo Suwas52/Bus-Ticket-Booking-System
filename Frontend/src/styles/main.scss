@@ -596,3 +596,25 @@ li a {
     }
   }
 }
+
+// Blog Page
+.blog-card {
+  .img-container {
+    overflow: hidden; // Ensure the image stays within the container
+  }
+
+  .zoom-img {
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1); // Zoom the image on hover
+    }
+  }
+
+  .title-effect:hover{
+    color: $green-color;
+    cursor: pointer;
+  }
+}
+
+

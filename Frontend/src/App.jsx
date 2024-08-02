@@ -13,6 +13,7 @@ import "./styles/dark.scss";
 import { DarkModeContext } from "./pages/Admin/context/DarkModeContext";
 import AboutPage from "../src/pages/User/AboutPage";
 import ContactPage from "./pages/User/ContactPage";
+import BlogPage from "./pages/User/BlogPage";
 
 const App = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -25,6 +26,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogPage />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />
