@@ -1,4 +1,4 @@
-import { PATH_DASHBOARD, PATH_PUBLIC } from "../routes/Path";
+import { PATH_DASHBOARD, PATH_PUBLIC } from "../routes/path";
 
 //URLS
 
