@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth.hook";
 import AuthSpinner from "../components/General/AuthSpinner";
-import { PATH_PUBLIC } from "../routes/Path";
+import { PATH_PUBLIC } from "../routes/path";
 
 // AuthGuard component in JavaScript
 const AuthGuard = ({ roles }) => {

@@ -64,7 +64,7 @@ h5 {
     align-items: center;
     border: 1px solid #13111112;
     padding: 3px;
-    button {
+    a {
       margin-left: 0.5rem;
       color: $green-color; // Adjust as needed
       background: none;
@@ -611,10 +611,8 @@ li a {
     }
   }
 
-  .title-effect:hover{
+  .title-effect:hover {
     color: $green-color;
     cursor: pointer;
   }
 }
-
-
