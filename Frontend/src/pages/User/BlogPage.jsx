@@ -86,18 +86,18 @@ const BlogPage = () => {
       <Header />
       <HeroBlock title="Blogs" img={sectionImg} />
       <Container>
-      <Row>
-      {blogLists.map((blog) => (
-        <Col key={blog.id} sm={12} md={6} lg={3}>
-        <BlogCard
-          img={blog.img}
-          date={blog.date}
-          title={blog.title}
-          description={blog.description}
-        />
-        </Col>
-      ))}
-      </Row>
+        <Row>
+          {blogLists.map((blog) => (
+            <Col key={blog.id} sm={12} md={6} lg={3}>
+              <BlogCard
+                img={blog.img}
+                date={blog.date}
+                title={blog.title}
+                description={blog.description}
+              />
+            </Col>
+          ))}
+        </Row>
       </Container>
       <Footer />
     </>

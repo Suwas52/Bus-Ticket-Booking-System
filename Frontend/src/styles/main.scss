@@ -8,6 +8,7 @@ $black-color: #1f1f1f;
 $light-color: #777777;
 $dark-color: #1b273d80;
 $blue-color: #1b273dfc;
+$white-color: #ffffff;
 
 .green-btn {
   background-color: $green-color !important;
@@ -38,6 +39,10 @@ h4 {
 }
 
 h5 {
+  font-weight: 600 !important;
+}
+
+h6 {
   font-weight: 600 !important;
 }
 
@@ -614,5 +619,89 @@ li a {
   .title-effect:hover {
     color: $green-color;
     cursor: pointer;
+  }
+}
+
+//filter page
+.heropart {
+  background-color: #1b273d;
+  height: 230px;
+
+  .top-filter {
+    background: #ffffff;
+    height: 150px;
+    border-radius: 10px 10px 0px 0px;
+    padding: 50px 30px;
+  }
+}
+
+.mid {
+  background-color: #f6f6f7;
+  height: 100vh;
+
+  .filter {
+    height: 100vh;
+    border-radius: 5px;
+    background-color: $white-color;
+    position: relative;
+    .top-filter {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .btn-reset {
+        border: none;
+        background: none;
+        color: inherit;
+      }
+
+      .btn-reset:hover {
+        text-decoration: underline;
+      }
+      // padding: 10px;
+    }
+
+    .select {
+      margin-bottom: 25px;
+      @include flex(column, center, unset, unset);
+
+      .checkbox {
+        color: #777777;
+        .icon {
+          font-size: 20px !important;
+
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+
+  .list {
+    .card-custom {
+      margin: 10px;
+      background-color: $white-color;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .facilities span {
+      background-color: #f1f1f1;
+      border-radius: 15px;
+      padding: 5px 10px;
+      margin-right: 5px;
+    }
+    .price {
+      color: green;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .off-days {
+      background-color: #e0e7ff;
+      color: #6f42c1;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
   }
 }

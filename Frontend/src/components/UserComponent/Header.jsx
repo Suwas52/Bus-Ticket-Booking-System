@@ -49,11 +49,11 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              <NavLink href="#home">Home</NavLink>
-              <NavLink href="#about">About</NavLink>
-              <NavLink href="#faqs">FAQs</NavLink>
-              <NavLink href="#blog">Blog</NavLink>
-              <NavLink href="#contact">Contact</NavLink>
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="/about">About</NavLink>
+              <NavLink href="/faqs">FAQs</NavLink>
+              <NavLink href="/blog">Blog</NavLink>
+              <NavLink href="/contact">Contact</NavLink>
             </Nav>
             <Nav className="ms-auto">
               <button className="btn green-btn btn-sm">BUY TICKETS</button>
