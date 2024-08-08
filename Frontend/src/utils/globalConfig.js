@@ -5,6 +5,7 @@ import { PATH_DASHBOARD, PATH_PUBLIC } from "../routes/path";
 export const HOST_API_KEY = "https://localhost:5000/api";
 export const REGISTER_URL = "/Auth/regiser";
 export const LOGIN_URL = "Auth/login";
+export const ME_URL = "/Auth/me";
 
 //Auth Routes
 

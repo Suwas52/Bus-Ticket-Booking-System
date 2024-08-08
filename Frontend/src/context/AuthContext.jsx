@@ -99,6 +99,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import {
   LOGIN_URL,
+  ME_URL,
   PATH_AFTER_LOGIN,
   PATH_AFTER_LOGOUT,
   PATH_AFTER_REGISTER,

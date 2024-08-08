@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -15,8 +15,34 @@ import Phone from "@mui/icons-material/LocalPhoneOutlined";
 import Email from "@mui/icons-material/MailOutline";
 import SignIn from "@mui/icons-material/Login";
 import SignUp from "@mui/icons-material/PersonAddAlt1";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { PATH_DASHBOARD, PATH_PUBLIC } from "../../routes/path";
+import useAuth from "../../hooks/useAuth";
+import UserLogo from "@mui/icons-material/Person";
+import Logout from "@mui/icons-material/Logout";
+
 const Header = () => {
+  // const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
+  const user = null;
+  const isAuthenticated = true;
+
+  // const navigate = useNavigate();
+  // const [isAuthenticated, setIsAuth] = useState(false);
+
+  const userRolesLabelCreator = () => {
+    if (user) {
+      let result = "";
+      user.roles.foreach((role, index) => {
+        result += role;
+        if (index < user.roles.length - 1) {
+          result += ",";
+        }
+      });
+    } else {
+      return "--";
+    }
+  };
+
   return (
     <div className="header">
       <Navbar className="top-header" bg="light" expand="lg">
@@ -24,20 +50,29 @@ const Header = () => {
           <div className="contact-info">
             <Phone className="icon" /> +44 6547 8901 &nbsp;&nbsp;
             <Email className="icon" /> example@example.com
+            <UserLogo className="icon" /> {user ? user.username : "--"}
+            userroles: {userRolesLabelCreator()}
           </div>
-          <div className="auth-buttons ms-auto">
-            <button className="btn btn-sm"></button>
-            <Link to={"/login"} className="btn btn-sm">
-              <SignIn className="icon" /> Sign In
-            </Link>
-            <Link to={"/signup"} className="btn btn-sm">
-              <SignUp className="icon" />
-              Sign Up
-            </Link>
-            {/* <button className="btn btn-sm">
-              
-            </button> */}
-          </div>
+          {isAuthenticated ? (
+            <div className="auth-buttons ms-auto">
+              <Link to={"/user-dashboard"} className="btn btn-sm">
+                Dashboard
+              </Link>
+              <Link>
+                <Logout />
+              </Link>
+            </div>
+          ) : (
+            <div className="auth-buttons ms-auto">
+              <Link to={"/login"} className="btn btn-sm">
+                <SignIn className="icon" /> Sign In
+              </Link>
+              <Link to={"/signup"} className="btn btn-sm">
+                <SignUp className="icon" />
+                Sign Up
+              </Link>
+            </div>
+          )}
         </Container>
       </Navbar>
 

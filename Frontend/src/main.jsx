@@ -4,16 +4,14 @@ import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { DarkModeContextProvider } from "./pages/Admin/context/DarkModeContext.jsx";
 import AuthContextProvider from "./context/AuthContext.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <AuthContextProvider>
-  //   <DarkModeContextProvider>
-  //     <App />
-  //   </DarkModeContextProvider>
-  // </AuthContextProvider>
-  <React.StrictMode>
-    <DarkModeContextProvider>
-      <App />
-    </DarkModeContextProvider>
-  </React.StrictMode>
+  <BrowserRouter>
+    <AuthContextProvider>
+      <DarkModeContextProvider>
+        <App />
+      </DarkModeContextProvider>
+    </AuthContextProvider>
+  </BrowserRouter>
 );
