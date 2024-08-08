@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
-  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+
   const initialValues = {
     email: "",
     password: "",
@@ -14,21 +16,24 @@ const Login = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("please enter valid email")
-      .required("Please Provide Email"),
-    password: Yup.string().required("Please Provide Password"),
+      .email("Please enter a valid email")
+      .required("Please provide an email"),
+    password: Yup.string()
+      .required("Please provide a password")
+      .min(8, "Password must be at least 8 characters"),
   });
 
   const handleSubmit = async (values) => {
-    setIsSubmitting(true);
     try {
-      setData(values);
+      setLoading(true);
+      await login(values.email, values.password);
+      setLoading(false);
     } catch (error) {
-      setError(error);
+      setLoading(false);
+      toast.error("error");
+      console.log(error);
     }
   };
-
-  console.log(data);
 
   return (
     <div className="login-container">
@@ -37,12 +42,11 @@ const Login = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, isValid, dirty }) => (
+        {({ isValid, dirty }) => (
           <Form className="login-form">
             <h2>Welcome to Bus Booking</h2>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
-
+              <label htmlFor="email">Email</label>
               <Field
                 type="email"
                 className="form-control"
@@ -70,28 +74,29 @@ const Login = () => {
               />
             </div>
             <div className="form-check">
-              <input
+              <Field
                 type="checkbox"
+                name="rememberMe"
                 className="form-check-input"
                 id="rememberMe"
               />
               <label className="form-check-label" htmlFor="rememberMe">
                 Remember Me
               </label>
-              <Link to={"/forgot-password"} className="float-right">
+              <Link to="/forgot-password" className="float-right">
                 Forgot Password?
               </Link>
             </div>
             <button
               type="submit"
               className="btn btn-success"
-              disabled={!isValid || !dirty || isSubmitting}
+              disabled={!isValid || !dirty || loading}
             >
-              Log In
+              {loading ? "Logging in..." : "Log In"}
             </button>
             <div className="link">
               <span>
-                Don't have any Account? <a href="#">Sign Up</a>
+                Don't have an account? <Link to="/register">Sign Up</Link>
               </span>
             </div>
           </Form>

@@ -1,4 +1,4 @@
-import axiosInstance from "../services/axiosInstance";
+import axiosInstance from "../utils/axiosInstance";
 import { RolesEnum } from "./role";
 
 export const setSession = (accessToken) => {

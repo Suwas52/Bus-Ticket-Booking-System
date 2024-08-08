@@ -22,12 +22,7 @@ import UserLogo from "@mui/icons-material/Person";
 import Logout from "@mui/icons-material/Logout";
 
 const Header = () => {
-  // const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
-  const user = null;
-  const isAuthenticated = true;
-
-  // const navigate = useNavigate();
-  // const [isAuthenticated, setIsAuth] = useState(false);
+  const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
 
   const userRolesLabelCreator = () => {
     if (user) {

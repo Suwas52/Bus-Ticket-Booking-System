@@ -94,7 +94,7 @@ import {
   useEffect,
 } from "react";
 import { setSession, getSession } from "../auth/auth.utils";
-import axiosInstance from "../services/axiosInstance";
+import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import {
@@ -191,9 +191,9 @@ const AuthContextProvider = ({ children }) => {
 
   // Login Method
   const login = useCallback(
-    async (userName, password) => {
+    async (email, password) => {
       const response = await axiosInstance.post(LOGIN_URL, {
-        userName,
+        email,
         password,
       });
       toast.success("Login Was Successful");
