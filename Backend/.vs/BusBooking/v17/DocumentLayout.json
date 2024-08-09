@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "D:\\.net and react project\\Bus Booking System\\Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\repository\\services\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\repository\\services\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\repository\\interface\\iauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\repository\\interface\\iauthrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\repository\\interface\\ibusrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\repository\\interface\\ibusrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\controllers\\buscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\controllers\\buscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\model\\seat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\model\\seat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\model\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\model\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\dto\\auth\\medto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,20 +55,12 @@
       "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\constants\\staticroleuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\repository\\services\\busrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\repository\\services\\busrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\helpers\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\helpers\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\model\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|solutionrelative:busbooking\\core\\model\\busschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21717B9B-FE6B-4743-A8C4-97F8A26E6CE0}|BusBooking\\BusBooking.csproj|d:\\.net and react project\\bus booking system\\backend\\busbooking\\core\\model\\routes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -90,31 +98,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IAuthRepository.cs",
-              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IAuthRepository.cs",
-              "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Interface\\IAuthRepository.cs",
-              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IAuthRepository.cs",
-              "RelativeToolTip": "BusBooking\\Core\\Repository\\Interface\\IAuthRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T08:55:24.317Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "AuthRepository.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\AuthRepository.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Services\\AuthRepository.cs",
               "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\AuthRepository.cs",
               "RelativeToolTip": "BusBooking\\Core\\Repository\\Services\\AuthRepository.cs",
-              "ViewState": "AQIAAL4AAAAAAAAAAADwv+8AAAAqAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAO8AAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-09T05:54:51.913Z",
               "IsPinned": true,
@@ -127,32 +121,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MeDto.cs",
-              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
-              "RelativeDocumentMoniker": "BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
-              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
-              "RelativeToolTip": "BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAApAAAA",
+              "Title": "Seat.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\Seat.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\Seat.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\Seat.cs",
+              "RelativeToolTip": "BusBooking\\Core\\Model\\Seat.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAcwBQAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T05:53:41.031Z",
+              "WhenOpened": "2024-08-09T10:50:03.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IBusRepo.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IBusRepo.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Interface\\IBusRepo.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IBusRepo.cs",
+              "RelativeToolTip": "BusBooking\\Core\\Repository\\Interface\\IBusRepo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-09T10:23:29.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BusController.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Controllers\\BusController.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Controllers\\BusController.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Controllers\\BusController.cs",
+              "RelativeToolTip": "BusBooking\\Controllers\\BusController.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-09T10:23:19.971Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Program.cs",
-              "RelativeDocumentMoniker": "BusBooking\\Program.cs",
-              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Program.cs",
-              "RelativeToolTip": "BusBooking\\Program.cs",
-              "ViewState": "AQIAAGkAAAAAAAAAAAAAAHkAAAADAAAA",
+              "Title": "BookingDto.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\BookingDto.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Core\\Dto\\BookingDto.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\BookingDto.cs",
+              "RelativeToolTip": "BusBooking\\Core\\Dto\\BookingDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-08T16:38:22.307Z",
+              "WhenOpened": "2024-08-09T10:23:17.847Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "UserInformation.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\Auth\\UserInformation.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Dto\\Auth\\UserInformation.cs",
@@ -160,25 +180,61 @@
               "RelativeToolTip": "BusBooking\\Core\\Dto\\Auth\\UserInformation.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T05:53:14.553Z",
+              "WhenOpened": "2024-08-09T05:53:14.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BusSchedule.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\BusSchedule.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\BusSchedule.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\BusSchedule.cs",
+              "RelativeToolTip": "BusBooking\\Core\\Model\\BusSchedule.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-22T10:06:32.434Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Program.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Program.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Program.cs",
+              "RelativeToolTip": "BusBooking\\Program.cs",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAAAHkAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-08T16:38:22.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MeDto.cs",
+              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
+              "RelativeDocumentMoniker": "BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
+              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
+              "RelativeToolTip": "BusBooking\\Core\\Dto\\Auth\\MeDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-09T05:53:41.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "BusBooking\\Controllers\\AuthController.cs",
               "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Controllers\\AuthController.cs",
               "RelativeToolTip": "BusBooking\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAcwFoAAAAtAAAA",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAcwFoAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-31T07:16:03.532Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "StaticRoleUser.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Constants\\StaticRoleUser.cs",
               "RelativeDocumentMoniker": "BusBooking\\Constants\\StaticRoleUser.cs",
@@ -190,19 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BusRepo.cs",
-              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\BusRepo.cs",
-              "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Services\\BusRepo.cs",
-              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\BusRepo.cs",
-              "RelativeToolTip": "BusBooking\\Core\\Repository\\Services\\BusRepo.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T09:58:08.278Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "BusScheduleRepo.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\BusScheduleRepo.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Services\\BusScheduleRepo.cs",
@@ -214,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "IBookingRepo.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IBookingRepo.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Interface\\IBookingRepo.cs",
@@ -226,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "MapperProfile.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Helpers\\MapperProfile.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Helpers\\MapperProfile.cs",
@@ -238,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "ApplicationDbContextModelSnapshot.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "BusBooking\\Migrations\\ApplicationDbContextModelSnapshot.cs",
@@ -250,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\BaseEntity.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\BaseEntity.cs",
@@ -262,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\ApplicationUser.cs",
@@ -274,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "BusScheduleController.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Controllers\\BusScheduleController.cs",
               "RelativeDocumentMoniker": "BusBooking\\Controllers\\BusScheduleController.cs",
@@ -286,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "Routes.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\Routes.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\Routes.cs",
@@ -298,19 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "BusSchedule.cs",
-              "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\BusSchedule.cs",
-              "RelativeDocumentMoniker": "BusBooking\\Core\\Model\\BusSchedule.cs",
-              "ToolTip": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Model\\BusSchedule.cs",
-              "RelativeToolTip": "BusBooking\\Core\\Model\\BusSchedule.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T10:06:32.434Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "RouteRepo.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Services\\RouteRepo.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Services\\RouteRepo.cs",
@@ -322,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "IRouteRepo.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\IRouteRepo.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Interface\\IRouteRepo.cs",
@@ -334,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "ILogService.cs",
               "DocumentMoniker": "D:\\.net and react project\\Bus Booking System\\Backend\\BusBooking\\Core\\Repository\\Interface\\ILogService.cs",
               "RelativeDocumentMoniker": "BusBooking\\Core\\Repository\\Interface\\ILogService.cs",

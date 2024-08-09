@@ -17,6 +17,9 @@ namespace BusBooking.Core.Model
         [Required]
         public int SeatNumber { get; set; }
 
+        [Required]
+        public string SeatName { get; set; }
+
         public SeatStatus Status { get; set; }
 
         [JsonIgnore]

@@ -5,11 +5,16 @@ import { PATH_DASHBOARD, PATH_PUBLIC } from "./path";
 import Login from "../pages/Authentication/Login";
 import SignUp from "../pages/Authentication/SignUp";
 import AuthGuard from "../auth/AuthGuard";
-import { allAccessRoles, staffAccessRoles } from "../auth/auth.utils";
+import {
+  allAccessRoles,
+  staffAccessRoles,
+  userAccessRoles,
+} from "../auth/auth.utils";
 import DashboardPage from "../pages/Admin/home/AdminDashboard";
 import List from "../components/AdminComponent/table/Table";
 import BusData from "../pages/Admin/BusData";
 import BookingData from "../pages/Admin/BookingData";
+import FilterPage from "../pages/User/FilterPage";
 
 const GlobalRouter = () => {
   return (
@@ -18,6 +23,7 @@ const GlobalRouter = () => {
         <Route index element={<LandingPage />} />
         <Route path={PATH_PUBLIC.login} element={<Login />} />
         <Route path={PATH_PUBLIC.register} element={<SignUp />} />
+        <Route path="/filter-page" element={<FilterPage />} />
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
@@ -29,6 +35,7 @@ const GlobalRouter = () => {
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
       </Route>
+      <Route element={<AuthGuard roles={userAccessRoles} /> }></Route>
     </Routes>
   );
 };

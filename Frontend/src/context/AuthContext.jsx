@@ -109,36 +109,59 @@ import { IAuthContextActionTypes, RolesEnum } from "../auth/role";
 
 //Reducer function for useReducer hook
 
+// const authReducer = (state, action) => {
+//   if (state.type === IAuthContextActionTypes.LOGIN) {
+//     console.log("isauthenticated: true");
+//     return {
+//       ...state,
+//       isAuthenticated: true,
+//       isAuthLoading: false,
+//       user: action.payload,
+//     };
+//   }
+//   if (state.type === IAuthContextActionTypes.LOGOUT) {
+//     console.log("isauthenticated: false");
+//     return {
+//       ...state,
+//       isAuthenticated: false,
+//       isAuthLoading: false,
+//       user: undefined,
+//     };
+//   }
+//   console.log("notworking");
+
+//   return state;
+//   // switch (action) {
+//   //   case "LOGIN":
+
+//   //   case "LOGOUT":
+
+//   //   default:
+//   //     return state;
+//   // }
+// };
 const authReducer = (state, action) => {
-  if (state.type === IAuthContextActionTypes.LOGIN) {
-    console.log("isauthenticated: true");
-    return {
-      ...state,
-      isAuthenticated: true,
-      isAuthLoading: false,
-      user: action.payload,
-    };
+  switch (action.type) {
+    case IAuthContextActionTypes.LOGIN:
+      console.log("isauthenticated: true");
+      return {
+        ...state,
+        isAuthenticated: true,
+        isAuthLoading: false,
+        user: action.payload,
+      };
+    case IAuthContextActionTypes.LOGOUT:
+      console.log("isauthenticated: false");
+      return {
+        ...state,
+        isAuthenticated: false,
+        isAuthLoading: false,
+        user: undefined,
+      };
+    default:
+      console.log("notworking");
+      return state;
   }
-  if (state.type === IAuthContextActionTypes.LOGOUT) {
-    console.log("isauthenticated: false");
-    return {
-      ...state,
-      isAuthenticated: false,
-      isAuthLoading: false,
-      user: undefined,
-    };
-  }
-  console.log("notworking");
-
-  return state;
-  // switch (action) {
-  //   case "LOGIN":
-
-  //   case "LOGOUT":
-
-  //   default:
-  //     return state;
-  // }
 };
 
 // Initial state object for useReducer hook
@@ -164,14 +187,14 @@ const AuthContextProvider = ({ children }) => {
         const { newToken, userInfo } = response.data;
         console.log(userInfo);
         setSession(newToken);
-        dispatch({ type: "LOGIN", payload: userInfo });
+        dispatch({ type: IAuthContextActionTypes.LOGIN, payload: userInfo });
       } else {
         setSession(null);
-        dispatch({ type: "LOGOUT" });
+        dispatch({ type: IAuthContextActionTypes.LOGOUT });
       }
     } catch (error) {
       setSession(null);
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: IAuthContextActionTypes.LOGOUT });
     }
   }, []);
 
@@ -180,7 +203,7 @@ const AuthContextProvider = ({ children }) => {
     initializeAuthContext()
       .then(() => console.log("initializeAuthContext was successful"))
       .catch((error) => console.log(error));
-  }, [initializeAuthContext]);
+  }, []);
 
   // Register Method
   const register = useCallback(
@@ -201,27 +224,24 @@ const AuthContextProvider = ({ children }) => {
   );
 
   // Login Method
-  const login = useCallback(
-    async (email, password) => {
-      const response = await axiosInstance.post(LOGIN_URL, {
-        email,
-        password,
-      });
-      toast.success("Login Was Successful");
-      const { newToken, userInfo } = response.data;
-      setSession(newToken);
-      dispatch({ type: "LOGIN", payload: userInfo });
-      navigate(PATH_AFTER_LOGIN);
-    },
-    [navigate]
-  );
+  const login = useCallback(async (email, password) => {
+    const response = await axiosInstance.post(LOGIN_URL, {
+      email,
+      password,
+    });
+    toast.success("Login Was Successful");
+    const { newToken, userInfo } = response.data;
+    setSession(newToken);
+    dispatch({ type: "LOGIN", payload: userInfo });
+    navigate(PATH_AFTER_LOGIN);
+  }, []);
 
   // Logout Method
   const logout = useCallback(() => {
     setSession(null);
     dispatch({ type: "LOGOUT" });
     navigate(PATH_AFTER_LOGOUT);
-  }, [navigate]);
+  }, []);
 
   const valuesObject = {
     isAuthenticated: state.isAuthenticated,
@@ -231,6 +251,8 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
   };
+
+  console.log(valuesObject);
 
   return (
     <AuthContext.Provider value={valuesObject}>{children}</AuthContext.Provider>

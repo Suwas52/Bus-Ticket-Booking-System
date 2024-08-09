@@ -2,6 +2,7 @@ import axiosInstance from "../utils/axiosInstance";
 import { RolesEnum } from "./role";
 
 export const setSession = (accessToken) => {
+  console.log(accessToken);
   if (accessToken) {
     localStorage.setItem("accessToken", accessToken);
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -27,6 +28,8 @@ export const adminAccessRoles = [RolesEnum.SUPERADMIN, RolesEnum.ADMIN];
 export const staffAccessRoles = [RolesEnum.SUPERADMIN, RolesEnum.STAFF];
 
 export const superAdminAccessRoles = [RolesEnum.SUPERADMIN];
+
+export const userAccessRoles = [RolesEnum.USER];
 
 export const allowedRolesForUpdateArray = (loggedInUser) => {
   if (!loggedInUser) return [];
