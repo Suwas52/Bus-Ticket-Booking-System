@@ -105,30 +105,40 @@ import {
   PATH_AFTER_REGISTER,
   REGISTER_URL,
 } from "../utils/globalConfig";
-import { RolesEnum } from "../auth/role";
+import { IAuthContextActionTypes, RolesEnum } from "../auth/role";
 
 //Reducer function for useReducer hook
 
 const authReducer = (state, action) => {
-  switch (action) {
-    case "LOGIN":
-      return {
-        ...state,
-        isAuthenticated: true,
-        isAuthLoading: false,
-        user: action.payload,
-      };
-
-    case "LOGOUT":
-      return {
-        ...state,
-        isAuthenticated: false,
-        isAuthLoading: false,
-        user: undefined,
-      };
-    default:
-      return state;
+  if (state.type === IAuthContextActionTypes.LOGIN) {
+    console.log("isauthenticated: true");
+    return {
+      ...state,
+      isAuthenticated: true,
+      isAuthLoading: false,
+      user: action.payload,
+    };
   }
+  if (state.type === IAuthContextActionTypes.LOGOUT) {
+    console.log("isauthenticated: false");
+    return {
+      ...state,
+      isAuthenticated: false,
+      isAuthLoading: false,
+      user: undefined,
+    };
+  }
+  console.log("notworking");
+
+  return state;
+  // switch (action) {
+  //   case "LOGIN":
+
+  //   case "LOGOUT":
+
+  //   default:
+  //     return state;
+  // }
 };
 
 // Initial state object for useReducer hook
@@ -152,6 +162,7 @@ const AuthContextProvider = ({ children }) => {
         // validate accessToken by calling backend
         const response = await axiosInstance.post(ME_URL, { token });
         const { newToken, userInfo } = response.data;
+        console.log(userInfo);
         setSession(newToken);
         dispatch({ type: "LOGIN", payload: userInfo });
       } else {

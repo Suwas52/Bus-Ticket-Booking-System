@@ -23,6 +23,7 @@ import Logout from "@mui/icons-material/Logout";
 
 const Header = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
+  console.log(isAuthenticated);
 
   const userRolesLabelCreator = () => {
     if (user) {

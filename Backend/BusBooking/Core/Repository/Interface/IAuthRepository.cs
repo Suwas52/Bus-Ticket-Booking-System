@@ -20,6 +20,8 @@ namespace BusBooking.Core.Repository.Interface
 
         Task<IEnumerable<ApplicationUser>> UserListAsync();
 
+        Task<LoginResponseDto?> MeAsync(MeDto meDto);
+
         // Task<GeneralResponseDto> UpdateRoleAsync(ClaimsPrincipal User, Updaterole)
 
     }

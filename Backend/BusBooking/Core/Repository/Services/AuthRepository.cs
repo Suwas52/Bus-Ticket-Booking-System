@@ -237,6 +237,38 @@ namespace BusBooking.Core.Repository.Services
         }
 
 
+        public async Task<LoginResponseDto?> MeAsync(MeDto meDto)
+        {
+            ClaimsPrincipal handler = new JwtSecurityTokenHandler().ValidateToken(meDto.Token, new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = configuration["JWT:ValidIssuer"],
+                ValidAudience = configuration["JWT:ValidAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+            }, out SecurityToken securityToken);
+
+            string decodedUserName = handler.Claims.First(q => q.Type == ClaimTypes.Name).Value;
+            if (decodedUserName is null)
+                return null;
+
+            var user = await userManager.FindByNameAsync(decodedUserName);
+            if (user is null)
+                return null;
+
+            var newToken = await GenerateJWTTokenAsync(user);
+            var roles = await userManager.GetRolesAsync(user);
+            var userInfo = UserInfoObject(user, roles);
+            await logService.SaveNewLog(user.UserName, "New Token Generated");
+
+            return new LoginResponseDto()
+            {
+                NewToken = newToken,
+                UserInfo = userInfo
+            };
+        }
+
+
         private async Task SendUserEmailAsync(string to, string subject, string body)
         {
             // Example using SMTP
@@ -292,6 +324,8 @@ namespace BusBooking.Core.Repository.Services
             return token;
         }
 
+
+
         private UserInformation UserInfoObject(ApplicationUser user, IEnumerable<string> Roles)
         {
             return new UserInformation()
@@ -316,5 +350,6 @@ namespace BusBooking.Core.Repository.Services
             var allUsers = await userManager.Users.Where(u => u.IsDeleted == false).ToListAsync();
             return allUsers;
         }
-    }
+
+        }
 }

@@ -79,5 +79,29 @@ namespace BusBooking.Controllers
             }
             return Ok(loginDetail);
         }
+
+
+        // Route -> getting data of a user from it's JWT
+        [HttpPost]
+        [Route("me")]
+        public async Task<ActionResult<LoginResponseDto>> Me([FromBody] MeDto token)
+        {
+            try
+            {
+                var me = await authRepository.MeAsync(token);
+                if (me is not null)
+                {
+                    return Ok(me);
+                }
+                else
+                {
+                    return Unauthorized("Invalid Token");
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized("Invalid Token");
+            }
+        }
     }
 }
