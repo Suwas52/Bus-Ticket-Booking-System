@@ -23,14 +23,16 @@ import Logout from "@mui/icons-material/Logout";
 
 const Header = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
-  console.log(isAuthenticated);
-  console.log(user);
 
   const userRolesLabelCreator = () => {
     if (user && user.roles) {
       return user.roles.join(", ");
     }
     return "--";
+  };
+
+  const logouts = () => {
+    logout;
   };
 
   return (
@@ -48,7 +50,7 @@ const Header = () => {
               <Link to={"/user-dashboard"} className="btn btn-sm">
                 Dashboard
               </Link>
-              <Link>
+              <Link onClick={logout}>
                 <Logout />
               </Link>
             </div>

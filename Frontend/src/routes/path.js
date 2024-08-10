@@ -2,6 +2,8 @@ export const PATH_PUBLIC = {
   home: "/",
   register: "/register",
   login: "/login",
+  about: "/about",
+
   unauthorized: "/unauthorized",
   notFound: "/404",
 };
@@ -17,4 +19,8 @@ export const PATH_DASHBOARD = {
   userList: "/admin-dashboard/userlist",
   bus: "/admin-dashboard/bus",
   booking: "/admin-dashboard/booking",
+};
+
+export const PATH_AUTHUSER = {
+  filter: "/filter",
 };

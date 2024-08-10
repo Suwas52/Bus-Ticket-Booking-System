@@ -128,8 +128,7 @@
               "RelativeToolTip": "BusBooking\\Core\\Model\\Seat.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAcwBQAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T10:50:03.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-09T10:50:03.266Z"
             },
             {
               "$type": "Document",
@@ -141,8 +140,7 @@
               "RelativeToolTip": "BusBooking\\Core\\Repository\\Interface\\IBusRepo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T10:23:29.53Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-09T10:23:29.53Z"
             },
             {
               "$type": "Document",
@@ -154,8 +152,7 @@
               "RelativeToolTip": "BusBooking\\Controllers\\BusController.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T10:23:19.971Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-09T10:23:19.971Z"
             },
             {
               "$type": "Document",
@@ -167,8 +164,7 @@
               "RelativeToolTip": "BusBooking\\Core\\Dto\\BookingDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T10:23:17.847Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-09T10:23:17.847Z"
             },
             {
               "$type": "Document",
@@ -192,8 +188,7 @@
               "RelativeToolTip": "BusBooking\\Core\\Model\\BusSchedule.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAACEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T10:06:32.434Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T10:06:32.434Z"
             },
             {
               "$type": "Document",
@@ -229,8 +224,7 @@
               "RelativeToolTip": "BusBooking\\Controllers\\AuthController.cs",
               "ViewState": "AQIAAD0AAAAAAAAAAAAcwFoAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T07:16:03.532Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T07:16:03.532Z"
             },
             {
               "$type": "Document",
