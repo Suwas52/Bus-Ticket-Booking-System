@@ -36,13 +36,13 @@ const GlobalRouter = () => {
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
-        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
         <Route path={PATH_DASHBOARD.userList} element={<List />} />
         <Route path={PATH_DASHBOARD.bus} element={<BusData />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
+        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />

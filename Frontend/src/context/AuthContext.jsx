@@ -103,6 +103,7 @@ import {
   PATH_AFTER_LOGIN,
   PATH_AFTER_LOGOUT,
   PATH_AFTER_REGISTER,
+  PATH_AFTER_USER_LOGIN,
   REGISTER_URL,
 } from "../utils/globalConfig";
 import { IAuthContextActionTypes, RolesEnum } from "../auth/role";
@@ -232,7 +233,12 @@ const AuthContextProvider = ({ children }) => {
     toast.success("Login Was Successful");
     const { newToken, userInfo } = response.data;
     setSession(newToken);
+
+    console.log(userInfo);
     dispatch({ type: "LOGIN", payload: userInfo });
+    if (userInfo.roles === RolesEnum.USER) {
+      navigate(PATH_AFTER_USER_LOGIN);
+    }
     navigate(PATH_AFTER_LOGIN);
   }, []);
 

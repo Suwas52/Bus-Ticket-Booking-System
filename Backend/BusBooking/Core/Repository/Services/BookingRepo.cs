@@ -23,15 +23,36 @@ namespace BusBooking.Core.Repository.Services
         {
             var seat = await _context.Seats.FindAsync(model.SeatId);
 
-            if(seat == null || seat.Status != SeatStatus.Available)
+            if(seat == null  )
             {
                 return new GeneralResponseDto
                 {
                     IsSucceed = false,
                     StatusCode = 400,
-                    Message = "Seat is already booked or does not exist."
+                    Message = "Seat does not exist."
                 };
             }
+
+            if (seat.Status == SeatStatus.Unavailable)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = 400,
+                    Message = "Seat is unaviable"
+                };
+            }
+             if (seat.Status == SeatStatus.Booked)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = 400,
+                    Message = "Seat is already booked"
+                };
+            }
+
+
 
             var loginUser = _authHelper.GetCurrentUser();
             model.UserId = loginUser.Id;
