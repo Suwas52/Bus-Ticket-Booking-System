@@ -18,6 +18,8 @@ import FilterPage from "../pages/User/FilterPage";
 import AboutPage from "../pages/User/AboutPage";
 import BlogPage from "../pages/User/BlogPage";
 import ContactPage from "../pages/User/ContactPage";
+import UnauthorizedPage from "../pages/Public/UnauthorizedPage";
+import NotFoundPage from "../pages/Public/NotFoundPage";
 
 const GlobalRouter = () => {
   return (
@@ -26,6 +28,7 @@ const GlobalRouter = () => {
         <Route index element={<LandingPage />} />
         <Route path={PATH_PUBLIC.login} element={<Login />} />
         <Route path={PATH_PUBLIC.register} element={<Register />} />
+        <Route path={PATH_PUBLIC.unauthorized} element={<UnauthorizedPage />} />
         <Route path="/filter-page" element={<FilterPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
@@ -44,6 +47,13 @@ const GlobalRouter = () => {
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
       </Route>
+
+      {/* Catch all (404) */}
+      <Route path={PATH_PUBLIC.notFound} element={<NotFoundPage />} />
+      <Route
+        path="*"
+        element={<Navigate to={PATH_PUBLIC.notFound} replace />}
+      />
     </Routes>
   );
 };

@@ -3,7 +3,6 @@ export const PATH_PUBLIC = {
   register: "/register",
   login: "/login",
   about: "/about",
-
   unauthorized: "/unauthorized",
   notFound: "/404",
 };
