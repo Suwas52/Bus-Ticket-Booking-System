@@ -12,7 +12,6 @@ import {
 } from "../auth/auth.utils";
 import DashboardPage from "../pages/Admin/home/AdminDashboard";
 import List from "../components/AdminComponent/table/Table";
-import BusData from "../pages/Admin/BusData";
 import BookingData from "../pages/Admin/BookingData";
 import FilterPage from "../pages/User/FilterPage";
 import AboutPage from "../pages/User/AboutPage";
@@ -20,6 +19,8 @@ import BlogPage from "../pages/User/BlogPage";
 import ContactPage from "../pages/User/ContactPage";
 import UnauthorizedPage from "../pages/Public/UnauthorizedPage";
 import NotFoundPage from "../pages/Public/NotFoundPage";
+import BusList from "../pages/Admin/Bus/BusList";
+import CreateBus from "../pages/Admin/Bus/CreateBus";
 
 const GlobalRouter = () => {
   return (
@@ -37,8 +38,10 @@ const GlobalRouter = () => {
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
         <Route path={PATH_DASHBOARD.userList} element={<List />} />
-        <Route path={PATH_DASHBOARD.bus} element={<BusData />} />
+        <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
+        <Route path={PATH_DASHBOARD.buseCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
+        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />

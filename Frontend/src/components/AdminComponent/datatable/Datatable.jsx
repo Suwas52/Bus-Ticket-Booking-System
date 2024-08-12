@@ -3,8 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../../Datatablesource";
 import { Link } from "react-router-dom";
 
-const Datatable = () => {
-
+const Datatable = ({ rows, columns, create }) => {
   const actionColumn = [
     {
       field: "action",
@@ -13,9 +12,9 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-          <Link to="/users/test" style={{textDecoration:"none"}}>
+            <Link to={create} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
-          </Link>
+            </Link>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
@@ -29,16 +28,16 @@ const Datatable = () => {
   ];
   return (
     <div className="datatable">
-    <div className="datatableTitle">
-      Add New User
-      <Link to="/users/new" style={{textDecoration:"none"}} className="link">
-        Add New
-      </Link>
-    </div>
+      <div className="datatableTitle">
+        Add New User
+        <Link to={create} style={{ textDecoration: "none" }} className="link">
+          Add New
+        </Link>
+      </div>
       <DataGrid
-      className="datagrid"
-        rows={userRows}
-        columns={userColumns.concat(actionColumn)}
+        className="datagrid"
+        rows={rows}
+        columns={columns.concat(actionColumn)}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 9 },

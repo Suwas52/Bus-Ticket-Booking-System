@@ -23,11 +23,15 @@ export const allAccessRoles = [
   RolesEnum.USER,
 ];
 
-export const adminAccessRoles = [RolesEnum.SUPERADMIN, RolesEnum.ADMIN];
+export const adminAccessRoles = [
+  RolesEnum.ADMIN,
+  RolesEnum.STAFF,
+  RolesEnum.USER,
+];
 
-export const staffAccessRoles = [RolesEnum.SUPERADMIN, RolesEnum.STAFF];
+export const staffAccessRoles = [RolesEnum.STAFF, RolesEnum.STAFF];
 
-export const superAdminAccessRoles = [RolesEnum.SUPERADMIN];
+export const superAdminAccessRoles = [RolesEnum.USER];
 
 export const userAccessRoles = [RolesEnum.USER];
 

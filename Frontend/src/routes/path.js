@@ -16,7 +16,8 @@ export const PATH_DASHBOARD = {
   staff: "/dashboard/staff",
   user: "/dashboard/user",
   userList: "/admin-dashboard/userlist",
-  bus: "/admin-dashboard/bus",
+  busList: "/admin-dashboard/bus/list",
+  buseCreate: "/admin-dashboard/bus/create",
   booking: "/admin-dashboard/booking",
 };
 
