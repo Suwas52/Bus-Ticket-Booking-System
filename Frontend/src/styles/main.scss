@@ -441,6 +441,27 @@ li a {
         }
       }
     }
+    .password-input-container {
+      position: relative;
+      width: 100%;
+
+      .password-field {
+        width: 100%;
+        padding-right: 40px;
+      }
+      .password-toggle-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+
+        &:hover{
+          color: #555;
+        }
+      }
+    }
   }
 }
 
