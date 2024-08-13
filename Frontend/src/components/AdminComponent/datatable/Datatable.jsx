@@ -1,9 +1,8 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../../Datatablesource";
 import { Link } from "react-router-dom";
 
-const Datatable = ({ rows, columns, create }) => {
+const Datatable = ({ rows, columns, getRowId, create, headerName }) => {
   const actionColumn = [
     {
       field: "action",
@@ -26,18 +25,20 @@ const Datatable = ({ rows, columns, create }) => {
       },
     },
   ];
+
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        {headerName}
         <Link to={create} style={{ textDecoration: "none" }} className="link">
-          Add New
+          Create
         </Link>
       </div>
       <DataGrid
         className="datagrid"
         rows={rows}
         columns={columns.concat(actionColumn)}
+        getRowId={getRowId} // Pass the getRowId function
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 9 },
