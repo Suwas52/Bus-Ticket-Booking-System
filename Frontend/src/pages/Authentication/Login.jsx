@@ -4,10 +4,17 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const [visible, setVisibility] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setVisibility(!visible);
+  }
 
   const initialValues = {
     email: "",
@@ -61,12 +68,21 @@ const Login = () => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
+              <div className="password-input-container">
               <Field
-                type="password"
+                type={visible? "text" : "password"}
                 name="password"
-                className="form-control"
+                className="form-control password-field"
                 placeholder="Enter Password"
               />
+              {
+                visible?
+              <VisibilityOutlinedIcon className="password-toggle-icon" onClick={togglePasswordVisibility}/>
+                :
+              <VisibilityOffOutlinedIcon className="password-toggle-icon" onClick={togglePasswordVisibility}/>
+              }
+              </div>
+              
               <ErrorMessage
                 name="password"
                 component="span"
