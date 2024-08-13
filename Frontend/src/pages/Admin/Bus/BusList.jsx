@@ -16,24 +16,29 @@ const BusList = () => {
     { field: "capacity", headerName: "Capacity", width: 120 },
   ];
 
-  useEffect(async () => {
+  const fetchBusData = async () => {
     try {
       const response = await axiosInstance.get(MANAGE_BUS);
-      console.log(response.data);
-      setBusData(response);
+      setBusData(response.data);
     } catch (error) {
       alert(error);
     }
+  };
+
+  useEffect(() => {
+    fetchBusData();
   }, []);
 
   return (
     <div className="container-fluid d-flex">
       <Sidebar />
-      <div className="flex-grow-1" style={{ flex: 6 }}>
+      <div className="" style={{ flex: 6 }}>
         <Navbar />
         <Datatable
+          headerName="Add New Bus"
           rows={busData}
           columns={columns}
+          getRowId={(row) => row.busId}
           create="/admin-dashboard/bus/create"
         />
       </div>
