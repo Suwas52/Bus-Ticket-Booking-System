@@ -14,10 +14,77 @@ import UserLogo from "@mui/icons-material/Person";
 import HeroBlock from "../../components/UserComponent/HeroBlock";
 import Img from "../../assets/images/Section.png";
 import UserWidget from "../../components/UserComponent/UserWidget/UserWidget";
-import Table from "../../components/AdminComponent/table/Table"
 import "../../components/AdminComponent/table/table.scss"
+import CommonTable from "../../components/Base Table/CommonTable"
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import Footer from "../../components/UserComponent/Footer"
 
 const UserDashboard = () => {
+
+  const columns = [
+    { field: 'id', label: 'ID' },
+    { field: 'product', label: 'Product' },
+    { field: 'customer', label: 'Customer' },
+    { field: 'date', label: 'Date' },
+    { field: 'amount', label: 'Amount' },
+    { field: 'method', label: 'Payment Method' },
+    { field: 'status', label: 'Status' },
+    { field: 'action', label: 'Action' },
+  ];
+
+  const rows = [
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+  ];
+
   return (
     <>
       <div className="header">
@@ -93,7 +160,11 @@ const UserDashboard = () => {
 
       {/* table */}
       <div className="container mt-5">
-        <Table  theadColor={"#059212"} color={"white"}/>
+         <CommonTable columns={columns} rows={rows}/>
+      </div>
+
+      <div className="user-footer mt-5">
+        <Footer />
       </div>
     </>
   );
