@@ -4,21 +4,23 @@ import Navbar from "../../../components/AdminComponent/navbar/Navbar";
 import Datatable from "../../../components/AdminComponent/datatable/Datatable";
 import axiosInstance from "../../../utils/axiosInstance";
 import { MANAGE_BUS } from "../../../utils/globalConfig";
-import Table from "../../../components/AdminComponent/table/Table";
+// import Table from "../../../components/AdminComponent/table/Table";
 import { Link } from "react-router-dom";
+import Table from "../../../components/Base Table/CommonTable";
 
 const BusList = () => {
   const [busData, setBusData] = useState([]);
   console.log(busData);
 
   const columns = [
-    { field: "busId", headerName: "ID", width: 90 },
-    { field: "busName", headerName: "Bus Name", width: 150 },
-    { field: "busNumber", headerName: "Bus Number", width: 150 },
-    { field: "capacity", headerName: "Capacity", width: 120 },
+    { field: "busId", label: "ID" },
+    { field: "busName", label: "Bus Name" },
+    { field: "busNumber", label: "Bus Number" },
+    { field: "capacity", label: "Capacity" },
+    { field: "action", label: "Action" },
   ];
 
-  const column = ["busId", "busName", "busNumber", "capacity"];
+  // const column = ["busId", "busName", "busNumber", "capacity"];
 
   const fetchBusData = async () => {
     try {
@@ -56,7 +58,8 @@ const BusList = () => {
               Create
             </Link>
           </div>
-          <Table columns={column} data={busData} />
+
+          <Table columns={columns} rows={busData} />
         </div>
       </div>
     </div>
