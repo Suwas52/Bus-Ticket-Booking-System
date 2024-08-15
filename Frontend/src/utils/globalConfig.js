@@ -8,6 +8,7 @@ export const LOGIN_URL = "Auth/login";
 export const ME_URL = "/Auth/me";
 export const MANAGE_BUS = "/bus";
 export const GET_BOOKING = "/Booking";
+export const BUSSHEHEDULE = "/busSchedule";
 
 //Auth Routes
 

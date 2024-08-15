@@ -9,19 +9,18 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "January", Total: 1200},
-  { name: "February", Total: 2100},
-  { name: "March", Total: 800},
-  { name: "April", Total: 1600},
-  { name: "May", Total: 900},
-  { name: "June", Total: 1700},
+  { name: "January", Total: 1200 },
+  { name: "February", Total: 2100 },
+  { name: "March", Total: 800 },
+  { name: "April", Total: 1600 },
+  { name: "May", Total: 900 },
+  { name: "June", Total: 1700 },
 ];
 
 const Chart = ({ aspect, title }) => {
-
   return (
     <div className="chart">
-    <div className="tile">{title}</div>
+      <div className="tile">{title}</div>
       <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart
           width={730}
@@ -35,7 +34,7 @@ const Chart = ({ aspect, title }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray"/>
+          {/* <XAxis dataKey="name" stroke="gray" /> */}
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area

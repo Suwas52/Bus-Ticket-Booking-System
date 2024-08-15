@@ -35,7 +35,7 @@ const GlobalRouter = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
+        {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
@@ -51,6 +51,7 @@ const GlobalRouter = () => {
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
       </Route>
 
       {/* Catch all (404) */}
