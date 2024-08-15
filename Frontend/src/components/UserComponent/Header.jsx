@@ -31,6 +31,9 @@ const Header = () => {
     return "--";
   };
 
+  const role = userRolesLabelCreator();
+  console.log(role);
+
   const logouts = () => {
     logout;
   };
@@ -45,9 +48,12 @@ const Header = () => {
             <UserLogo className="icon" /> {user ? user.username : "--"}
             userroles: {userRolesLabelCreator()}
           </div>
-          {isAuthenticate ? (
+          {isAuthenticated ? (
             <div className="auth-buttons ms-auto">
-              <Link to={"/user-dashboard"} className="btn btn-sm">
+              <Link
+                to={role === "USER" ? "/user-dashboard" : "/admin-dashboard"}
+                className="btn btn-sm"
+              >
                 Dashboard
               </Link>
               <Link onClick={logout}>
