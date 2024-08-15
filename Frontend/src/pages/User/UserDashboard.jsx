@@ -45,7 +45,247 @@ const UserDashboard = () => {
       status: 'Rejected',
       action: (
         <>
-          <InfoOutlinedIcon style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
+          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 2,
+      product: 'Product B',
+      customer: 'Jane Smith',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Pending',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 3,
+      product: 'Product c',
+      customer: 'Jane Som',
+      date: '2024-08-16',
+      amount: '$200',
+      method: 'PayPal',
+      status: 'Approved',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
+          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
+          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
+        </>
+      )
+    },
+    {
+      id: 1,
+      product: 'Product A',
+      customer: 'John Doe',
+      date: '2024-08-15',
+      amount: '$100',
+      method: 'Credit Card',
+      status: 'Rejected',
+      action: (
+        <>
+          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
           <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
           <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
         </>
