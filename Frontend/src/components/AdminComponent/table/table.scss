@@ -1,50 +1,49 @@
 .table {
+  .cellWrapper {
+    display: flex;
+    align-items: center;
 
-    // .cellWrapper {
-    //   display: flex;
-    //   align-items: center;
-  
-    //   .image {
-    //     width: 32px;
-    //     height: 32px;
-    //     border-radius: 50%;
-    //     margin-right: 10px;
-    //     object-fit: cover;
-    //   }
-    // }
-  
-    .status {
-      padding: 5px;
-      border-radius: 5px;
-  
-      &.Approved {
-        color: green;
-        background-color: rgba(0, 128, 0, 0.151);
-      }
-      &.Pending {
-        color: rgba(131, 131, 8, 0.993);
-        background-color: rgba(253, 253, 21, 0.758);
-      }
-      &.Rejected {
-        color: white;
-        background-color: rgba(241, 15, 15, 0.63);
-      }
-    }
-
-    .action-icon {
-      font-size: 18px;
-      cursor: pointer;
-
-      &.edit {
-        color: blue; /* You can add default colors for specific actions */
-      }
-      
-      &.delete {
-        color: red;
-      }
-      
-      &.view {
-        color: green;
-      }
+    .image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
     }
   }
+
+  .status {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Approved {
+      color: green;
+      background-color: rgba(0, 128, 0, 0.151);
+    }
+    &.Pending {
+      color: rgba(131, 131, 8, 0.993);
+      background-color: rgba(253, 253, 21, 0.758);
+    }
+    &.Rejected {
+      color: white;
+      background-color: rgba(241, 15, 15, 0.63);
+    }
+  }
+
+  .action-icon {
+    font-size: 18px;
+    cursor: pointer;
+
+    &.edit {
+      color: blue; /* You can add default colors for specific actions */
+    }
+
+    &.delete {
+      color: red;
+    }
+
+    &.view {
+      color: green;
+    }
+  }
+}
