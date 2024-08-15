@@ -21,6 +21,7 @@ import UnauthorizedPage from "../pages/Public/UnauthorizedPage";
 import NotFoundPage from "../pages/Public/NotFoundPage";
 import BusList from "../pages/Admin/Bus/BusList";
 import CreateBus from "../pages/Admin/Bus/CreateBus";
+import UserDashboard from "../pages/User/UserDashboard";
 
 const GlobalRouter = () => {
   return (
@@ -34,6 +35,7 @@ const GlobalRouter = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
