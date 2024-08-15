@@ -6,8 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
-const List = () => {
+const List = ({ theadColor, color }) => {
   const rows = [
     {
       id: 1143155,
@@ -18,6 +19,7 @@ const List = () => {
       amount: 785,
       method: "Cash on Delivery",
       status: "Approved",
+      action: <InfoOutlinedIcon />
     },
     {
       id: 2235235,
@@ -28,6 +30,7 @@ const List = () => {
       amount: 900,
       method: "Online Payment",
       status: "Pending",
+      action: <InfoOutlinedIcon />
     },
     {
       id: 2342353,
@@ -38,6 +41,7 @@ const List = () => {
       amount: 35,
       method: "Cash on Delivery",
       status: "Pending",
+      action: <InfoOutlinedIcon />
     },
     {
       id: 2357741,
@@ -48,6 +52,7 @@ const List = () => {
       amount: 920,
       method: "Online",
       status: "Approved",
+      action: <InfoOutlinedIcon />
     },
     {
       id: 2342355,
@@ -58,20 +63,31 @@ const List = () => {
       amount: 2000,
       method: "Online",
       status: "Pending",
+      action: <InfoOutlinedIcon />
     },
   ];
   return (
     <TableContainer component={Paper} className="table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className="tableCell">Tracking ID</TableCell>
-            <TableCell className="tableCell">Product</TableCell>
-            <TableCell className="tableCell">Customer</TableCell>
-            <TableCell className="tableCell">Date</TableCell>
-            <TableCell className="tableCell">Amount</TableCell>
-            <TableCell className="tableCell">Payment Method</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
+        <TableHead
+          className="custom-table-head"
+          
+          >
+          <TableRow style={{backgroundColor: theadColor}}>
+            {[
+              "Tracking ID",
+              "Product",
+              "Customer",
+              "Date",
+              "Amount",
+              "Payment Method",
+              "Status",
+              "Action"
+            ].map((header) => (
+              <TableCell key={header} className="tableCell" style={{color: color}}>
+                {header}
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -91,6 +107,7 @@ const List = () => {
               <TableCell className="tableCell">
                 <span className={`status ${row.status}`}>{row.status}</span>
               </TableCell>
+              <TableCell className="tableCell">{row.action}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -457,7 +457,7 @@ li a {
         cursor: pointer;
         color: #888;
 
-        &:hover{
+        &:hover {
           color: #555;
         }
       }
@@ -801,5 +801,57 @@ li a {
         }
       }
     }
+  }
+}
+
+// user dashboard
+.header .test {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-block {
+  position: relative;
+  z-index: 1;
+}
+
+.widgets {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 2.2rem;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(243, 239, 239, 0.932);
+  border-radius: 10px;
+  height: 9rem;
+
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .counter {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .icon{
+      font-size: 2.4rem;
+      margin: auto;
+      color: white;
+    }
+  }
+
+  .right {
+    border-radius: 0.6rem;
+    height: 4.2rem;
+    width: 4.2rem;
   }
 }

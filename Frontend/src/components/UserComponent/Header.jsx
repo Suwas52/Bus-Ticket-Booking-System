@@ -23,7 +23,7 @@ import Logout from "@mui/icons-material/Logout";
 
 const Header = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
-
+  const isAuthenticate = true;
   const userRolesLabelCreator = () => {
     if (user && user.roles) {
       return user.roles.join(", ");
@@ -45,7 +45,7 @@ const Header = () => {
             <UserLogo className="icon" /> {user ? user.username : "--"}
             userroles: {userRolesLabelCreator()}
           </div>
-          {isAuthenticated ? (
+          {isAuthenticate ? (
             <div className="auth-buttons ms-auto">
               <Link to={"/user-dashboard"} className="btn btn-sm">
                 Dashboard
