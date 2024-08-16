@@ -48,7 +48,7 @@ const Header = () => {
             <UserLogo className="icon" /> {user ? user.username : "--"}
             userroles: {userRolesLabelCreator()}
           </div>
-          {isAuthenticated ? (
+          {isAuthenticate ? (
             <div className="auth-buttons ms-auto">
               <Link
                 to={role === "USER" ? "/user-dashboard" : "/admin-dashboard"}
