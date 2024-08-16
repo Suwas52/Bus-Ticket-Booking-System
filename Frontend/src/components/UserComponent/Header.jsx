@@ -76,7 +76,7 @@ const Header = () => {
 
       <Navbar className="test" bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <Image src={Logo} height={50} alt="Bus Logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

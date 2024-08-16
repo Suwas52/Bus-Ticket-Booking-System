@@ -13,7 +13,7 @@ const BusList = () => {
   console.log(busData);
 
   const columns = [
-    { field: "busId", label: "ID" },
+    { field: "sn", label: "SN" },
     { field: "busName", label: "Bus Name" },
     { field: "busNumber", label: "Bus Number" },
     { field: "capacity", label: "Capacity" },
