@@ -12,12 +12,16 @@ const BusList = () => {
   const [busData, setBusData] = useState([]);
   console.log(busData);
 
+  const handleView = (id) => {
+    console.log("view", id)
+  }
+
   const columns = [
     { field: "busId", label: "ID" },
     { field: "busName", label: "Bus Name" },
     { field: "busNumber", label: "Bus Number" },
     { field: "capacity", label: "Capacity" },
-    { field: "action", label: "Action" },
+    { field: "action", label: "Actions" },
   ];
 
   // const column = ["busId", "busName", "busNumber", "capacity"];
@@ -59,7 +63,7 @@ const BusList = () => {
             </Link>
           </div>
 
-          <Table columns={columns} rows={busData} />
+          <Table columns={columns} rows={busData} onView={handleView} />
         </div>
       </div>
     </div>

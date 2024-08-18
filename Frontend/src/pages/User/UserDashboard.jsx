@@ -16,9 +16,6 @@ import Img from "../../assets/images/Section.png";
 import UserWidget from "../../components/UserComponent/UserWidget/UserWidget";
 import "../../components/AdminComponent/table/table.scss"
 import CommonTable from "../../components/Base Table/CommonTable"
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import Footer from "../../components/UserComponent/Footer"
 
 const UserDashboard = () => {
@@ -43,13 +40,6 @@ const UserDashboard = () => {
       amount: '$100',
       method: 'Credit Card',
       status: 'Rejected',
-      action: (
-        <>
-          <InfoOutlinedIcon onClick={{}} style={{cursor: 'pointer', color: 'purple', marginRight: '10px'}} />
-          <EditOutlinedIcon style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
-          <DeleteOutlinedIcon style={{cursor: 'pointer', color: 'red'}} />
-        </>
-      )
     },
     {
       id: 2,
@@ -59,13 +49,6 @@ const UserDashboard = () => {
       amount: '$200',
       method: 'PayPal',
       status: 'Pending',
-      action: (
-        <>
-          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
-          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
-          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
-        </>
-      )
     },
     {
       id: 3,
@@ -75,13 +58,6 @@ const UserDashboard = () => {
       amount: '$200',
       method: 'PayPal',
       status: 'Approved',
-      action: (
-        <>
-          <InfoOutlinedIcon onClick={() => handleViewDetails({id: 2, product: 'Product B'})} style={{cursor: 'pointer', marginRight: '10px'}} />
-          <EditOutlinedIcon onClick={() => handleEdit({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'blue', marginRight: '10px'}} />
-          <DeleteOutlinedIcon onClick={() => handleDelete({id: 2, product: 'Product B'})} style={{cursor: 'pointer', color: 'red'}} />
-        </>
-      )
     },
   ];
 
