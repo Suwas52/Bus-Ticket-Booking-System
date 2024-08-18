@@ -5,7 +5,7 @@ namespace BusBooking.Core.Repository.Interface
 {
     public interface IBookingRepo
     {
-        Task<IEnumerable<Booking>> GetAllAsync();
+        Task<IEnumerable<Booking>> GetAllAsync(string? userId = null);
 
         Task<GeneralResponseDto> CreateAsync(Booking model);
 

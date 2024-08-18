@@ -77,15 +77,23 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        public async Task<IEnumerable<Booking>> GetAllAsync()
+        public async Task<IEnumerable<Booking>> GetAllAsync(string? userId = null)
         {
-            return await _context.Bookings
-                .Where(x => x.IsDeleted == false)
+            var query = _context.Bookings
+                .Where(x => !x.IsDeleted)
                 .Include(b => b.User)
                 .Include(b => b.BusSchedule)
                 .Include(b => b.Seat)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                query = query.Where(b => b.UserId == userId);
+            }
+
+            return await query.ToListAsync();
         }
+
 
         public async Task<GeneralResponseDto> ApproveAsync(int id)
         {

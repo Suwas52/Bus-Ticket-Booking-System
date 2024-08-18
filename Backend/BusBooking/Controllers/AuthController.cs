@@ -19,10 +19,10 @@ namespace BusBooking.Controllers
             this.authRepository = authRepository;
         }
 
-        [Authorize(Roles = StaticRoleUser.OwnerAdmin)]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         [HttpGet]
         [Route("AllUser")]
-        public async Task<ActionResult<IEnumerable<ApplicationUser>>> UserList()
+        public async Task<ActionResult<IEnumerable<UserInformation>>> UserList()
         {
             try
             {

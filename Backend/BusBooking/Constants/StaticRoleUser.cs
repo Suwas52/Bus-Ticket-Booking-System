@@ -11,8 +11,8 @@ namespace BusBooking.Constants
         public const string ADMIN = "ADMIN";
         public const string STAFF = "STAFF";
         public const string USER = "USER";
-
-        public const string OwnerAdmin = "SUPERADMIN,ADMIN,STAFF";
+        public const string SuperAdminAndAdmin = "SUPERADMIN,ADMIN";
+        public const string SuperAdminAdminAndStaff = "SUPERADMIN,ADMIN,STAFF";
 
 
     }

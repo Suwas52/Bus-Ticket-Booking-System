@@ -345,10 +345,20 @@ namespace BusBooking.Core.Repository.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ApplicationUser>> UserListAsync()
+        public async Task<IEnumerable<UserInformation>> UserListAsync()
         {
-            var allUsers = await userManager.Users.Where(u => u.IsDeleted == false).ToListAsync();
-            return allUsers;
+            var users = await userManager.Users.ToListAsync();
+
+            List<UserInformation> userInfoResults = new List<UserInformation>();
+
+            foreach (var user in users)
+            {
+                var roles = await userManager.GetRolesAsync(user);
+                var userInfo = UserInfoObject(user, roles);
+                userInfoResults.Add(userInfo);
+            }
+
+            return userInfoResults;
         }
 
         }

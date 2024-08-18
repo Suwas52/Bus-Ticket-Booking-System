@@ -2,6 +2,7 @@
 using BusBooking.Constants;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.General;
+using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using BusBooking.Core.Repository.Services;
@@ -18,11 +19,14 @@ namespace BusBooking.Controllers
         private readonly IBookingRepo _bookingRepo;
         private readonly IMapper _mapper;
         private readonly ILogger<BookingController> _logger;
-        public BookingController(IBookingRepo bookingRepo, IMapper mapper, ILogger<BookingController> logger)
+        private readonly IAuthHelper _authHelper;
+
+        public BookingController(IBookingRepo bookingRepo, IMapper mapper, ILogger<BookingController> logger, IAuthHelper authHelper)
         {
             _bookingRepo = bookingRepo;
             _mapper = mapper;
             _logger = logger;
+            _authHelper = authHelper;
         }
 
         [HttpGet]
@@ -30,19 +34,36 @@ namespace BusBooking.Controllers
         {
             try
             {
-                var bookings = await _bookingRepo.GetAllAsync();
+                var loginUser = _authHelper.GetCurrentUser();
+                var roles = loginUser.Roles;
+
+                IEnumerable<Booking> bookings;
+
+                // If the user is not an admin, superadmin, or staff, only return their bookings
+                if (roles.Contains(StaticRoleUser.SUPERADMIN) ||
+                    roles.Contains(StaticRoleUser.ADMIN) ||
+                    roles.Contains(StaticRoleUser.STAFF))
+                {
+                    bookings = await _bookingRepo.GetAllAsync();
+                }
+                else
+                {
+                    bookings = await _bookingRepo.GetAllAsync(loginUser.Id);
+                }
+
                 var mapData = _mapper.Map<IEnumerable<BookingReadDto>>(bookings);
                 return Ok(mapData);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occur while requesting for booking data");
-                return StatusCode(500, "Issued while Occuring request for booking data");
+                _logger.LogError(ex, "Error occurred while requesting booking data");
+                return StatusCode(500, "Error occurred while processing the booking data request.");
             }
-            
+
         }
 
         [HttpPost]
+        [Authorize(Roles = StaticRoleUser.USER)]
         public async Task<ActionResult<GeneralResponseDto>> CreateBooking([FromBody] BookingCreateDto model)
         {
             if (!ModelState.IsValid)
@@ -137,7 +158,7 @@ namespace BusBooking.Controllers
 
 
         [HttpPut("approve/{id}")]
-        [Authorize(Roles = StaticRoleUser.OwnerAdmin)]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAdminAndStaff)]
         public async Task<ActionResult<GeneralResponseDto>> ApproveBooking(int id)
         {
             var response = await _bookingRepo.ApproveAsync(id);
@@ -150,7 +171,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpPut("reject/{id}")]
-        [Authorize(Roles = StaticRoleUser.OwnerAdmin)]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAdminAndStaff)]
         public async Task<ActionResult<GeneralResponseDto>> RejectBooking(int id)
         {
             var response = await _bookingRepo.RejectAsync(id);
