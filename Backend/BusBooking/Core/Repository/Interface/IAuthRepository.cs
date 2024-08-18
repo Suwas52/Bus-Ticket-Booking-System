@@ -18,7 +18,7 @@ namespace BusBooking.Core.Repository.Interface
 
         Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model);
 
-        Task<IEnumerable<ApplicationUser>> UserListAsync();
+        Task<IEnumerable<UserInformation>> UserListAsync();
 
         Task<LoginResponseDto?> MeAsync(MeDto meDto);
 
