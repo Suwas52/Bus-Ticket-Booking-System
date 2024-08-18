@@ -41,11 +41,12 @@ const GlobalRouter = () => {
       <Route element={<AuthGuard roles={allAccessRoles} />}>
         <Route path={PATH_DASHBOARD.userList} element={<List />} />
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
-        <Route path={PATH_DASHBOARD.buseCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
+        <Route path={PATH_DASHBOARD.buseCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
+        <Route path={PATH_DASHBOARD.buseCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
