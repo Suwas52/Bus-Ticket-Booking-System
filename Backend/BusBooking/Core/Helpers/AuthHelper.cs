@@ -27,7 +27,7 @@ namespace BusBooking.Core.Helpers
             {
                 return null;
             }
-            returnzz _userManager.Users.SingleOrDefault(u => u.Id == user);
+            return _userManager.Users.SingleOrDefault(u => u.Id == user);
         }
     }
 }

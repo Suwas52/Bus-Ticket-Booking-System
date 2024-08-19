@@ -5,16 +5,33 @@ import Datatable from "../../../components/AdminComponent/datatable/Datatable";
 import axiosInstance from "../../../utils/axiosInstance";
 import { MANAGE_BUS } from "../../../utils/globalConfig";
 // import Table from "../../../components/AdminComponent/table/Table";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Table from "../../../components/Base Table/CommonTable";
+import toast from "react-hot-toast";
 
 const BusList = () => {
   const [busData, setBusData] = useState([]);
+  const navigate = useNavigate();
   console.log(busData);
 
-  const handleView = (id) => {
-    console.log("view", id)
-  }
+  const handleView = (bus) => {
+    console.log(bus.busId);
+  };
+
+  const handleEdit = (bus) => {
+    navigate(`/admin-dashboard/bus/create/${bus.busId}`);
+  };
+  const handleDelete = async (bus) => {
+    if (window.confirm("Are you sure you want to delete this bus?")) {
+      try {
+        await axiosInstance.delete(`${MANAGE_BUS}/${bus.busId}`);
+        setBusData(busData.filter((item) => item.busId !== bus.busId));
+        toast.success("Bus deleted successfully!");
+      } catch (error) {
+        toast.error("Failed to delete bus");
+      }
+    }
+  };
 
   const columns = [
     { field: "sn", label: "SN" },
@@ -63,7 +80,13 @@ const BusList = () => {
             </Link>
           </div>
 
-          <Table columns={columns} rows={busData} onView={handleView} />
+          <Table
+            columns={columns}
+            rows={busData}
+            onView={handleView}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         </div>
       </div>
     </div>

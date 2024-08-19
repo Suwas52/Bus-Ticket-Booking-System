@@ -14,7 +14,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
-const CommonTable = ({ columns, rows}) => {
+const CommonTable = ({ columns, rows, onView, onEdit, onDelete }) => {
   // Pagination state
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -35,6 +35,10 @@ const CommonTable = ({ columns, rows}) => {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+
+  const editpart = (iddata) => {
+    alert(iddata);
+  };
 
   // Function to return the color for the action icon based on the action type
   const getActionColor = (action) => {
@@ -82,7 +86,7 @@ const CommonTable = ({ columns, rows}) => {
                           color: getActionColor("view"),
                           cursor: "pointer",
                         }}
-                        onClick={() => onView(row.id)}
+                        onClick={() => onView(row)}
                       />
                       {/* Edit Action */}
                       <EditOutlinedIcon
@@ -108,6 +112,8 @@ const CommonTable = ({ columns, rows}) => {
                   ) : (
                     row[column.field]
                   )}
+
+                  {column.field === "sn" && <span>{rowIndex}</span>}
                 </TableCell>
               ))}
             </TableRow>

@@ -43,6 +43,7 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
         <Route path={PATH_DASHBOARD.buseCreate} element={<CreateBus />} />
+        <Route path={PATH_DASHBOARD.busUpdate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>

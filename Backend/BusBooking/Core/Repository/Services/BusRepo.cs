@@ -57,48 +57,9 @@ namespace BusBooking.Core.Repository.Services
                 model.CreatedBy = loginUser.UserName;
                 model.IsDeleted = false;
 
-                // Add bus first to generate the BusId
+               
                 await _context.Buses.AddAsync(model);
                 await _context.SaveChangesAsync();
-
-                // Initialize seats
-                /*for (int i = 1; i <= model.Capacity; i++)
-                {
-                    var seat = new Seat
-                    {
-                        BusId = model.BusId,
-                        SeatNumber = i,
-                        Status = SeatStatus.Available
-                    };
-                    await _context.Seats.AddAsync(seat);
-                }
-
-                await _context.SaveChangesAsync();
-
-                await transaction.CommitAsync();*/
-
-                /*char[] s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();*/
-
-                // Initialize seats
-
-                /*int row = 10;
-                int column = 4; 
-
-                for(int i = 0;i < row; i++)
-                {
-                    for(int j = 1; j <= column; j++)
-                    {
-                        var seat = new Seat
-                        {
-                            BusId = model.BusId,
-                            SeatNumber = i,
-                            SeatName = $"{s[i]}{j}",
-                            Status = SeatStatus.Available
-                        };
-                        await _context.Seats.AddAsync(seat);
-                    }
-                }*/
-
 
 
                 int columns = 4;
@@ -158,14 +119,45 @@ namespace BusBooking.Core.Repository.Services
         public async Task UpdateAsync(Bus model)
         {
             var loginUser = _authHelper.GetCurrentUser();
-            if(model.IsDeleted == false)
+
+            var existingBus = await _context.Buses.FindAsync(model.BusId).ConfigureAwait(false);
+            if (existingBus == null)
             {
-                model.UpdatedAt = DateTime.Now;
-                model.UpdatedBy = loginUser.UserName;
-                _context.Entry(model).State = EntityState.Modified;
+                throw new KeyNotFoundException($"Bus with ID {model.BusId} not found.");
+            }
+
+            // Update properties
+            existingBus.UpdatedAt = DateTime.Now;
+            existingBus.UpdatedBy = loginUser.UserName;
+
+            // Copy over only the updatable properties from the model to the existing bus
+            existingBus.BusName = model.BusName;
+            existingBus.BusNumber = model.BusNumber;
+            existingBus.Capacity = model.Capacity;
+            existingBus.BusType = model.BusType;
+            // Note: Ensure you do not modify the BusId or other key properties
+
+            // Optionally handle related seat data if necessary
+            // This depends on your specific requirements for seat management during updates.
+            // For example:
+            // if (model.Capacity != existingBus.Capacity)
+            // {
+            //     // Update seat data (e.g., remove old seats, add new ones)
+            // }
+
+            _context.Entry(existingBus).State = EntityState.Modified;
+
+            try
+            {
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Handle concurrency issues if needed
+                throw new Exception("A concurrency error occurred while updating the bus.", ex);
+            }
         }
+
 
         public async Task DeleteAsync(int id)
         {

@@ -18,6 +18,7 @@ export const PATH_DASHBOARD = {
   userList: "/admin-dashboard/userlist",
   busList: "/admin-dashboard/bus/list",
   buseCreate: "/admin-dashboard/bus/create",
+  busUpdate: "/admin-dashboard/bus/create/:busId",
   booking: "/admin-dashboard/booking",
 };
 

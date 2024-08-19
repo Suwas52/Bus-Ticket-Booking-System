@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
@@ -7,15 +7,35 @@ import * as Yup from "yup";
 import axiosInstance from "../../../utils/axiosInstance";
 import { MANAGE_BUS } from "../../../utils/globalConfig";
 import toast from "react-hot-toast";
+import { useParams, useNavigate } from "react-router-dom";
 
 const CreateBus = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [busData, setBusData] = useState(null);
+  const { busId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (busId) {
+      fetchBusData(parseInt(busId)); // Convert to integer
+    }
+  }, [busId]);
+  console.log(busData);
+
+  const fetchBusData = async (id) => {
+    try {
+      const response = await axiosInstance.get(`${MANAGE_BUS}/${id}`);
+      setBusData(response.data);
+    } catch (error) {
+      console.error("Error fetching bus data", error);
+    }
+  };
 
   const initialValues = {
-    busName: "",
-    busNumber: "",
-    capacity: "",
-    busType: "AC", // Default value
+    busName: busData?.busName || "",
+    busNumber: busData?.busNumber || "",
+    capacity: busData?.capacity || "",
+    busType: busData?.busType || "AC", // Default value
   };
 
   const validationSchema = Yup.object({
@@ -27,18 +47,30 @@ const CreateBus = () => {
 
   const handleSubmit = async (values) => {
     try {
-      setIsSubmitting(true);
-
-      const response = await axiosInstance.post(MANAGE_BUS, values);
-      console.log(response);
-      if (response.status === 200) {
-        toast("Bus created successfully!");
-        setIsSubmitting(false);
+      // setIsSubmitting(true);
+      if (busId) {
+        // Update existing bus
+        const response = await axiosInstance.put(
+          `${MANAGE_BUS}/${parseInt(busId)}`,
+          values
+        );
+        if (response.status === 200) {
+          toast.success("Bus updated successfully!");
+        }
+      } else {
+        // Create new bus
+        const response = await axiosInstance.post(MANAGE_BUS, values);
+        if (response.status === 200) {
+          toast.success("Bus created successfully!");
+        }
       }
+      navigate("/admin-dashboard/bus/list");
     } catch (error) {
       setIsSubmitting(false);
-      toast.error(error);
+      toast.error("An error occurred");
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -47,16 +79,19 @@ const CreateBus = () => {
       <Sidebar />
       <div className="" style={{ flex: 6 }}>
         <Navbar />
-        <Card className="">
+        <Card>
           <Card.Header>
-            <h2 className="text-center">Create New Bus</h2>
+            <h2 className="text-center">
+              {busId ? "Update Bus" : "Create New Bus"}
+            </h2>
           </Card.Header>
           <Card.Body>
             <Container>
               <Formik
+                enableReinitialize
+                initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
-                initialValues={initialValues}
               >
                 {({ isValid, dirty }) => (
                   <Form>
@@ -131,7 +166,13 @@ const CreateBus = () => {
                       type="submit"
                       disabled={!isValid || !dirty || isSubmitting}
                     >
-                      {isSubmitting ? "Creating Bus..." : "Create Bus"}
+                      {isSubmitting
+                        ? busId
+                          ? "Updating Bus..."
+                          : "Creating Bus..."
+                        : busId
+                        ? "Update Bus"
+                        : "Create Bus"}
                     </Button>
                   </Form>
                 )}

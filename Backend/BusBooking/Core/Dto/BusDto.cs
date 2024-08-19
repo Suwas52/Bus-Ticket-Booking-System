@@ -31,7 +31,7 @@ namespace BusBooking.Core.Dto
 
     public class BusUpdateDto
     {
-        public int BusId { get; set; }
+        /*public int BusId { get; set; }*/
         public string BusName { get; set; }
         public string BusNumber { get; set; }
         public int Capacity { get; set; }
