@@ -18,6 +18,7 @@ import "./styles/main.scss";
 // import AuthSpinner from "./components/General/AuthSpinner";
 
 import { Toaster } from "react-hot-toast";
+
 import GlobalRouter from "./routes";
 
 // const App = () => {
