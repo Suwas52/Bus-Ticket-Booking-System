@@ -17,6 +17,7 @@ import UserWidget from "../../components/UserComponent/UserWidget/UserWidget";
 import "../../components/AdminComponent/table/table.scss"
 import CommonTable from "../../components/Base Table/CommonTable"
 import Footer from "../../components/UserComponent/Footer"
+import { Link } from "react-router-dom";
 
 const UserDashboard = () => {
 
@@ -88,8 +89,10 @@ const UserDashboard = () => {
                   <NavDropdown.Item href="#action2">action2</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Profile" id="profile">
-                  <NavDropdown.Item href="#action1">action1</NavDropdown.Item>
-                  <NavDropdown.Item href="#action2">action2</NavDropdown.Item>
+                <Link to={"/profile-setting"} className="text-decoration-none">
+                  <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                  </Link>
+                  <NavDropdown.Item href="#action2">Logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav className="ms-auto">

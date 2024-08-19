@@ -869,3 +869,32 @@ li a {
     margin-bottom: 15px;
   }
 }
+
+// profile setting page
+
+.profile-container{
+  h4{
+    text-align: center;
+    background-color: #0e9e4d;
+    padding: 0.5rem;
+    color: white;
+  }
+
+  .profile-form{
+    padding: 0.8rem;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 0.5rem;
+
+    .custom-form-group{
+      margin-bottom: 1.1rem;
+    }
+
+    .custom-button{
+      color: white;
+      padding: 0.5rem;
+      width: 100%;
+      background-color: #0e9e4d;
+    }
+  }
+}
