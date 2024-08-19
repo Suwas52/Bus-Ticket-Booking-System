@@ -33,10 +33,6 @@ const Header = () => {
   const role = userRolesLabelCreator();
   console.log(role);
 
-  const logouts = () => {
-    logout;
-  };
-
   return (
     <div className="header">
       <Navbar className="top-header" bg="light" expand="lg">

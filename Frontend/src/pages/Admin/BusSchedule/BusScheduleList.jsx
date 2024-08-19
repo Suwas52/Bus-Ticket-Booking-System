@@ -14,7 +14,7 @@ const BusScheduleList = () => {
   console.log(busScheduleData);
 
   const handleView = (schedule) => {
-    console.log(schedule);
+    navigate(`/admin-dashboard/busSchedule/detail/${schedule.scheduleId}`);
   };
 
   const handleEdit = (schedule) => {

@@ -14,9 +14,12 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../../pages/Admin/context/DarkModeContext";
+import { PATH_DASHBOARD } from "../../../routes/path";
+import useAuth from "../../../hooks/useAuth";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
 
   return (
     <div className="sidebar">
@@ -37,7 +40,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <Link to={PATH_DASHBOARD.userList} style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlinedIcon className="icon" />
               <span>Users</span>
@@ -61,10 +64,16 @@ const Sidebar = () => {
               <span>Bus Schedule</span>
             </li>
           </Link>
-          <li>
-            <LocalShippingOutlinedIcon className="icon" />
-            <span>Routes</span>
-          </li>
+          <Link
+            to={PATH_DASHBOARD.routeList}
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <LocalShippingOutlinedIcon className="icon" />
+              <span>Routes</span>
+            </li>
+          </Link>
+
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -92,10 +101,13 @@ const Sidebar = () => {
             <AccountCircleIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
-            <LogoutIcon className="icon" />
-            <span>Logout</span>
-          </li>
+
+          <Link onClick={logout} style={{ textDecoration: "none" }}>
+            <li>
+              <LogoutIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">

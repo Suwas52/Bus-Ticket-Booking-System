@@ -11,7 +11,6 @@ namespace BusBooking.Core.Dto
 
     public class RouteUpdateDto
     {
-        public int RouteId { get; set; }
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
         public int Distance { get; set; }
