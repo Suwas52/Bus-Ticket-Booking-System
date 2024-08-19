@@ -52,10 +52,15 @@ const Sidebar = () => {
               <span>Buses</span>
             </li>
           </Link>
-          <li>
-            <BookmarkBorderOutlinedIcon className="icon" />
-            <span>Bus Schedule</span>
-          </li>
+          <Link
+            to="/admin-dashboard/busSchedule/list"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <BookmarkBorderOutlinedIcon className="icon" />
+              <span>Bus Schedule</span>
+            </li>
+          </Link>
           <li>
             <LocalShippingOutlinedIcon className="icon" />
             <span>Routes</span>

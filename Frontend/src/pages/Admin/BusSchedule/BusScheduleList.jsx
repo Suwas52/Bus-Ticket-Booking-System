@@ -1,57 +1,61 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { MANAGE_BUSSHEHEDULE } from "../../../utils/globalConfig";
+import axiosInstance from "../../../utils/axiosInstance";
 import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
-import Datatable from "../../../components/AdminComponent/datatable/Datatable";
-import axiosInstance from "../../../utils/axiosInstance";
-import { MANAGE_BUS } from "../../../utils/globalConfig";
-// import Table from "../../../components/AdminComponent/table/Table";
-import { Link, useNavigate } from "react-router-dom";
 import Table from "../../../components/Base Table/CommonTable";
-import toast from "react-hot-toast";
 
-const BusList = () => {
-  const [busData, setBusData] = useState([]);
+const BusScheduleList = () => {
+  const [busScheduleData, setBusScheduleData] = useState([]);
+
   const navigate = useNavigate();
-  console.log(busData);
+  console.log(busScheduleData);
 
-  const handleView = (bus) => {
-    console.log(bus.busId);
+  const handleView = (schedule) => {
+    console.log(schedule);
   };
 
-  const handleEdit = (bus) => {
-    navigate(`/admin-dashboard/bus/create/${bus.busId}`);
+  const handleEdit = (schedule) => {
+    navigate(`/admin-dashboard/busSchedule/create/${schedule.scheduleId}`);
   };
-  const handleDelete = async (bus) => {
+  const handleDelete = async (schedule) => {
     if (window.confirm("Are you sure you want to delete this bus?")) {
       try {
-        await axiosInstance.delete(`${MANAGE_BUS}/${bus.busId}`);
-        setBusData(busData.filter((item) => item.busId !== bus.busId));
+        await axiosInstance.delete(
+          `${MANAGE_BUSSHEHEDULE}/${schedule.scheduleId}`
+        );
+        setBusData(
+          busScheduleData.filter(
+            (item) => item.scheduleId !== schedule.scheduleId
+          )
+        );
         toast.success("Bus deleted successfully!");
       } catch (error) {
         toast.error("Failed to delete bus");
       }
     }
   };
-
   const columns = [
     { field: "sn", label: "SN" },
-    { field: "busName", label: "Bus Name" },
-    { field: "busNumber", label: "Bus Number" },
-    { field: "capacity", label: "Capacity" },
+    { field: "arrivalTime", label: "Arival Time" },
+    { field: "departureTime", label: "Departure Time" },
+    { field: "busId", label: "Bus Name" },
+    { field: "routeId", label: "Route Name" },
     { field: "action", label: "Actions" },
   ];
 
-  const fetchBusData = async () => {
+  const fetchBusScheduleData = async () => {
     try {
-      const response = await axiosInstance.get(MANAGE_BUS);
-      setBusData(response.data);
+      const response = await axiosInstance.get(MANAGE_BUSSHEHEDULE);
+      setBusScheduleData(response.data);
     } catch (error) {
       alert(error);
     }
   };
 
   useEffect(() => {
-    fetchBusData();
+    fetchBusScheduleData();
   }, []);
 
   return (
@@ -59,16 +63,10 @@ const BusList = () => {
       <Sidebar />
       <div className="" style={{ flex: 6 }}>
         <Navbar />
-        {/* <Datatable
-          headerName="Add New Bus"
-          rows={busData}
-          columns={columns}
-          getRowId={(row) => row.busId}
-          create="/admin-dashboard/bus/create"
-        /> */}
+
         <div className="listContainer">
           <div className="d-flex justify-content-between">
-            <div className="listTitle">Bus List</div>
+            <div className="listTitle">Bus Schedule List</div>
             <Link
               to="/admin-dashboard/bus/create"
               style={{ textDecoration: "none" }}
@@ -80,7 +78,7 @@ const BusList = () => {
 
           <Table
             columns={columns}
-            rows={busData}
+            rows={busScheduleData}
             onView={handleView}
             onEdit={handleEdit}
             onDelete={handleDelete}
@@ -91,4 +89,4 @@ const BusList = () => {
   );
 };
 
-export default BusList;
+export default BusScheduleList;
