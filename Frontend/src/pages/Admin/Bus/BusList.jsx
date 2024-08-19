@@ -15,7 +15,7 @@ const BusList = () => {
   console.log(busData);
 
   const handleView = (bus) => {
-    console.log(bus.busId);
+    navigate(`/admin-dashboard/bus/detail/${bus.busId}`);
   };
 
   const handleEdit = (bus) => {

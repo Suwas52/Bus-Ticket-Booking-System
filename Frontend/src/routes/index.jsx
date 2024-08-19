@@ -12,7 +12,6 @@ import {
 } from "../auth/auth.utils";
 import DashboardPage from "../pages/Admin/home/AdminDashboard";
 import List from "../components/AdminComponent/table/Table";
-import BookingData from "../pages/Admin/BookingData";
 import FilterPage from "../pages/User/FilterPage";
 import AboutPage from "../pages/User/AboutPage";
 import BlogPage from "../pages/User/BlogPage";
@@ -24,6 +23,14 @@ import CreateBus from "../pages/Admin/Bus/CreateBus";
 import UserDashboard from "../pages/User/UserDashboard";
 import BusScheduleList from "../pages/Admin/BusSchedule/BusScheduleList";
 import ScheduleCreate from "../pages/Admin/BusSchedule/ScheduleCreate";
+import BookingList from "../pages/Admin/Booking/BookingList";
+import BusScheduleDetail from "../pages/Admin/BusSchedule/BusScheduleDetail";
+import BusDetail from "../pages/Admin/Bus/BusDetail";
+import RouteList from "../pages/Admin/Route/RouteList";
+import CreateRoute from "../pages/Admin/Route/CreateRoute";
+import RouteDetail from "../pages/Admin/Route/RouteDetail";
+import UserList from "../pages/Admin/user/UserList";
+import UserCreate from "../pages/Admin/user/UserCreate";
 
 const GlobalRouter = () => {
   return (
@@ -41,11 +48,20 @@ const GlobalRouter = () => {
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
-        <Route path={PATH_DASHBOARD.userList} element={<List />} />
+        <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
+        <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} />
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
-        <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
+        <Route path={PATH_DASHBOARD.booking} element={<BookingList />} />
         <Route path={PATH_DASHBOARD.busCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.busUpdate} element={<CreateBus />} />
+        <Route path={PATH_DASHBOARD.busDetail} element={<BusDetail />} />
+
+        {/* Route model route */}
+        <Route path={PATH_DASHBOARD.routeList} element={<RouteList />} />
+        <Route path={PATH_DASHBOARD.routeCreate} element={<CreateRoute />} />
+        <Route path={PATH_DASHBOARD.routeEdit} element={<CreateRoute />} />
+        <Route path={PATH_DASHBOARD.routeDetail} element={<RouteDetail />} />
+
         <Route
           path={PATH_DASHBOARD.busScheduleList}
           element={<BusScheduleList />}
@@ -58,11 +74,15 @@ const GlobalRouter = () => {
           path={PATH_DASHBOARD.busScheduleEdit}
           element={<ScheduleCreate />}
         />
+        <Route
+          path={PATH_DASHBOARD.busScheduleDetail}
+          element={<BusScheduleDetail />}
+        />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
         <Route path={PATH_DASHBOARD.busCreate} element={<CreateBus />} />
-        <Route path={PATH_DASHBOARD.booking} element={<BookingData />} />
+        <Route path={PATH_DASHBOARD.booking} element={<BookingList />} />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
