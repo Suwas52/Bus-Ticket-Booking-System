@@ -23,6 +23,7 @@ import BusList from "../pages/Admin/Bus/BusList";
 import CreateBus from "../pages/Admin/Bus/CreateBus";
 import UserDashboard from "../pages/User/UserDashboard";
 import BusScheduleList from "../pages/Admin/BusSchedule/BusScheduleList";
+import ProfileSettingPage from "../pages/User/ProfileSettingPage";
 
 const GlobalRouter = () => {
   return (
@@ -36,6 +37,8 @@ const GlobalRouter = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/profile-setting" element={<ProfileSettingPage />} />
         {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
       </Route>
       {/* Protected Routes */}
@@ -58,7 +61,8 @@ const GlobalRouter = () => {
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
+        {/* <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/profile-setting" element={<ProfileSettingPage />} /> */}
       </Route>
 
       {/* Catch all (404) */}
