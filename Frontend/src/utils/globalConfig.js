@@ -8,7 +8,7 @@ export const LOGIN_URL = "Auth/login";
 export const ME_URL = "/Auth/me";
 export const MANAGE_BUS = "/bus";
 export const MANAGE_BOOKING = "/Booking"; // get
-export const MANAGE_BUSSHEHEDULE = "/busSchedule"; // get
+export const MANAGE_BUSSHEHEDULE = "/BusSchedule"; // get
 export const MANAGE_ROUTES = "/routes"; // get post
 export const GET_ALLUSERS = "/Auth/AllUser"; // get
 

@@ -14,7 +14,6 @@ namespace BusBooking.Core.Dto
     }
     public class BusScheduleUpdateDto
     {
-        public int ScheduleId { get; set; }
         public int BusId { get; set; }
         public int RouteId { get; set; }
         public DateTime DepartureTime { get; set; }
@@ -25,6 +24,8 @@ namespace BusBooking.Core.Dto
     public class BusScheduleReadDto
     {
         public int ScheduleId { get; set; }
+        public int BusId { get; set; }
+        public int RouteId { get; set; }
         public string BusName { get; set; }
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }

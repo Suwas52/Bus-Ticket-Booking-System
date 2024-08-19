@@ -5,6 +5,7 @@ import axiosInstance from "../../../utils/axiosInstance";
 import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
 import Table from "../../../components/Base Table/CommonTable";
+import toast from "react-hot-toast";
 
 const BusScheduleList = () => {
   const [busScheduleData, setBusScheduleData] = useState([]);
@@ -25,7 +26,7 @@ const BusScheduleList = () => {
         await axiosInstance.delete(
           `${MANAGE_BUSSHEHEDULE}/${schedule.scheduleId}`
         );
-        setBusData(
+        setBusScheduleData(
           busScheduleData.filter(
             (item) => item.scheduleId !== schedule.scheduleId
           )
