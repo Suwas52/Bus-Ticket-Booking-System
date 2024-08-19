@@ -17,7 +17,7 @@ const BusScheduleList = () => {
   };
 
   const handleEdit = (schedule) => {
-    navigate(`/admin-dashboard/busSchedule/create/${schedule.scheduleId}`);
+    navigate(`/admin-dashboard/busSchedule/edit/${schedule.scheduleId}`);
   };
   const handleDelete = async (schedule) => {
     if (window.confirm("Are you sure you want to delete this bus?")) {
@@ -40,8 +40,9 @@ const BusScheduleList = () => {
     { field: "sn", label: "SN" },
     { field: "arrivalTime", label: "Arival Time" },
     { field: "departureTime", label: "Departure Time" },
-    { field: "busId", label: "Bus Name" },
-    { field: "routeId", label: "Route Name" },
+    { field: "busName", label: "Bus Name" },
+    { field: "startLocation", label: "Start Location" },
+    { field: "endLocation", label: "End Location" },
     { field: "action", label: "Actions" },
   ];
 
@@ -68,7 +69,7 @@ const BusScheduleList = () => {
           <div className="d-flex justify-content-between">
             <div className="listTitle">Bus Schedule List</div>
             <Link
-              to="/admin-dashboard/bus/create"
+              to="/admin-dashboard/busSchedule/create"
               style={{ textDecoration: "none" }}
               className="btn btn-success btn-sm py-2 my-2"
             >

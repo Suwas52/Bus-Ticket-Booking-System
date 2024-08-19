@@ -29,13 +29,19 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<IEnumerable<BusSchedule>> GetAllAsync()
         {
-            return await _context.BusSchedules.Where(x => x.IsDeleted == false).ToListAsync();
+            return await _context.BusSchedules
+                .Include(bs => bs.Bus)
+                .Include(bs => bs.Routes)
+                .Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public async Task<BusSchedule> GetByIdAsync(int id)
         {
-            return await _context.BusSchedules.FindAsync(id).ConfigureAwait(false);
-           
+            return await _context.BusSchedules
+                .Include(bs => bs.Bus)
+                .Include(bs => bs.Routes)
+                .FirstOrDefaultAsync(bs => bs.ScheduleId == id && bs.IsDeleted == false);
+
         }
 
         public async Task UpdateAsync(BusSchedule model)

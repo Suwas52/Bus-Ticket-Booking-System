@@ -19,7 +19,7 @@ const BusList = () => {
   };
 
   const handleEdit = (bus) => {
-    navigate(`/admin-dashboard/bus/create/${bus.busId}`);
+    navigate(`/admin-dashboard/bus/edit/${bus.busId}`);
   };
   const handleDelete = async (bus) => {
     if (window.confirm("Are you sure you want to delete this bus?")) {
