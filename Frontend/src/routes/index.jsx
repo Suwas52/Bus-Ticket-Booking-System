@@ -23,6 +23,7 @@ import BusList from "../pages/Admin/Bus/BusList";
 import CreateBus from "../pages/Admin/Bus/CreateBus";
 import UserDashboard from "../pages/User/UserDashboard";
 import BusScheduleList from "../pages/Admin/BusSchedule/BusScheduleList";
+import ScheduleCreate from "../pages/Admin/BusSchedule/ScheduleCreate";
 
 const GlobalRouter = () => {
   return (
@@ -48,6 +49,14 @@ const GlobalRouter = () => {
         <Route
           path={PATH_DASHBOARD.busScheduleList}
           element={<BusScheduleList />}
+        />
+        <Route
+          path={PATH_DASHBOARD.busScheduleCreate}
+          element={<ScheduleCreate />}
+        />
+        <Route
+          path={PATH_DASHBOARD.busScheduleEdit}
+          element={<ScheduleCreate />}
         />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
