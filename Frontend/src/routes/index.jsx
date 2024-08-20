@@ -32,6 +32,7 @@ import CreateRoute from "../pages/Admin/Route/CreateRoute";
 import RouteDetail from "../pages/Admin/Route/RouteDetail";
 import UserList from "../pages/Admin/user/UserList";
 import UserCreate from "../pages/Admin/user/UserCreate";
+import AdminProfilePage from "../pages/Admin/ProfileAdmin/AdminProfilePage";
 
 const GlobalRouter = () => {
   return (
@@ -49,6 +50,13 @@ const GlobalRouter = () => {
         <Route path="/profile-setting" element={<ProfileSettingPage />} />
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
         {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
+
+{/* temporary route */}
+        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
+
+
+
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
@@ -82,12 +90,13 @@ const GlobalRouter = () => {
           path={PATH_DASHBOARD.busScheduleDetail}
           element={<BusScheduleDetail />}
         />
-        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} /> */}
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
         <Route path={PATH_DASHBOARD.busCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingList />} />
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         {/* <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} /> */}

@@ -1,13 +1,18 @@
-import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
-import { useContext } from "react";
-import { DarkModeContext } from "../../../pages/Admin/context/DarkModeContext";
+import React, { useContext } from 'react';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { DarkModeContext } from '../../../pages/Admin/context/DarkModeContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './navbar.scss';
+import { Link } from 'react-router-dom';
+import img from "../../../assets/7309681.jpg";
+import { PATH_DASHBOARD } from '../../../routes/path';
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -28,7 +33,7 @@ const Navbar = () => {
             <DarkModeOutlinedIcon
               className="icon"
               onClick={() => {
-                dispatch({ type: "TOGGLE" });
+                dispatch({ type: 'TOGGLE' });
               }}
             />
           </div>
@@ -47,11 +52,26 @@ const Navbar = () => {
             <ListOutlinedIcon className="icon" />
           </div>
           <div className="item">
-            <img
-              src="/src/assets/cropped-20221007082136_IMG_2214.JPG"
-              alt=""
-              className="avatar"
-            />
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="link"
+                id="dropdown-custom-components"
+                className="dropdown-toggle custom-dropdown-toggle"
+              >
+                <img
+                  src={img}
+                  alt=""
+                  className="avatar"
+                />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="dropdown-menu">
+              <Link to={PATH_DASHBOARD.profile} className='text-decoration-none'>
+                <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+              </Link>
+                <Dropdown.Item href="#logout">Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
       </div>

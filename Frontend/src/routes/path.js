@@ -30,6 +30,7 @@ export const PATH_DASHBOARD = {
   routeEdit: "/admin-dashboard/route/edit/:routeId",
   routeDetail: "/admin-dashboard/route/detail/:routeId",
   booking: "/admin-dashboard/booking",
+  profile: "/admin-dashboard/profile",
 };
 
 export const PATH_AUTHUSER = {
