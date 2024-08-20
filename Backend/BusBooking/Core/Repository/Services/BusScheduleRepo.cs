@@ -17,7 +17,7 @@ namespace BusBooking.Core.Repository.Services
         }
         public async Task CreateAsync(BusSchedule model)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
 
             model.CreatedAt = DateTime.Now;
             model.CreatedBy = loginUser.UserName;
@@ -46,7 +46,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task UpdateAsync(BusSchedule model)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             if (model.IsDeleted == false)
             {
                 model.UpdatedAt = DateTime.Now;
@@ -57,7 +57,7 @@ namespace BusBooking.Core.Repository.Services
         }
         public async Task DeleteAsync(int id)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             var schedule = await _context.BusSchedules.FindAsync(id).ConfigureAwait(false);
             if (schedule != null)
             {

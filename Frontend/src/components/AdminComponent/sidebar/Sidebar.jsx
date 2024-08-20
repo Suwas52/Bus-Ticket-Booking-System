@@ -14,8 +14,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../../pages/Admin/context/DarkModeContext";
-import { PATH_DASHBOARD } from "../../../routes/path";
+import { PATH_DASHBOARD, PATH_PUBLIC } from "../../../routes/path";
 import useAuth from "../../../hooks/useAuth";
+import Logo from "../../../assets/images/logo.png";
+import { Image } from "react-bootstrap";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -24,8 +26,9 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Amrit Gurung</span>
+        <Link to={PATH_PUBLIC.home} style={{ textDecoration: "none" }}>
+          <Image src={Logo} height={50} alt="Bus Logo" />
+
           {/* <img src="/src/assets/yatra-high-resolution-logo-transparent.svg" alt="yatra image" className="logo"/> */}
         </Link>
       </div>
@@ -33,7 +36,10 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link
+            to={PATH_DASHBOARD.dashboard}
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <DashboardIcon className="icon" />
               <span>Dashboard</span>

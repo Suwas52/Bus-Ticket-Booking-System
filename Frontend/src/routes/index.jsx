@@ -47,6 +47,7 @@ const GlobalRouter = () => {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/profile-setting" element={<ProfileSettingPage />} />
+        <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
         {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
       </Route>
       {/* Protected Routes */}
@@ -89,7 +90,7 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
-        <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
+        {/* <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} /> */}
         {/* <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/profile-setting" element={<ProfileSettingPage />} /> */}
       </Route>

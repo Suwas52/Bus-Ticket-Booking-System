@@ -33,7 +33,12 @@ namespace BusBooking.Core.Helpers
             CreateMap<BusSchedule, BusScheduleUpdateDto>();
 
             //Booking
-            CreateMap<Booking, BookingReadDto>();
+            CreateMap<Booking, BookingReadDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.DepartureTime, opt => opt.MapFrom(src => src.BusSchedule.DepartureTime))
+                .ForMember(dest => dest.ArrivalTime, opt => opt.MapFrom(src => src.BusSchedule.ArrivalTime))
+                .ForMember(dest => dest.SeatName, opt => opt.MapFrom(src => src.Seat.SeatName))
+                .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.SeatNumber));
             CreateMap<BookingCreateDto, Booking>();
 
 

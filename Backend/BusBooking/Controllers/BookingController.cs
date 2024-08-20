@@ -34,7 +34,7 @@ namespace BusBooking.Controllers
         {
             try
             {
-                var loginUser = _authHelper.GetCurrentUser();
+                var loginUser = await _authHelper.GetCurrentUserAsync();
                 var roles = loginUser.Roles;
 
                 IEnumerable<Booking> bookings;

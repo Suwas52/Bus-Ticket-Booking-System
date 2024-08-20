@@ -7,6 +7,7 @@ using BusBooking.Core.Repository.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BusBooking.Constants;
 
 namespace BusBooking.Controllers
 {
@@ -27,6 +28,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<IEnumerable<BusScheduleReadDto>>> GetAllBuses()
         {
             try
@@ -44,6 +46,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> CreateBus([FromBody] BusScheduleCreateDto model)
         {
             if (!ModelState.IsValid)
@@ -77,6 +80,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> UpdateBus([FromBody] BusScheduleUpdateDto model, int id)
         {
             try
@@ -116,6 +120,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<BusScheduleReadDto>> GetBusById(int id)
         {
             try
@@ -144,6 +149,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> DeleteBus(int id)
         {
             try

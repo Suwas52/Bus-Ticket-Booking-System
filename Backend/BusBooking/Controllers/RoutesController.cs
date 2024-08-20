@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusBooking.Constants;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Model;
@@ -24,6 +25,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<IEnumerable<RouteReadDto>>> GetAllRoutes()
         {
             try
@@ -41,6 +43,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> CreateRoute([FromBody] RouteCreateDto model)
         {
             if (!ModelState.IsValid)
@@ -73,6 +76,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<RouteReadDto>> GetRouteById(int id)
         {
             try
@@ -97,6 +101,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> UpdateRoute([FromBody] RouteUpdateDto model, int id)
         {
             try
@@ -135,7 +140,7 @@ namespace BusBooking.Controllers
         }
 
         [HttpDelete("{id}")]
-
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
         public async Task<ActionResult<GeneralResponseDto>> DeleteRoute(int id)
         {
             try

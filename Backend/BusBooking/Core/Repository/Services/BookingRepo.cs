@@ -54,7 +54,7 @@ namespace BusBooking.Core.Repository.Services
 
 
 
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             model.UserId = loginUser.Id;
             model.BookedBy = loginUser.UserName;
             model.BookingDate = DateTime.Now;
@@ -97,6 +97,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<GeneralResponseDto> ApproveAsync(int id)
         {
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             var booking = await _context.Bookings.FindAsync(id);
             if(booking == null || booking.IsDeleted) 
             {
@@ -111,7 +112,7 @@ namespace BusBooking.Core.Repository.Services
             booking.Status = BookingStatus.Approved;
             booking.ApprovedDate = DateTime.Now;
             booking.UpdatedDate = DateTime.Now;
-            booking.UpdatedBy = _authHelper.GetCurrentUser().UserName;
+            booking.UpdatedBy = loginUser.UserName;
 
             //make seat status booked
             var seat = await _context.Seats.FindAsync(booking.SeatId);
@@ -135,6 +136,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<GeneralResponseDto> RejectAsync(int id)
         {
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             var booking = await _context.Bookings.FindAsync(id);
             if(booking == null && booking.IsDeleted)
             {
@@ -149,7 +151,7 @@ namespace BusBooking.Core.Repository.Services
             booking.Status = BookingStatus.Rejected;
             booking.RejectedDate = DateTime.Now;
             booking.UpdatedDate = DateTime.Now;
-            booking.UpdatedBy = _authHelper.GetCurrentUser().UserName;
+            booking.UpdatedBy = loginUser.UserName;
 
             // make seat available again
             var seat = await _context.Seats.FindAsync(booking.SeatId);
@@ -174,7 +176,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task UpdateAsync(Booking model)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             if (model.IsDeleted == false)
             {
                 model.UpdatedDate = DateTime.Now;
@@ -191,7 +193,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task DeleteAsync(int id)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             var booking = await _context.Bookings.FindAsync(id).ConfigureAwait(false);
             if (booking != null)
             {

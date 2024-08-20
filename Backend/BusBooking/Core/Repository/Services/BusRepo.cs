@@ -51,7 +51,7 @@ namespace BusBooking.Core.Repository.Services
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var loginUser = _authHelper.GetCurrentUser();
+                var loginUser = await _authHelper.GetCurrentUserAsync();
 
                 model.CreatedAt = DateTime.Now;
                 model.CreatedBy = loginUser.UserName;
@@ -118,7 +118,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task UpdateAsync(Bus model)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
 
             var existingBus = await _context.Buses.FindAsync(model.BusId).ConfigureAwait(false);
             if (existingBus == null)
@@ -161,7 +161,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task DeleteAsync(int id)
         {
-            var loginUser = _authHelper.GetCurrentUser();
+            var loginUser = await _authHelper.GetCurrentUserAsync();
             var bus = await _context.Buses.FindAsync(id).ConfigureAwait(false);
             if(bus != null)
             {

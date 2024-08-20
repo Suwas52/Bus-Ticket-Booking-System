@@ -8,7 +8,7 @@ namespace BusBooking.Core.Helpers
 {
     public interface IAuthHelper
     {
-        ApplicationUser GetCurrentUser();
+        Task<ApplicationUser> GetCurrentUserAsync();
     }
     public class AuthHelper : IAuthHelper
     {
@@ -19,15 +19,40 @@ namespace BusBooking.Core.Helpers
             _HttpContextAccessor = httpContextAccessor;
             _userManager = userManager;
         }
-        public ApplicationUser GetCurrentUser()
+        public async Task<ApplicationUser> GetCurrentUserAsync()
         {
-            var user = _HttpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = _HttpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (user == null)
+            if (userId == null)
             {
                 return null;
             }
-            return _userManager.Users.SingleOrDefault(u => u.Id == user);
+
+            // Fetch the user from the database
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                // Fetch roles for the user
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles != null && roles.Any())
+                {
+                    user.Roles = roles.ToList();
+                }
+                else
+                {
+                    // Log or handle the case where no roles are found
+                    // You could assign an empty list to avoid null reference issues
+                    user.Roles = new List<string>();
+                }
+            }
+            else
+            {
+                // Log or handle the case where the user is not found
+                return null;
+            }
+
+            return user;
         }
+
     }
 }

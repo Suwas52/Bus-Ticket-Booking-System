@@ -8,6 +8,15 @@ import Feature from "../../../components/AdminComponent/feature/Feature";
 import List from "../../../components/AdminComponent/table/Table";
 
 const Home = () => {
+  const columns = [
+    { field: "sn", label: "SN" },
+    { field: "startLocation", label: "Start Location" },
+    { field: "endLocation", label: "End Location" },
+    { field: "distance", label: "Distance" },
+    { field: "createdAt", label: "Created Date" },
+    { field: "action", label: "Actions" },
+  ];
+
   return (
     <div className="home">
       <Sidebar />
@@ -24,7 +33,7 @@ const Home = () => {
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div>
         <div className="listContainer">
-          <div className="listTitle">Latest Transaction</div>
+          <div className="listTitle">Latest Booking</div>
           <List />
         </div>
       </div>

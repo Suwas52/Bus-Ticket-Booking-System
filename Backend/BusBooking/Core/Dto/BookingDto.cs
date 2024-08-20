@@ -39,6 +39,11 @@ namespace BusBooking.Core.Dto
         public string UserId { get; set; }
         public int ScheduleId { get; set; }
         public int SeatId { get; set; }
+        public string UserName { get; set; }
+        public DateTime DepartureTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
+        public int SeatNumber { get; set; }
+        public string SeatName { get; set; }
         public string PassengerName { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
