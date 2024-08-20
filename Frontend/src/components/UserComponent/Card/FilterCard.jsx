@@ -4,7 +4,7 @@ import { Card, Container } from "react-bootstrap";
 const FilterCard = () => {
   return (
     <Card class="card-custom">
-      <div class="row">
+      <div class="row p-4">
         <div class="col-md-8">
           <h5>AC - Kansas - Echo Bass</h5>
           <p>Seat Layout - 2 x 2</p>
@@ -41,7 +41,7 @@ const FilterCard = () => {
         </div>
       </div>
       <hr />
-      <div class="facilities">
+      <div class="facilities p-3">
         <strong>Facilities - </strong>
         <span>Water Bottle</span>
         <span>Pillow</span>

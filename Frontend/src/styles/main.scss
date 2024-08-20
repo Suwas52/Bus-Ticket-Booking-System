@@ -643,6 +643,167 @@ li a {
 }
 
 //filter page
+// .heropart {
+//   background-color: #1b273d;
+//   height: 230px;
+
+//   .top-filter {
+//     background: #ffffff;
+//     height: 150px;
+//     border-radius: 10px 10px 0px 0px;
+//     padding: 50px 30px;
+//   }
+// }
+
+// .mid {
+//   background-color: #f6f6f7;
+//   height: 100vh;
+
+//   .filter {
+//     height: 100vh;
+//     border-radius: 5px;
+//     background-color: $white-color;
+//     position: relative;
+//     .top-filter {
+//       width: 100%;
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+
+//       .btn-reset {
+//         border: none;
+//         background: none;
+//         color: inherit;
+//       }
+
+//       .btn-reset:hover {
+//         text-decoration: underline;
+//       }
+//       // padding: 10px;
+//     }
+
+//     .select {
+//       margin-bottom: 25px;
+//       @include flex(column, center, unset, unset);
+
+//       .checkbox {
+//         color: #777777;
+//         .icon {
+//           font-size: 20px !important;
+
+//           margin: 0 5px;
+//         }
+//       }
+//     }
+//   }
+
+//   .list {
+//     .card-custom {
+//       margin: 10px;
+//       background-color: $white-color;
+//       border-radius: 10px;
+//       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//       padding: 20px;
+//       margin: 20px 0;
+//     }
+//     .facilities span {
+//       background-color: #f1f1f1;
+//       border-radius: 15px;
+//       padding: 5px 10px;
+//       margin-right: 5px;
+//     }
+//     .price {
+//       color: green;
+//       font-size: 1.5rem;
+//       font-weight: bold;
+//     }
+//     .off-days {
+//       background-color: #e0e7ff;
+//       color: #6f42c1;
+//       padding: 2px 8px;
+//       border-radius: 5px;
+//     }
+//   }
+// }
+
+// .new {
+//   width: 100%;
+//   display: flex;
+
+//   .newContainer {
+//     flex: 6;
+
+//     .top,
+//     .bottom {
+//       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+//       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+//       padding: 10px;
+//       margin: 20px;
+//       display: flex;
+
+//       h1 {
+//         color: lightgray;
+//         font-size: 20px;
+//       }
+
+//       .left {
+//         flex: 1;
+//         text-align: center;
+
+//         img {
+//           width: 100px;
+//           height: 100px;
+//           border-radius: 50%;
+//           object-fit: cover;
+//         }
+//       }
+
+//       .right {
+//         flex: 2;
+
+//         form {
+//           display: flex;
+//           flex-wrap: wrap;
+//           gap: 30px;
+//           justify-content: space-around;
+
+//           .formInput {
+//             width: 40%;
+
+//             label {
+//               display: flex;
+//               align-items: center;
+//               gap: 10px;
+
+//               .icon {
+//                 cursor: pointer;
+//               }
+//             }
+
+//             input {
+//               width: 100%;
+//               padding: 5px;
+//               border: none;
+//               border-bottom: 1px solid gray;
+//             }
+//           }
+
+//           button {
+//             width: 150px;
+//             padding: 10px;
+//             border: none;
+//             background-color: teal;
+//             color: white;
+//             font-weight: bold;
+//             cursor: pointer;
+//             margin-top: 10px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
 .heropart {
   background-color: #1b273d;
   height: 230px;
@@ -657,15 +818,15 @@ li a {
 
 .mid {
   background-color: #f6f6f7;
-  height: 100vh;
+  min-height: 100vh;
 
   .filter {
-    height: 100vh;
-    border-radius: 5px;
     background-color: $white-color;
-    position: relative;
+    border-radius: 5px;
+    padding: 20px;
+    height: fit-content;
+
     .top-filter {
-      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -674,23 +835,23 @@ li a {
         border: none;
         background: none;
         color: inherit;
-      }
 
-      .btn-reset:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
-      // padding: 10px;
     }
 
     .select {
       margin-bottom: 25px;
-      @include flex(column, center, unset, unset);
+      display: flex;
+      flex-direction: column;
 
       .checkbox {
         color: #777777;
+
         .icon {
           font-size: 20px !important;
-
           margin: 0 5px;
         }
       }
@@ -699,24 +860,24 @@ li a {
 
   .list {
     .card-custom {
-      margin: 10px;
       background-color: $white-color;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin: 20px 0;
     }
+
     .facilities span {
       background-color: #f1f1f1;
       border-radius: 15px;
       padding: 5px 10px;
-      margin-right: 5px;
+      margin-right: 1rem;
     }
+
     .price {
-      color: green;
+      color: #0e9e4d;
       font-size: 1.5rem;
       font-weight: bold;
     }
+
     .off-days {
       background-color: #e0e7ff;
       color: #6f42c1;
@@ -726,83 +887,62 @@ li a {
   }
 }
 
-.new {
-  width: 100%;
-  display: flex;
+@media (max-width: 768px) {
+  .heropart {
+    height: auto;
 
-  .newContainer {
-    flex: 6;
+    .top-filter {
+      padding: 20px 15px;
+      height: auto;
+    }
+  }
 
-    .top,
-    .bottom {
-      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-      padding: 10px;
-      margin: 20px;
-      display: flex;
+  .mid {
+    .filter {
+      padding: 15px;
 
-      h1 {
-        color: lightgray;
-        font-size: 20px;
+      .select {
+        margin-bottom: 15px;
       }
+    }
 
-      .left {
-        flex: 1;
-        text-align: center;
-
-        img {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-
-      .right {
-        flex: 2;
-
-        form {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 30px;
-          justify-content: space-around;
-
-          .formInput {
-            width: 40%;
-
-            label {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-
-              .icon {
-                cursor: pointer;
-              }
-            }
-
-            input {
-              width: 100%;
-              padding: 5px;
-              border: none;
-              border-bottom: 1px solid gray;
-            }
-          }
-
-          button {
-            width: 150px;
-            padding: 10px;
-            border: none;
-            background-color: teal;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-          }
-        }
+    .list {
+      .card-custom {
+        margin: 10px 0;
       }
     }
   }
 }
+
+@media (max-width: 576px) {
+  .heropart {
+    .top-filter {
+      padding: 15px 10px;
+    }
+  }
+
+  .mid {
+    .filter {
+      padding: 10px;
+
+      .top-filter {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .select {
+        margin-bottom: 10px;
+      }
+    }
+
+    .list {
+      .card-custom {
+        margin: 5px 0;
+      }
+    }
+  }
+}
+
 
 // user dashboard
 .header .test {
