@@ -47,17 +47,6 @@ const GlobalRouter = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
-        <Route path="/profile-setting" element={<ProfileSettingPage />} />
-        <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
-        {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
-        {/* temporary route */}
-        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
-        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
-
-        {/* temporary route */}
-        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
-        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
@@ -102,9 +91,9 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
       </Route>
       <Route element={<AuthGuard roles={userAccessRoles} />}>
-        {/* <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} /> */}
-        {/* <Route path="/user-dashboard" element={<UserDashboard />} />
-        <Route path="/profile-setting" element={<ProfileSettingPage />} /> */}
+        <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
+        <Route path={PATH_AUTHUSER.userBooked} element={<UserDashboard />} />
+        <Route path={PATH_AUTHUSER.userProfileSetting} element={<ProfileSettingPage />} />
       </Route>
 
       {/* Catch all (404) */}

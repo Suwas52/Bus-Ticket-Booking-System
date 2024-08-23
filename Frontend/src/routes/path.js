@@ -36,4 +36,7 @@ export const PATH_DASHBOARD = {
 
 export const PATH_AUTHUSER = {
   filter: "/filter",
+  userBooked:"/user-dashboard",
+  userProfileSetting :"/user/profile-setting",
+  seatSelect : "/user/seat-select",
 };
