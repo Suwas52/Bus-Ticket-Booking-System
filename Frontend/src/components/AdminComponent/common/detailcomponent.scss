@@ -1,0 +1,25 @@
+.detailContainer {
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1em;
+  min-height: 100vh;
+
+  .title {
+    background-color: #0e9e4d;
+    padding: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .card {
+    .custom-div {
+      padding: 20px;
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      border-radius: 10px;
+    }
+  }
+}
