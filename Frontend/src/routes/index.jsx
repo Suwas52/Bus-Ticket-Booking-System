@@ -49,9 +49,18 @@ const GlobalRouter = () => {
         <Route path="/profile-setting" element={<ProfileSettingPage />} />
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
         {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
+<<<<<<< Updated upstream
+=======
+
+        {/* temporary route */}
+        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
+>>>>>>> Stashed changes
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
+        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
         <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
         <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} />
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />

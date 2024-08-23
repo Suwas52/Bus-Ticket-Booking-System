@@ -57,7 +57,7 @@ const Sidebar = () => {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <StoreOutlinedIcon className="icon" />
+              <LocalShippingOutlinedIcon className="icon" />
               <span>Buses</span>
             </li>
           </Link>
@@ -75,7 +75,7 @@ const Sidebar = () => {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <LocalShippingOutlinedIcon className="icon" />
+              <StoreOutlinedIcon className="icon" />
               <span>Routes</span>
             </li>
           </Link>
