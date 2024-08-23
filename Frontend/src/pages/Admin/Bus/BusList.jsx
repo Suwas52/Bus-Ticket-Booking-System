@@ -30,6 +30,7 @@ const BusList = () => {
   const handleView = (bus) => {
     navigate(`/admin-dashboard/bus/detail/${bus.busId}`);
   };
+  
 
   const handleEdit = (bus) => {
     navigate(`/admin-dashboard/bus/edit/${bus.busId}`);
