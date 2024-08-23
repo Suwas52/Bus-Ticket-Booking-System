@@ -50,16 +50,18 @@ const GlobalRouter = () => {
         <Route path="/profile-setting" element={<ProfileSettingPage />} />
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
         {/* <Route path="/user-dashboard" element={<UserDashboard />} /> */}
-
-{/* temporary route */}
+        {/* temporary route */}
         {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
         <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
 
-
-
+        {/* temporary route */}
+        {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} /> */}
       </Route>
       {/* Protected Routes */}
       <Route element={<AuthGuard roles={allAccessRoles} />}>
+        <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
+        <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
         <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
         <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} />
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />

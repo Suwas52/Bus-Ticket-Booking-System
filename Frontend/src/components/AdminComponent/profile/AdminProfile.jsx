@@ -3,9 +3,12 @@ import { Col, Container, Row, Form as BootstrapForm } from "react-bootstrap";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { ErrorMessage, Field, Formik, Form } from "formik";
-import defaultAvatar from '../../../assets/7309681.jpg';
+import defaultAvatar from "../../../assets/7309681.jpg";
+import useAuth from "../../../hooks/useAuth";
 
 const ProfileSetting = () => {
+  const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
+  console.log(user.id);
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
@@ -24,7 +27,9 @@ const ProfileSetting = () => {
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
-    profilePicture: Yup.mixed().nullable().required("Profile picture is required"),
+    profilePicture: Yup.mixed()
+      .nullable()
+      .required("Profile picture is required"),
   });
 
   const handleSubmit = async (values) => {
