@@ -14,6 +14,19 @@ const BusList = () => {
   const navigate = useNavigate();
   console.log(busData);
 
+  useEffect(() => {
+    fetchBusData();
+  }, []);
+  
+  const fetchBusData = async () => {
+    try {
+      const response = await axiosInstance.get(MANAGE_BUS);
+      setBusData(response.data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   const handleView = (bus) => {
     navigate(`/admin-dashboard/bus/detail/${bus.busId}`);
   };
@@ -40,19 +53,6 @@ const BusList = () => {
     { field: "capacity", label: "Capacity" },
     { field: "action", label: "Actions" },
   ];
-
-  const fetchBusData = async () => {
-    try {
-      const response = await axiosInstance.get(MANAGE_BUS);
-      setBusData(response.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBusData();
-  }, []);
 
   return (
     <div className="container-fluid d-flex">

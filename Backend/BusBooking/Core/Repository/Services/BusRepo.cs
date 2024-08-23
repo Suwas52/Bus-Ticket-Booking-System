@@ -65,7 +65,7 @@ namespace BusBooking.Core.Repository.Services
                 int columns = 4;
                 char[] rows = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray(); // Extend row naming up to Z
 
-                for (int i = 0; i < model.Capacity; i++)
+                for (int i = 1; i <= model.Capacity; i++)
                 {
                     int rowGroup = i / (columns * rows.Length); // Handle cases beyond "Z"
                     int rowIndex = (i / columns) % rows.Length;

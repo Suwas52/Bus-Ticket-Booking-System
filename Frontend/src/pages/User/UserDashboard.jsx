@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Image,
@@ -14,51 +14,69 @@ import UserLogo from "@mui/icons-material/Person";
 import HeroBlock from "../../components/UserComponent/HeroBlock";
 import Img from "../../assets/images/Section.png";
 import UserWidget from "../../components/UserComponent/UserWidget/UserWidget";
-import "../../components/AdminComponent/table/table.scss"
-import CommonTable from "../../components/Base Table/CommonTable"
-import Footer from "../../components/UserComponent/Footer"
+import "../../components/AdminComponent/table/table.scss";
+import CommonTable from "../../components/Base Table/CommonTable";
+import Footer from "../../components/UserComponent/Footer";
 import { Link } from "react-router-dom";
+import { MANAGE_BOOKING } from "../../utils/globalConfig";
+import axiosInstance from "../../utils/axiosInstance";
 
 const UserDashboard = () => {
+  const [bookingData, setBookingData] = useState([]);
+
+  console.log(bookingData);
+
+  useEffect(() => {
+    fetchBookedData();
+  }, []);
+
+  const fetchBookedData = async () => {
+    try {
+      const response = await axiosInstance.get(MANAGE_BOOKING);
+      setBookingData(response.data);
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const columns = [
-    { field: 'id', label: 'ID' },
-    { field: 'product', label: 'Product' },
-    { field: 'customer', label: 'Customer' },
-    { field: 'date', label: 'Date' },
-    { field: 'amount', label: 'Amount' },
-    { field: 'method', label: 'Payment Method' },
-    { field: 'status', label: 'Status' },
-    { field: 'action', label: 'Action' },
+    { field: "departureTime", label: "ID" },
+    { field: "arrivalTime", label: "Product" },
+    { field: "seatNumber", label: "Customer" },
+    { field: "seatName", label: "Date" },
+    { field: "amount", label: "Amount" },
+    { field: "method", label: "Payment Method" },
+    { field: "status", label: "Status" },
+    { field: "action", label: "Action" },
   ];
 
   const rows = [
     {
       id: 1,
-      product: 'Product A',
-      customer: 'John Doe',
-      date: '2024-08-15',
-      amount: '$100',
-      method: 'Credit Card',
-      status: 'Rejected',
+      product: "Product A",
+      customer: "John Doe",
+      date: "2024-08-15",
+      amount: "$100",
+      method: "Credit Card",
+      status: "Rejected",
     },
     {
       id: 2,
-      product: 'Product B',
-      customer: 'Jane Smith',
-      date: '2024-08-16',
-      amount: '$200',
-      method: 'PayPal',
-      status: 'Pending',
+      product: "Product B",
+      customer: "Jane Smith",
+      date: "2024-08-16",
+      amount: "$200",
+      method: "PayPal",
+      status: "Pending",
     },
     {
       id: 3,
-      product: 'Product c',
-      customer: 'Jane Som',
-      date: '2024-08-16',
-      amount: '$200',
-      method: 'PayPal',
-      status: 'Approved',
+      product: "Product c",
+      customer: "Jane Som",
+      date: "2024-08-16",
+      amount: "$200",
+      method: "PayPal",
+      status: "Approved",
     },
   ];
 
@@ -89,8 +107,11 @@ const UserDashboard = () => {
                   <NavDropdown.Item href="#action2">action2</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Profile" id="profile">
-                <Link to={"/profile-setting"} className="text-decoration-none">
-                  <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                  <Link
+                    to={"/profile-setting"}
+                    className="text-decoration-none"
+                  >
+                    <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
                   </Link>
                   <NavDropdown.Item href="#action2">Logout</NavDropdown.Item>
                 </NavDropdown>
@@ -139,7 +160,7 @@ const UserDashboard = () => {
 
       {/* table */}
       <div className="container mt-5">
-         <CommonTable columns={columns} rows={rows}/>
+        <CommonTable columns={columns} rows={bookingData} />
       </div>
 
       <div className="user-footer mt-5">

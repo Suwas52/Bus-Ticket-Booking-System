@@ -65,11 +65,11 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
         <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
         <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} />
-        {/* <Route path={PATH_DASHBOARD.busList} element={<BusList />} /> */}
+        <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingList />} />
         <Route path={PATH_DASHBOARD.busCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.busUpdate} element={<CreateBus />} />
-        {/* <Route path={PATH_DASHBOARD.busDetail} element={<BusDetail />} /> */}
+        <Route path={PATH_DASHBOARD.busDetail} element={<BusDetail />} />
 
         {/* Route model route */}
         <Route path={PATH_DASHBOARD.routeList} element={<RouteList />} />

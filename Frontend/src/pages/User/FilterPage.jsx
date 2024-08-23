@@ -7,7 +7,7 @@ import Time from "@mui/icons-material/AccessTimeOutlined";
 import Route from "@mui/icons-material/AltRouteOutlined";
 import Bus from "@mui/icons-material/DirectionsBusFilledOutlined";
 import FilterCard from "../../components/UserComponent/Card/FilterCard";
-import SwipeUpAltOutlinedIcon from '@mui/icons-material/SwipeUpAltOutlined';
+import SwipeUpAltOutlinedIcon from "@mui/icons-material/SwipeUpAltOutlined";
 
 const FilterPage = () => {
   return (
@@ -76,6 +76,9 @@ const FilterPage = () => {
             </Col>
             <Col xs={12} md={8} lg={9} className="mt-5">
               <div className="container-fluid list">
+                <FilterCard />
+                <FilterCard />
+                <FilterCard />
                 <FilterCard />
                 <FilterCard />
               </div>

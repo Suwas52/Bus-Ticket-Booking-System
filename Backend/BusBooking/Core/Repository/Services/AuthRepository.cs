@@ -340,10 +340,10 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
+        /*public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
         {
             
-        }
+        }*/
 
         public async Task<IEnumerable<UserInformation>> UserListAsync()
         {
