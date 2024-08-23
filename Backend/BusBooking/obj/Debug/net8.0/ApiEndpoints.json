@@ -98,6 +98,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BusBooking.Controllers.AuthController",
+    "Method": "GetUserDetailsByUserName",
+    "RelativePath": "api/Auth/users/{userName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BusBooking.Core.Dto.Auth.UserInformation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "BusBooking.Controllers.BookingController",
     "Method": "GetAllBooking",
     "RelativePath": "api/Booking",

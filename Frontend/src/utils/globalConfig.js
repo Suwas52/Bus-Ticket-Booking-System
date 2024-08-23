@@ -11,7 +11,7 @@ export const MANAGE_BOOKING = "/Booking"; // get
 export const MANAGE_BUSSHEHEDULE = "/BusSchedule"; // get
 export const MANAGE_ROUTES = "/routes"; // get post
 export const GET_ALLUSERS = "/Auth/AllUser"; // get
-
+export const USER = "/Auth/users";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

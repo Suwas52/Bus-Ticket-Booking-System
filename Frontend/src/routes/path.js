@@ -31,6 +31,7 @@ export const PATH_DASHBOARD = {
   routeDetail: "/admin-dashboard/route/detail/:routeId",
   booking: "/admin-dashboard/booking",
   profile: "/admin-dashboard/profile",
+  adminUser: "/admin-dashboard/profile/:username",
 };
 
 export const PATH_AUTHUSER = {

@@ -342,7 +342,7 @@ namespace BusBooking.Core.Repository.Services
 
         public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
         {
-            throw new NotImplementedException();
+            
         }
 
         public async Task<IEnumerable<UserInformation>> UserListAsync()
@@ -361,5 +361,17 @@ namespace BusBooking.Core.Repository.Services
             return userInfoResults;
         }
 
+        public async Task<UserInformation> GetUserDetailsByUserNameAsync(string username)
+        {
+            var user = await userManager.FindByNameAsync(username);
+
+            if (user is null)
+                return null;
+
+            var roles = await userManager.GetRolesAsync(user);
+            var userInfo = UserInfoObject(user, roles);
+            return userInfo;
+
         }
+    }
 }

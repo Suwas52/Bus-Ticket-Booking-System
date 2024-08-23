@@ -103,5 +103,21 @@ namespace BusBooking.Controllers
                 return Unauthorized("Invalid Token");
             }
         }
+
+
+        [HttpGet]
+        [Route("users/{userName}")]
+        public async Task<ActionResult<UserInformation>> GetUserDetailsByUserName([FromRoute] string userName)
+        {
+            var user = await authRepository.GetUserDetailsByUserNameAsync(userName);
+            if (user is not null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound("UserName not found");
+            }
+        }
     }
 }
