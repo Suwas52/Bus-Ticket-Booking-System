@@ -690,5 +690,31 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.RoutesController",
+    "Method": "GetAvailableBuses",
+    "RelativePath": "api/Routes/available-buses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StartLocation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EndLocation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DepartureTime",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

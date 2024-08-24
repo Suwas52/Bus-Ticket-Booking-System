@@ -33,19 +33,35 @@ const UserDashboard = () => {
   const fetchBookedData = async () => {
     try {
       const response = await axiosInstance.get(MANAGE_BOOKING);
-      setBookingData(response.data);
+
+      // formatted data
+      const formattedData = response.data.map((item) => ({
+        ...item,
+        departureTime: format(
+          new Date(item.departureTime),
+          "MM/dd/yyyy hh:mm:ss a"
+        ),
+        arrivalTime: format(
+          new Date(item.arrivalTime),
+          "MM/dd/yyyy hh:mm:ss a"
+        ),
+      }));
+      setBookingData(formattedData);
     } catch (error) {
       alert(error);
     }
   };
 
+  const handleShowDetails = (booking) => {
+    setBookedData(booking);
+    setShowModal(!showModal);
+  };
+
   const columns = [
-    { field: "departureTime", label: "ID" },
-    { field: "arrivalTime", label: "Product" },
-    { field: "seatNumber", label: "Customer" },
-    { field: "seatName", label: "Date" },
-    { field: "amount", label: "Amount" },
-    { field: "method", label: "Payment Method" },
+    { field: "departureTime", label: "DepartureTime" },
+    { field: "arrivalTime", label: "ArrivalTime" },
+
+    { field: "seatName", label: "SeatName" },
     { field: "status", label: "Status" },
     { field: "action", label: "Action" },
   ];
@@ -160,8 +176,76 @@ const UserDashboard = () => {
 
       {/* table */}
       <div className="container mt-5">
-        <CommonTable columns={columns} rows={bookingData} />
+        {loading ? (
+          <div className="text-center my-5">Loading...</div>
+        ) : (
+          <CommonTable
+            columns={columns}
+            rows={bookingData}
+            onView={handleShowDetails}
+          />
+        )}
       </div>
+
+      <Modal show={showModal} onHide={handleShowDetails}>
+        <Modal.Header closeButton>
+          <Modal.Title>Booking Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="">
+          <Container>
+            <Row>
+              <Col className="col-6">
+                {" "}
+                <strong>Arrival Time:</strong>{" "}
+              </Col>
+              <Col className="col-6">{bookedData?.arrivalTime}</Col>
+            </Row>
+            <Row>
+              <Col className="col-6">
+                <strong>Departure Time:</strong>
+              </Col>
+              <Col className="col-6">{bookedData?.departureTime}</Col>
+            </Row>
+            <Row>
+              <Col>
+                <strong>SeatName:</strong>
+              </Col>
+              <Col>
+                <div className="badge bg-info-subtle text-info">
+                  {bookedData?.seatName}
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="col-6">
+                <strong>PassengerName:</strong>
+              </Col>
+              <Col className="col-6">{bookedData?.passengerName}</Col>
+            </Row>
+            <Row>
+              <Col className="col-6">
+                <strong>Gender</strong>
+              </Col>
+              <Col className="col-6">{bookedData?.gender}</Col>
+            </Row>
+            <Row>
+              <Col className="col-6">
+                <strong>Status</strong>
+              </Col>
+              <Col>
+                <div className="badge bg-success-subtle text-success">
+                  {bookedData?.status}
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleShowDetails}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div className="user-footer mt-5">
         <Footer />

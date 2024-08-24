@@ -208,7 +208,7 @@ const ScheduleCreate = () => {
                     <Row className="mb-3">
                       <Col className="form-group">
                         <label className="form-label" id="frequencyDay">
-                          Bus Type
+                          Frequency Day
                         </label>
                         <Field
                           as="textarea"
