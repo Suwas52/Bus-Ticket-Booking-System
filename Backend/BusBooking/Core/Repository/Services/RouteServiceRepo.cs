@@ -14,14 +14,14 @@ namespace BusBooking.Core.Repository.Services
         }
         public async Task<IEnumerable<AvailableBusDto>> GetAvailableBuses(string StartLocation, string EndLocation, DateTime DepartureTime)
         {
-            var routes = await _context.Routes.Where(r => r.StartLocation == StartLocation && r.EndLocation == EndLocation).ToListAsync();
+            var routes = await _context.Routes.Where(r => r.StartLocation == StartLocation && r.EndLocation == EndLocation && r.IsDeleted == false).ToListAsync();
 
             if (!routes.Any())
             {
                 throw new Exception("No routes found for the selected location");
             }
 
-            var schedules = await _context.BusSchedules.Where(s => routes.Select(r => r.RouteId).Contains(s.RouteId) && s.DepartureTime.DayOfYear == DepartureTime.DayOfYear).Include(s => s.Bus).Include(s => s.Routes.Prices).ToListAsync();
+            var schedules = await _context.BusSchedules.Where(s => routes.Select(r => r.RouteId).Contains(s.RouteId) && s.DepartureTime.DayOfYear == DepartureTime.DayOfYear && s.IsDeleted == false).Include(s => s.Bus).Include(s => s.Routes.Prices).ToListAsync();
 
 
             if (!schedules.Any())
