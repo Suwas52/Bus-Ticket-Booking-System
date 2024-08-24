@@ -320,6 +320,43 @@ namespace BusBooking.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("BusBooking.Core.Model.Price", b =>
+                {
+                    b.Property<int>("PriceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriceId"));
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RouteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PriceId");
+
+                    b.HasIndex("RouteId");
+
+                    b.ToTable("Prices");
+                });
+
             modelBuilder.Entity("BusBooking.Core.Model.Routes", b =>
                 {
                     b.Property<int>("RouteId")
@@ -567,6 +604,17 @@ namespace BusBooking.Migrations
                     b.Navigation("Bus");
 
                     b.Navigation("Routes");
+                });
+
+            modelBuilder.Entity("BusBooking.Core.Model.Price", b =>
+                {
+                    b.HasOne("BusBooking.Core.Model.Routes", "Route")
+                        .WithMany()
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("BusBooking.Core.Model.Seat", b =>

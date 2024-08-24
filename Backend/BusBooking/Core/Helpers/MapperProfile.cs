@@ -41,6 +41,14 @@ namespace BusBooking.Core.Helpers
                 .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.SeatNumber));
             CreateMap<BookingCreateDto, Booking>();
 
+            //Price
+            CreateMap<Price, PriceReadDto>()
+                .ForMember(des => des.StartLocation, opt => opt.MapFrom(src => src.Route.StartLocation))
+                .ForMember(des => des.EndLocation, opt => opt.MapFrom(src => src.Route.EndLocation));
+            CreateMap<PriceCreateDto, Price>();
+            CreateMap<PriceUpdateDto, Price>();
+            CreateMap<Price, PriceUpdateDto>();    
+
 
         }
     }

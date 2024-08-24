@@ -26,5 +26,8 @@ namespace BusBooking.Core.Model
 
         [JsonIgnore]
         public virtual IEnumerable<BusSchedule> BusSchedules { get; set; }
+
+        [JsonIgnore]
+        public virtual Price Prices { get; set; }
     }
 }
