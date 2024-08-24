@@ -57,10 +57,9 @@ const Search = () => {
         navigate(PATH_AUTHUSER.filter, { state: { buses: response.data } });
       }
     } catch (error) {
+      toast.error("Not Found Location");
       if (error.response && error.response.data) {
         const serverErrors = error.response.data.errors;
-
-        toast.error(serverErrors);
 
         if (serverErrors) {
           const fieldErrors = {};

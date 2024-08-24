@@ -38,7 +38,13 @@ namespace BusBooking.Core.Helpers
                 .ForMember(dest => dest.DepartureTime, opt => opt.MapFrom(src => src.BusSchedule.DepartureTime))
                 .ForMember(dest => dest.ArrivalTime, opt => opt.MapFrom(src => src.BusSchedule.ArrivalTime))
                 .ForMember(dest => dest.SeatName, opt => opt.MapFrom(src => src.Seat.SeatName))
-                .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.SeatNumber));
+                .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.SeatNumber))
+                .ForMember(dest => dest.StartLocation, opt => opt.MapFrom(src => src.BusSchedule.Routes.StartLocation))
+                .ForMember(dest => dest.EndLocation, opt => opt.MapFrom(src => src.BusSchedule.Routes.EndLocation))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.BusSchedule.Routes.Prices.BasePrice))
+                .ForMember(dest => dest.BusName, opt => opt.MapFrom(src => src.BusSchedule.Bus.BusName));
+
+
             CreateMap<BookingCreateDto, Booking>();
 
             //Price

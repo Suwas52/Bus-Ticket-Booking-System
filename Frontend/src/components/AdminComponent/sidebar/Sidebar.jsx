@@ -79,12 +79,17 @@ const Sidebar = () => {
               <span>Routes</span>
             </li>
           </Link>
-
           <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
+          <Link
+            to={PATH_DASHBOARD.ticketPriceList}
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <InsertChartIcon className="icon" />
+              <span>Bus Ticket Price</span>
+            </li>
+          </Link>
+
           <li>
             <NotificationsIcon className="icon" />
             <span>Notification</span>

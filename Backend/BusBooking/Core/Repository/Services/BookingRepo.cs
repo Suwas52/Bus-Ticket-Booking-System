@@ -1,4 +1,5 @@
 ﻿using BusBooking.Core.Context;
+using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
@@ -84,6 +85,9 @@ namespace BusBooking.Core.Repository.Services
                 .Include(b => b.User)
                 .Include(b => b.BusSchedule)
                 .Include(b => b.Seat)
+                .Include(b => b.BusSchedule.Routes)
+                .Include(b => b.BusSchedule.Bus)
+                .Include(b => b.BusSchedule.Routes.Prices)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(userId))
@@ -92,6 +96,7 @@ namespace BusBooking.Core.Repository.Services
             }
 
             return await query.ToListAsync();
+
         }
 
 
@@ -188,7 +193,13 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<Booking> GetByIdAsync(int id)
         {
-            return await _context.Bookings.FindAsync(id).ConfigureAwait(false);
+            return await _context.Bookings
+                .Include(b => b.User)
+                .Include(b => b.BusSchedule)
+                .Include(b => b.Seat)
+                .Include(b => b.BusSchedule.Routes)
+                .Include(b => b.BusSchedule.Bus)
+                .Include(b => b.BusSchedule.Routes.Prices).FirstOrDefaultAsync(bs => bs.BookingId == id && bs.IsDeleted == false).ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(int id)

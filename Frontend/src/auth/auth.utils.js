@@ -16,7 +16,7 @@ export const getSession = () => {
   return localStorage.getItem("accessToken");
 };
 
-export const allAccessRoles = [
+export const SuperAdminAccessRoles = [
   RolesEnum.SUPERADMIN,
   RolesEnum.ADMIN,
   RolesEnum.STAFF,
@@ -30,8 +30,6 @@ export const adminAccessRoles = [
 ];
 
 export const staffAccessRoles = [RolesEnum.STAFF, RolesEnum.STAFF];
-
-export const superAdminAccessRoles = [RolesEnum.USER];
 
 export const userAccessRoles = [RolesEnum.USER];
 

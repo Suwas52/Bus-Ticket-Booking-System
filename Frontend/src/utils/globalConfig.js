@@ -13,6 +13,7 @@ export const MANAGE_ROUTES = "/routes"; // get post
 export const GET_ALLUSERS = "/Auth/AllUser"; // get
 export const USER = "/Auth/users";
 export const SEARCH_BUSES = "/routes/available-buses";
+export const MANAGE_TICKET_PRICE = "/Price";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;
