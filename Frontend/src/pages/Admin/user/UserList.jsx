@@ -7,10 +7,14 @@ import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
 import Table from "../../../components/Base Table/CommonTable";
 import { PATH_DASHBOARD } from "../../../routes/path";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 const UserList = () => {
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [usersData, setUsersData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   console.log(userData);
 
@@ -34,6 +38,10 @@ const UserList = () => {
   //       }
   //     }
   //   };
+  const handleShowDetails = (usersData) => {
+    setUsersData(usersData);
+    setShowModal(!showModal);
+  };
 
   const columns = [
     { field: "sn", label: "SN" },
@@ -56,6 +64,8 @@ const UserList = () => {
     } catch (error) {
       alert(error);
       toast.error("Error while fetching routes data");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,13 +87,72 @@ const UserList = () => {
             </Link>
           </div>
 
-          <Table
-            columns={columns}
-            rows={userData}
-            onView={handleView}
-            onEdit={handleEdit}
-            // onDelete={handleDelete}
-          />
+          <div className="container">
+            {loading ? (
+              <div className="text-center my-5">Loading...</div>
+            ) : (
+              <Table
+                columns={columns}
+                rows={userData}
+                onView={handleShowDetails}
+                onEdit={handleEdit}
+                // onDelete={handleDelete}
+              />
+            )}
+          </div>
+
+          {/* userDetail modal */}
+          <Modal show={showModal} onHide={handleShowDetails}>
+            <Modal.Header closeButton>
+              <Modal.Title>User Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="">
+              <Container>
+                <Row>
+                  <Col className="col-6">
+                    {" "}
+                    <strong>UserName:</strong>{" "}
+                  </Col>
+                  <Col className="col-6">{usersData?.userName}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>FirstName:</strong>
+                  </Col>
+                  <Col className="col-6">{usersData?.firstName}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>LastName:</strong>
+                  </Col>
+                  <Col className="col-6">{usersData?.lastName}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Roles:</strong>
+                  </Col>
+                  <Col className="col-6">{usersData?.roles}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>CreatedAt:</strong>
+                  </Col>
+                  <Col className="col-6">{usersData?.createdAt}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Email:</strong>
+                  </Col>
+                  <Col className="col-6">{usersData?.email}</Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleShowDetails}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>

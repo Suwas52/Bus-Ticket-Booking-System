@@ -8,29 +8,35 @@ import { MANAGE_BUS } from "../../../utils/globalConfig";
 import { Link, useNavigate } from "react-router-dom";
 import Table from "../../../components/Base Table/CommonTable";
 import toast from "react-hot-toast";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 const BusList = () => {
   const [busData, setBusData] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [busDetailData, setBusDetailData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   console.log(busData);
 
   useEffect(() => {
     fetchBusData();
   }, []);
-  
+
   const fetchBusData = async () => {
     try {
       const response = await axiosInstance.get(MANAGE_BUS);
       setBusData(response.data);
     } catch (error) {
       alert(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleView = (bus) => {
     navigate(`/admin-dashboard/bus/detail/${bus.busId}`);
   };
-  
 
   const handleEdit = (bus) => {
     navigate(`/admin-dashboard/bus/edit/${bus.busId}`);
@@ -45,6 +51,11 @@ const BusList = () => {
         toast.error("Failed to delete bus");
       }
     }
+  };
+
+  const handleShowDetails = (busData) => {
+    setBusDetailData(busData);
+    setShowModal(!showModal);
   };
 
   const columns = [
@@ -79,13 +90,71 @@ const BusList = () => {
             </Link>
           </div>
 
-          <Table
-            columns={columns}
-            rows={busData}
-            onView={handleView}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <div className="container">
+            {loading ? (
+              <div className="text-center my-5">Loading...</div>
+            ) : (
+              <Table
+                columns={columns}
+                rows={busData}
+                onView={handleShowDetails}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            )}
+          </div>
+
+          {/* BusDetail modal */}
+          <Modal show={showModal} onHide={handleShowDetails}>
+            <Modal.Header closeButton>
+              <Modal.Title>Bus Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <Row>
+                  <Col className="col-6">
+                    <strong>BusName:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.busName}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>BusNumber:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.busNumber}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>BusType:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.busType}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Capacity:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.capacity}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>CreatedAt:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.createdAt}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>CreatedBy:</strong>
+                  </Col>
+                  <Col className="col-6">{busDetailData?.createdBy}</Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleShowDetails}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>
