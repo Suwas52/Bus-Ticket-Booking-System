@@ -44,18 +44,6 @@ namespace BusBooking.Core.Model
         [JsonIgnore]
         public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();  
     
-        /*public void InitializeSeats()
-        {
-            for(int i = 1; i <= Capacity; i++)
-            {
-                Seats.Add(new Seat
-                {
-                    BusId = this.BusId,
-                    SeatNumber = i,
-                    Status = SeatStatus.Available
-                });
-            }
-        }*/
     }
 
     public enum BusTypes

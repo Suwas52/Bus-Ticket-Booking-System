@@ -9,23 +9,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BusBooking.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class RoutesController : ControllerBase
     {
         private readonly IRouteRepo _routeRepo;
+        private readonly IRouteServiceRepo _routeService;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
-        public RoutesController(IRouteRepo routeRepo, IMapper mapper, ILogger<RoutesController> logger)
+        public RoutesController(IRouteRepo routeRepo, IRouteServiceRepo routeServiceRepo,  IMapper mapper, ILogger<RoutesController> logger)
         {
             _routeRepo = routeRepo;
+            _routeService = routeServiceRepo;
             _mapper = mapper;
             _logger = logger;
         }
 
         [HttpGet]
-        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
+        /*[Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]*/
         public async Task<ActionResult<IEnumerable<RouteReadDto>>> GetAllRoutes()
         {
             try
@@ -176,6 +178,20 @@ namespace BusBooking.Controllers
            
 
 
+        }
+
+        [HttpGet("available-buses")]
+        public async Task<IActionResult> GetAvailableBuses([FromQuery] BusSearchDto model)
+        {
+            try
+            {
+                var buses = await _routeService.GetAvailableBuses(model.StartLocation, model.EndLocation, model.DepartureTime);
+                return Ok(buses);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }
