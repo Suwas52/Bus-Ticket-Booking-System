@@ -17,7 +17,7 @@ import HeroBlock from "../../components/UserComponent/HeroBlock";
 import Img from "../../assets/images/Section.png";
 import "../../components/AdminComponent/table/table.scss";
 import Footer from "../../components/UserComponent/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FormField from "../../components/AdminComponent/profile/FormField";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -26,6 +26,9 @@ import SeatButton from "../../components/UserComponent/SeatButton";
 
 const SeatSelectPage = () => {
   const [loading, setLoading] = useState(false);
+  const { state } = useLocation();
+
+  console.log(state);
 
   const initialValues = {
     journeyDate: "",
@@ -279,20 +282,20 @@ const SeatSelectPage = () => {
                 </div>
               </div>
               <div className="seat-for-reserved">
-                <div class="seat-condition available-seat">
-                  <span class="seat">
+                <div className="seat-condition available-seat">
+                  <span className="seat">
                     <span></span>
                   </span>
                   <p>Available Seats</p>
                 </div>
-                <div class="seat-condition selected-by-you">
-                  <span class="seat bg-success">
+                <div className="seat-condition selected-by-you">
+                  <span className="seat bg-success">
                     <span className="bg-white"></span>
                   </span>
                   <p>Selected by You</p>
                 </div>
-                <div class="seat-condition unavailable">
-                  <div class="seat bg-warning">
+                <div className="seat-condition unavailable">
+                  <div className="seat bg-warning">
                     <span className="bg-white"></span>
                   </div>
                   <p>Unavailable</p>

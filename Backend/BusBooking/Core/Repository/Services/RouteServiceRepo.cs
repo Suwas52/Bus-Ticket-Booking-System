@@ -31,6 +31,8 @@ namespace BusBooking.Core.Repository.Services
 
             var availableBuses = schedules.Select(s => new AvailableBusDto
             {
+                BusId = s.BusId,
+                ScheduleId = s.ScheduleId,
                 BusName = s.Bus.BusName,
                 DepartureTime = s.DepartureTime,
                 StartLocation = s.Routes.StartLocation,
