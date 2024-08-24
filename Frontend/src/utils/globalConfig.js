@@ -14,6 +14,8 @@ export const GET_ALLUSERS = "/Auth/AllUser"; // get
 export const USER = "/Auth/users";
 export const SEARCH_BUSES = "/routes/available-buses";
 export const MANAGE_TICKET_PRICE = "/Price";
+export const ACCEPT_BOOKING = "/Booking/approve";
+export const REJECT_BOOKING = "/Booking/reject";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

@@ -209,6 +209,8 @@ const FilterPage = () => {
                 {buses.map((data, index) => (
                   <FilterCard
                     key={index}
+                    busId={data.busId}
+                    scheduleId={data.scheduleId}
                     busName={data.busName}
                     busType={data.busType}
                     startPoint={data.startLocation}
