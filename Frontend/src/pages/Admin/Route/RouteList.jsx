@@ -7,10 +7,14 @@ import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
 import { PATH_DASHBOARD } from "../../../routes/path";
 import Table from "../../../components/Base Table/CommonTable";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 const RouteList = () => {
   const [routeData, setRouteData] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [routeDetailData, setRouteDetailData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   console.log(routeData);
 
@@ -31,8 +35,15 @@ const RouteList = () => {
         toast.success("Route deleted successfully!");
       } catch (error) {
         toast.error("Failed to delete Route");
+      } finally {
+        setLoading(false);
       }
     }
+  };
+
+  const handleShowDetails = (routeData) => {
+    setRouteDetailData(routeData);
+    setShowModal(!showModal);
   };
 
   const columns = [
@@ -55,6 +66,8 @@ const RouteList = () => {
     } catch (error) {
       alert(error);
       toast.error("Error while fetching routes data");
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -76,13 +89,65 @@ const RouteList = () => {
             </Link>
           </div>
 
-          <Table
-            columns={columns}
-            rows={routeData}
-            onView={handleView}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <div className="container">
+            {loading ? (
+              <div className="text-center my-5">Loading...</div>
+            ) : (
+              <Table
+                columns={columns}
+                rows={routeData}
+                onView={handleShowDetails}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            )}
+          </div>
+
+          {/* RouteDetail modal */}
+          <Modal show={showModal} onHide={handleShowDetails}>
+            <Modal.Header closeButton>
+              <Modal.Title>Route Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <Row>
+                  <Col className="col-6">
+                    <strong>StartLocation:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {routeDetailData?.startLocation}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>EndLocation:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {routeDetailData?.endLocation}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Distance:</strong>
+                  </Col>
+                  <Col className="col-6">{routeDetailData?.distance}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>CreatedDate:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {routeDetailData?.createdAt}
+                  </Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleShowDetails}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>

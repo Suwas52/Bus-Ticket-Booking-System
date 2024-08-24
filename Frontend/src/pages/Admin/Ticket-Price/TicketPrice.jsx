@@ -6,11 +6,15 @@ import Sidebar from "../../../components/AdminComponent/sidebar/Sidebar";
 import Navbar from "../../../components/AdminComponent/navbar/Navbar";
 import Table from "../../../components/Base Table/CommonTable";
 import { PATH_DASHBOARD } from "../../../routes/path";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 const TicketPrice = () => {
   const [ticketPrice, setTicketPrice] = useState([]);
   console.log(ticketPrice);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [ticketPriceDetail, setTicketPriceDetail] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTicketPrice();
@@ -22,7 +26,14 @@ const TicketPrice = () => {
       setTicketPrice(response.data);
     } catch (error) {
       alert(error);
+    } finally{
+      setLoading(false);
     }
+  };
+
+  const handleShowDetails = (ticketPrice) => {
+    setTicketPriceDetail(ticketPrice);
+    setShowModal(!showModal);
   };
   const columns = [
     { field: "sn", label: "SN" },
@@ -73,13 +84,6 @@ const TicketPrice = () => {
             </Link>
           </div>
 
-          <Table
-            columns={columns}
-            rows={ticketPrice}
-            onView={handleView}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
           {/* <Table
             columns={columns}
             rows={busTicketPrice}
@@ -87,6 +91,65 @@ const TicketPrice = () => {
             onEdit={handleEdit}
             onDelete={handleDelete}
           /> */}
+          <div className="container">
+            {loading ? (
+              <div className="text-center my-5">Loading...</div>
+            ) : (
+              <Table
+                columns={columns}
+                rows={ticketPrice}
+                onView={handleShowDetails}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            )}
+          </div>
+
+          {/* RouteDetail modal */}
+          <Modal show={showModal} onHide={handleShowDetails}>
+            <Modal.Header closeButton>
+              <Modal.Title>Route Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <Row>
+                  <Col className="col-6">
+                    <strong>StartLocation:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {ticketPriceDetail?.startLocation}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>EndLocation:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {ticketPriceDetail?.endLocation}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Price:</strong>
+                  </Col>
+                  <Col className="col-6">{ticketPriceDetail?.basePrice}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>CreatedDate:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {ticketPriceDetail?.createdAt}
+                  </Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleShowDetails}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
     </div>
