@@ -1,22 +1,44 @@
+import { format } from "date-fns";
 import React from "react";
 import { Card, Container } from "react-bootstrap";
 
-const FilterCard = () => {
+const FilterCard = ({
+  busName,
+  busType,
+  startPoint,
+  endPoint,
+  price,
+  distance,
+  departureTime,
+  arrivalTime,
+}) => {
+  const formatedStartTime = format(
+    new Date(departureTime),
+    "MM/dd/yyyy hh:mm:ss a"
+  );
+  const formatedEndTime = format(
+    new Date(arrivalTime),
+    "MM/dd/yyyy hh:mm:ss a"
+  );
+
+  console.log(busName);
   return (
     <Card className="card-custom mb-2">
       <div className="row p-4 ">
         <div className="col-md-8">
-          <h5>AC - Kansas - Echo Bass</h5>
-          <p>Seat Layout - 2 x 2</p>
+          <h5>
+            {busType} - {startPoint} - {endPoint}
+          </h5>
+          {/* <p>Seat Layout - 2 x 2</p> */}
           <p>
-            <i className="fas fa-bus"></i> AC
+            <i className="fas fa-bus"></i> {distance} KM
           </p>
           <div className="row">
             <div className="col-md-4">
               <p>
-                <strong>08:00 AM</strong>
+                <strong>{formatedStartTime} </strong>
               </p>
-              <p>Kansas</p>
+              <p>{startPoint}</p>
             </div>
             <div className="col-md-4 text-center">
               <p>08:30 min</p>
@@ -26,27 +48,27 @@ const FilterCard = () => {
             </div>
             <div className="col-md-4">
               <p>
-                <strong>04:30 PM</strong>
+                <strong>{formatedEndTime}</strong>
               </p>
-              <p>Echo Bass</p>
+              <p>{endPoint}</p>
             </div>
           </div>
         </div>
         <div className="col-md-4 text-right">
-          <p className="price">$100.00</p>
+          <p className="price">Rs. {price}</p>
           <p>
-            Off Days: <span className="off-days">Friday</span>
+            Bus Type: <span className="off-days">{busType} </span>
           </p>
           <button className="btn btn-success">Select Seat</button>
         </div>
       </div>
-      <hr />
-      <div className="facilities p-3">
+      {/* <hr /> */}
+      {/* <div className="facilities p-3">
         <strong>Facilities - </strong>
         <span>Water Bottle</span>
         <span>Pillow</span>
         <span>Wifi</span>
-      </div>
+      </div> */}
     </Card>
   );
 };

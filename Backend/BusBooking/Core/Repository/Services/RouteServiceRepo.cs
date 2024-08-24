@@ -21,7 +21,7 @@ namespace BusBooking.Core.Repository.Services
                 throw new Exception("No routes found for the selected location");
             }
 
-            var schedules = await _context.BusSchedules.Where(s => routes.Select(r => r.RouteId).Contains(s.RouteId) && s.DepartureTime == DepartureTime).Include(s => s.Bus).ToListAsync();
+            var schedules = await _context.BusSchedules.Where(s => routes.Select(r => r.RouteId).Contains(s.RouteId) && s.DepartureTime.DayOfYear == DepartureTime.DayOfYear).Include(s => s.Bus).Include(s => s.Routes.Prices).ToListAsync();
 
 
             if (!schedules.Any())
@@ -35,6 +35,10 @@ namespace BusBooking.Core.Repository.Services
                 DepartureTime = s.DepartureTime,
                 StartLocation = s.Routes.StartLocation,
                 EndLocation = s.Routes.EndLocation,
+                BusType = s.Bus.BusType,
+                Distance = s.Routes.Distance,
+                Price = s.Routes.Prices?.BasePrice ?? 0
+
             });
 
             return availableBuses;

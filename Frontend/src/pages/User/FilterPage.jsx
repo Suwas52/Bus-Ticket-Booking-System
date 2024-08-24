@@ -8,8 +8,13 @@ import Route from "@mui/icons-material/AltRouteOutlined";
 import Bus from "@mui/icons-material/DirectionsBusFilledOutlined";
 import FilterCard from "../../components/UserComponent/Card/FilterCard";
 import SwipeUpAltOutlinedIcon from "@mui/icons-material/SwipeUpAltOutlined";
+import { useLocation } from "react-router-dom";
 
 const FilterPage = () => {
+  const { state } = useLocation();
+  const { buses } = state || { buses: [] };
+
+  console.log(buses);
   return (
     <>
       <Header />
@@ -76,11 +81,19 @@ const FilterPage = () => {
             </Col>
             <Col xs={12} md={8} lg={9} className="mt-5">
               <div className="container-fluid list">
-                <FilterCard />
-                <FilterCard />
-                <FilterCard />
-                <FilterCard />
-                <FilterCard />
+                {buses.map((data, index) => (
+                  <FilterCard
+                    key={index}
+                    busName={data.busName}
+                    busType={data.busType}
+                    startPoint={data.startLocation}
+                    endPoint={data.endLocation}
+                    price={data.price}
+                    distance={data.distance}
+                    departureTime={data.departureTime}
+                    arrivalTime={data.arrivalTime}
+                  />
+                ))}
               </div>
             </Col>
           </Row>
