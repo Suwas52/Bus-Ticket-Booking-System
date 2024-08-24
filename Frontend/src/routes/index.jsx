@@ -36,6 +36,7 @@ import AdminProfilePage from "../pages/Admin/ProfileAdmin/AdminProfilePage";
 import DetailComponent from "../components/AdminComponent/common/DetailComponent";
 import TicketPrice from "../pages/Admin/Ticket-Price/TicketPrice";
 import CreateTicketPrice from "../pages/Admin/Ticket-Price/CreateTicketPrice";
+import SeatSelectPage from "../pages/User/SeatSelectPage";
 
 const GlobalRouter = () => {
   return (
@@ -113,6 +114,7 @@ const GlobalRouter = () => {
           path={PATH_AUTHUSER.userProfileSetting}
           element={<ProfileSettingPage />}
         />
+        <Route path={PATH_AUTHUSER.seatSelect} element={<SeatSelectPage />} />
       </Route>
 
       {/* Catch all (404) */}
