@@ -22,7 +22,7 @@ const FilterPage = () => {
   const [routeData, setRouteData] = useState([]);
   const navigate = useNavigate();
 
-  console.log(routeData);
+  console.log(buses);
 
   useEffect(() => {
     fetchScheduleData();
