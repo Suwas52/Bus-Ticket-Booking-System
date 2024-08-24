@@ -6,8 +6,8 @@ import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
 import AuthGuard from "../auth/AuthGuard";
 import {
-  allAccessRoles,
   staffAccessRoles,
+  SuperAdminAccessRoles,
   userAccessRoles,
 } from "../auth/auth.utils";
 import DashboardPage from "../pages/Admin/home/AdminDashboard";
@@ -34,6 +34,8 @@ import UserList from "../pages/Admin/user/UserList";
 import UserCreate from "../pages/Admin/user/UserCreate";
 import AdminProfilePage from "../pages/Admin/ProfileAdmin/AdminProfilePage";
 import DetailComponent from "../components/AdminComponent/common/DetailComponent";
+import TicketPrice from "../pages/Admin/Ticket-Price/TicketPrice";
+import CreateTicketPrice from "../pages/Admin/Ticket-Price/CreateTicketPrice";
 
 const GlobalRouter = () => {
   return (
@@ -49,7 +51,7 @@ const GlobalRouter = () => {
         <Route path="/blog" element={<BlogPage />} />
       </Route>
       {/* Protected Routes */}
-      <Route element={<AuthGuard roles={allAccessRoles} />}>
+      <Route element={<AuthGuard roles={SuperAdminAccessRoles} />}>
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
         <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
         <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
@@ -65,6 +67,20 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.routeCreate} element={<CreateRoute />} />
         <Route path={PATH_DASHBOARD.routeEdit} element={<CreateRoute />} />
         <Route path={PATH_DASHBOARD.routeDetail} element={<RouteDetail />} />
+
+        {/* TicketPrice modal route */}
+        <Route
+          path={PATH_DASHBOARD.ticketPriceList}
+          element={<TicketPrice />}
+        />
+        <Route
+          path={PATH_DASHBOARD.createTicketPrice}
+          element={<CreateTicketPrice />}
+        />
+        <Route
+          path={PATH_DASHBOARD.ticketPriceEdit}
+          element={<CreateTicketPrice />}
+        />
 
         <Route
           path={PATH_DASHBOARD.busScheduleList}
@@ -93,7 +109,10 @@ const GlobalRouter = () => {
       <Route element={<AuthGuard roles={userAccessRoles} />}>
         <Route path={PATH_AUTHUSER.filter} element={<FilterPage />} />
         <Route path={PATH_AUTHUSER.userBooked} element={<UserDashboard />} />
-        <Route path={PATH_AUTHUSER.userProfileSetting} element={<ProfileSettingPage />} />
+        <Route
+          path={PATH_AUTHUSER.userProfileSetting}
+          element={<ProfileSettingPage />}
+        />
       </Route>
 
       {/* Catch all (404) */}

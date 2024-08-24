@@ -1,4 +1,5 @@
-﻿using BusBooking.Core.Dto.General;
+﻿using BusBooking.Core.Dto;
+using BusBooking.Core.Dto.General;
 using BusBooking.Core.Model;
 
 namespace BusBooking.Core.Repository.Interface

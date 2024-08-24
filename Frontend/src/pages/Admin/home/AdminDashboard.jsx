@@ -6,15 +6,62 @@ import Chart from "../../../components/AdminComponent/chart/Chart";
 import "./admindashboard.scss";
 import Feature from "../../../components/AdminComponent/feature/Feature";
 import List from "../../../components/AdminComponent/table/Table";
+import Table from "../../../components/Base Table/CommonTable";
+import { useEffect, useState } from "react";
+import { MANAGE_BOOKING } from "../../../utils/globalConfig";
+import axiosInstance from "../../../utils/axiosInstance";
+import { format } from "date-fns";
 
 const Home = () => {
+  const [bookingData, setBookingData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  console.log(bookingData);
+
+  useEffect(() => {
+    fetchBookedData();
+  }, []);
+
+  const fetchBookedData = async () => {
+    try {
+      const response = await axiosInstance.get(MANAGE_BOOKING);
+
+      // formatted data
+      const formattedData = response.data.map((item) => ({
+        ...item,
+        departureTime: format(
+          new Date(item.departureTime),
+          "MM/dd/yyyy hh:mm:ss a"
+        ),
+        arrivalTime: format(
+          new Date(item.arrivalTime),
+          "MM/dd/yyyy hh:mm:ss a"
+        ),
+      }));
+      setBookingData(formattedData);
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const handleShowDetails = (booking) => {
+  //   setBookedData(booking);
+  //   setShowModal(!showModal);
+  // };
+
   const columns = [
-    { field: "sn", label: "SN" },
-    { field: "startLocation", label: "Start Location" },
-    { field: "endLocation", label: "End Location" },
-    { field: "distance", label: "Distance" },
-    { field: "createdAt", label: "Created Date" },
-    { field: "action", label: "Actions" },
+    { field: "bookingId", label: "Booking ID" },
+    { field: "userId", label: "Tracking ID" },
+    { field: "passengerName", label: "Passenger Name" },
+    { field: "busName", label: "Bus Name" },
+    { field: "startLocation", label: "Start Point" },
+    { field: "endLocation", label: "Drop Point" },
+    { field: "seatName", label: "SeatName" },
+    { field: "status", label: "Status" },
+    { field: "action", label: "Action" },
   ];
 
   return (
@@ -28,13 +75,13 @@ const Home = () => {
           <Widget type="earning" />
           <Widget type="balance" />
         </div>
-        <div className="charts">
+        {/* <div className="charts">
           <Feature />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
-        </div>
+        </div> */}
         <div className="listContainer">
           <div className="listTitle">Latest Booking</div>
-          <List />
+          <Table columns={columns} rows={bookingData} />
         </div>
       </div>
     </div>

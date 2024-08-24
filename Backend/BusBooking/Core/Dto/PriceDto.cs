@@ -26,7 +26,6 @@ namespace BusBooking.Core.Dto
 
     public class PriceUpdateDto 
     {
-        public int PriceId { get; set; }
         public int RouteId { get; set; }
         public decimal BasePrice { get; set; }
     }

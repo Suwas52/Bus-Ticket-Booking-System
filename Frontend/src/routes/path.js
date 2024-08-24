@@ -32,11 +32,15 @@ export const PATH_DASHBOARD = {
   booking: "/admin-dashboard/booking",
   profile: "/admin-dashboard/profile",
   adminUser: "/admin-dashboard/profile/:username",
+  ticketPriceList: "/admin-dashboard/ticketPrice/list",
+  createTicketPrice: "/admin-dashboard/ticketPrice/create",
+  ticketPriceDetail: "/admin-dashboard/ticketPrice/detail/:priceId",
+  ticketPriceEdit: "/admin-dashboard/ticketPrice/edit/:priceId",
 };
 
 export const PATH_AUTHUSER = {
   filter: "/filter",
-  userBooked:"/user-dashboard",
-  userProfileSetting :"/user/profile-setting",
-  seatSelect : "/user/seat-select",
+  userBooked: "/user-dashboard",
+  userProfileSetting: "/user/profile-setting",
+  seatSelect: "/user/seat-select",
 };

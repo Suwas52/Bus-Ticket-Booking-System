@@ -21,7 +21,6 @@ const FilterCard = ({
     "MM/dd/yyyy hh:mm:ss a"
   );
 
-  console.log(busName);
   return (
     <Card className="card-custom mb-2">
       <div className="row p-4 ">
@@ -56,6 +55,9 @@ const FilterCard = ({
         </div>
         <div className="col-md-4 text-right">
           <p className="price">Rs. {price}</p>
+          <p className="">
+            Bus Name: <strong className="badge bg-primary">{busName}</strong>
+          </p>
           <p>
             Bus Type: <span className="off-days">{busType} </span>
           </p>
