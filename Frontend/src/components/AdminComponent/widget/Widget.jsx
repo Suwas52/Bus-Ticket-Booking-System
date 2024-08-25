@@ -4,8 +4,29 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../utils/axiosInstance";
+import { ADMINDASHBOARD_COUNT } from "../../../utils/globalConfig";
 
 const Widget = ({ type }) => {
+  // const [count, setCount] = useState();
+
+  // console.log(count);
+
+  // useEffect(() => {
+  //   fetchBookedData();
+  //   fetchCount();
+  // }, []);
+
+  // const fetchCount = async () => {
+  //   try {
+  //     const response = await axiosInstance.get(ADMINDASHBOARD_COUNT);
+  //     setCount(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   let data;
 
   //temporary

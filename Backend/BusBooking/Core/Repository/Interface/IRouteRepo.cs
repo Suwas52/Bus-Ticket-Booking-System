@@ -9,5 +9,8 @@ namespace BusBooking.Core.Repository.Interface
         Task UpdateAsync(Routes model);
         Task DeleteAsync(int id);
         Task<Routes> GetByIdAsync(int id);
+
+
+        Task<int> GetTotalRoutesCountAsync();
     }
 }

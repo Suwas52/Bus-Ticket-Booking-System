@@ -8,7 +8,10 @@ import Feature from "../../../components/AdminComponent/feature/Feature";
 import List from "../../../components/AdminComponent/table/Table";
 import Table from "../../../components/Base Table/CommonTable";
 import { useEffect, useState } from "react";
-import { MANAGE_BOOKING } from "../../../utils/globalConfig";
+import {
+  ADMINDASHBOARD_COUNT,
+  MANAGE_BOOKING,
+} from "../../../utils/globalConfig";
 import axiosInstance from "../../../utils/axiosInstance";
 import { format } from "date-fns";
 
@@ -16,12 +19,24 @@ const Home = () => {
   const [bookingData, setBookingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [count, setCount] = useState();
 
   console.log(bookingData);
+  console.log(count);
 
   useEffect(() => {
     fetchBookedData();
+    fetchCount();
   }, []);
+
+  const fetchCount = async () => {
+    try {
+      const response = await axiosInstance.get(ADMINDASHBOARD_COUNT);
+      setCount(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchBookedData = async () => {
     try {
@@ -70,7 +85,7 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget type="user" />
+          <Widget type="user"  />
           <Widget type="order" />
           <Widget type="earning" />
           <Widget type="balance" />

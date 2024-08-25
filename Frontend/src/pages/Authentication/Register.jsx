@@ -168,7 +168,7 @@ const Register = () => {
                 </Col>
               </Row>
 
-              <Row>
+              {/* <Row>
                 <Col>
                   <div className="form-check">
                     <input
@@ -184,7 +184,7 @@ const Register = () => {
                     </label>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
               <Row>
                 <Col>
                   <button

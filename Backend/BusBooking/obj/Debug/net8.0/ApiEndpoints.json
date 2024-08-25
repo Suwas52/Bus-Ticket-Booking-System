@@ -21,6 +21,26 @@
   },
   {
     "ContainingType": "BusBooking.Controllers.AuthController",
+    "Method": "GetBookingCounts",
+    "RelativePath": "api/Auth/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "BusBooking.Core.Dto.DashboardDataDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
     "HttpMethod": "POST",
@@ -269,6 +289,26 @@
     "ReturnTypes": [
       {
         "Type": "BusBooking.Core.Dto.General.GeneralResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.BookingController",
+    "Method": "GetBookingCounts",
+    "RelativePath": "api/Booking/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "BusBooking.Core.Dto.BookingCountDto",
         "MediaTypes": [
           "text/plain",
           "application/json",

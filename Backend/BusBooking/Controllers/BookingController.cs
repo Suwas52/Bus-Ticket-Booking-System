@@ -221,5 +221,34 @@ namespace BusBooking.Controllers
                 });
             }
         }
+
+        [HttpGet("count")]
+        [Authorize(Roles = StaticRoleUser.USER)]
+        public async Task<ActionResult<BookingCountDto>> GetBookingCounts()
+        {
+            var loginUser = await _authHelper.GetCurrentUserAsync();
+            try
+            {
+                var totalBookingCount = await _bookingRepo.GetTotalBookingsCountAsync(loginUser.Id);
+                var acceptedCount = await _bookingRepo.GetAcceptedBookingsCountAsync(loginUser.Id);
+                var rejectedCount = await _bookingRepo.GetRejectedBookingsCountAsync(loginUser.Id);
+
+                var result = new BookingCountDto
+                {
+                    TotalBookingCount = totalBookingCount,
+                    AcceptedCount = acceptedCount,
+                    RejectedCount = rejectedCount
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting booking counts");
+                return StatusCode(500, "An error occurred while getting booking counts.");
+            }
+        }
+
+
     }
 }

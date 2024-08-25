@@ -13,5 +13,7 @@ namespace BusBooking.Core.Repository.Interface
         Task<Bus> GetByIdAsync(int id);
 
         Task DeleteAsync(int id);
+
+        Task<int> GetTotalBusCount();
     }
 }

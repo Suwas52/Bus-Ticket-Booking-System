@@ -85,9 +85,9 @@ namespace BusBooking.Core.Repository.Services
                 .Include(b => b.User)
                 .Include(b => b.BusSchedule)
                 .Include(b => b.Seat)
-                .Include(b => b.BusSchedule.Routes)
+                /*.Include(b => b.BusSchedule.Routes)
                 .Include(b => b.BusSchedule.Bus)
-                .Include(b => b.BusSchedule.Routes.Prices)
+                .Include(b => b.BusSchedule.Routes.Prices)*/
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(userId))
@@ -215,6 +215,32 @@ namespace BusBooking.Core.Repository.Services
                 _context.Entry(booking).State = EntityState.Modified;
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
+        }
+
+        public async Task<int> GetTotalBookingsCountAsync()
+        {
+            return await _context.Bookings.Where(b => b.IsDeleted == false).CountAsync();
+        }
+
+        public async Task<int> GetTotalBookingsCountAsync(string userId)
+        {
+            return await _context.Bookings
+                .Where(b => b.UserId == userId && !b.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetAcceptedBookingsCountAsync(string userId)
+        {
+            return await _context.Bookings
+                .Where(b => b.UserId == userId && b.Status == BookingStatus.Approved && !b.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetRejectedBookingsCountAsync(string userId)
+        {
+            return await _context.Bookings
+                .Where(b => b.UserId == userId && b.Status == BookingStatus.Rejected && !b.IsDeleted)
+                .CountAsync();
         }
     }
 }

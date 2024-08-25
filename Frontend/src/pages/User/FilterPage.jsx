@@ -178,7 +178,7 @@ const FilterPage = () => {
       <div className="container-fluid mid pb-5">
         <Container>
           <Row>
-            <Col xs={12} md={4} lg={3} className="filter mb-4 mb-md-0 mt-5">
+            {/* <Col xs={12} md={4} lg={3} className="filter mb-4 mb-md-0 mt-5">
               <div className="top-filter">
                 <h5>Filter</h5>
                 <button className="btn-reset">Reset All</button>
@@ -203,8 +203,27 @@ const FilterPage = () => {
                 <CheckBox name=" 07:00 am - 04:00 pm" Icon={Time} />
                 <CheckBox name=" 08:00 am - 04:30 pm" Icon={Time} />
               </div>
-            </Col>
-            <Col xs={12} md={8} lg={9} className="mt-5">
+            </Col> */}
+            {/* <Col xs={12} md={8} lg={9} className="mt-5">
+              <div className="container-fluid list">
+                {buses.map((data, index) => (
+                  <FilterCard
+                    key={index}
+                    busId={data.busId}
+                    scheduleId={data.scheduleId}
+                    busName={data.busName}
+                    busType={data.busType}
+                    startPoint={data.startLocation}
+                    endPoint={data.endLocation}
+                    price={data.price}
+                    distance={data.distance}
+                    departureTime={data.departureTime}
+                    arrivalTime={data.arrivalTime}
+                  />
+                ))}
+              </div>
+            </Col> */}
+            <Col className="mt-5">
               <div className="container-fluid list">
                 {buses.map((data, index) => (
                   <FilterCard

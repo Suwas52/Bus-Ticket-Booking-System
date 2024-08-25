@@ -38,10 +38,10 @@ const Header = () => {
       <Navbar className="top-header" bg="light" expand="lg">
         <Container className="px-4">
           <div className="contact-info">
-            <Phone className="icon" /> +44 6547 8901 &nbsp;&nbsp;
+            <Phone className="icon" /> +9779808082345 &nbsp;&nbsp;
             <Email className="icon" /> example@example.com
-            <UserLogo className="icon" /> {user ? user.username : "--"}
-            userroles: {userRolesLabelCreator()}
+            {/* <UserLogo className="icon" /> {user ? user.username : "--"}
+            userroles: {userRolesLabelCreator()} */}
           </div>
           {isAuthenticated ? (
             <div className="auth-buttons ms-auto">
@@ -79,7 +79,7 @@ const Header = () => {
             <Nav className="mx-auto">
               <NavLink href="/">Home</NavLink>
               <NavLink href="/about">About</NavLink>
-              <NavLink href="/faqs">FAQs</NavLink>
+              {/* <NavLink href="/faqs">FAQs</NavLink> */}
               <NavLink href="/blog">Blog</NavLink>
               <NavLink href="/contact">Contact</NavLink>
             </Nav>

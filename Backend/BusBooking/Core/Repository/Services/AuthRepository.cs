@@ -373,5 +373,10 @@ namespace BusBooking.Core.Repository.Services
             return userInfo;
 
         }
+
+        public async Task<int> GetTotalUsersCountAsync()
+        {
+            return await userManager.Users.Where(b => b.IsDeleted == false).CountAsync();
+        }
     }
 }

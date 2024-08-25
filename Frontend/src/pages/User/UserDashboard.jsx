@@ -22,21 +22,34 @@ import "../../components/AdminComponent/table/table.scss";
 import CommonTable from "../../components/Base Table/CommonTable";
 import Footer from "../../components/UserComponent/Footer";
 import { Link } from "react-router-dom";
-import { MANAGE_BOOKING } from "../../utils/globalConfig";
+import { MANAGE_BOOKING, USERDASHBOARD_COUNT } from "../../utils/globalConfig";
 import axiosInstance from "../../utils/axiosInstance";
 import { format } from "date-fns";
+import { PATH_AUTHUSER } from "../../routes/path";
 
 const UserDashboard = () => {
   const [bookingData, setBookingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [bookedData, setBookedData] = useState(null);
+  const [count, setCount] = useState();
 
   console.log(bookingData);
+  console.log(count);
 
   useEffect(() => {
     fetchBookedData();
+    fetchCount();
   }, []);
+
+  const fetchCount = async () => {
+    try {
+      const response = await axiosInstance.get(USERDASHBOARD_COUNT);
+      setCount(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchBookedData = async () => {
     try {
@@ -97,13 +110,13 @@ const UserDashboard = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mx-auto gap-3">
                 <NavLink href="/">Dashboard</NavLink>
-                <NavDropdown title="Booking" id="booking">
+                {/* <NavDropdown title="Booking" id="booking">
                   <NavDropdown.Item href="#action1">action1</NavDropdown.Item>
                   <NavDropdown.Item href="#action2">action2</NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
                 <NavDropdown title="Profile" id="profile">
                   <Link
-                    to={"/profile-setting"}
+                    to={PATH_AUTHUSER.userProfileSetting}
                     className="text-decoration-none"
                   >
                     <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
@@ -129,7 +142,7 @@ const UserDashboard = () => {
           <div className="col-12 col-md-12 col-lg-4 mb-4">
             <UserWidget
               title={"Total Booked Ticket"}
-              counter={"117"}
+              counter={count?.totalBookingCount}
               bgColor={"#06D001"}
               borderLeft={"5px solid #06D001"}
             />
@@ -137,7 +150,7 @@ const UserDashboard = () => {
           <div className="col-12 col-md-12 col-lg-4 mb-4">
             <UserWidget
               title={"Total Rejected Ticket"}
-              counter={"1"}
+              counter={count?.acceptedCount}
               bgColor={"red"}
               borderLeft={"5px solid red"}
             />
@@ -145,7 +158,7 @@ const UserDashboard = () => {
           <div className="col-12 col-md-12 col-lg-4 mb-4">
             <UserWidget
               title={"Total Pending Ticket"}
-              counter={"1"}
+              counter={count?.rejectedCount}
               bgColor={"#FF9100"}
               borderLeft={"5px solid #FF9100"}
             />
