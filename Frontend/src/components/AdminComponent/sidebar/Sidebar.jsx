@@ -95,10 +95,15 @@ const Sidebar = () => {
             <span>Notification</span>
           </li>
           <p className="title">SERVICE</p>
+          <Link
+            to={PATH_DASHBOARD.booking}
+            style={{ textDecoration: "none" }}
+          >
           <li>
             <SettingsSystemDaydreamIcon className="icon" />
             <span>Booking</span>
           </li>
+          </Link>
           <li>
             <PsychologyIcon className="icon" />
             <span>Logs</span>

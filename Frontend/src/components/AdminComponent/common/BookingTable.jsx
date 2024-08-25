@@ -9,12 +9,10 @@ import {
   TablePagination,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import "../../components/AdminComponent/table/table.scss";
+import "../../../components/AdminComponent/table/table.scss";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
-const CommonTable = ({ columns, rows, onView, onEdit, onDelete, }) => {
+const BookingTable = ({ columns, rows, onView, onAccept, onReject }) => {
   // Pagination state
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -36,23 +34,6 @@ const CommonTable = ({ columns, rows, onView, onEdit, onDelete, }) => {
     page * rowsPerPage + rowsPerPage
   );
 
-  const editpart = (iddata) => {
-    alert(iddata);
-  };
-
-  // Function to return the color for the action icon based on the action type
-  const getActionColor = (action) => {
-    switch (action) {
-      case "edit":
-        return "blue"; // Change to your desired color for 'edit'
-      case "delete":
-        return "red"; // Change to your desired color for 'delete'
-      case "view":
-        return "green"; // Change to your desired color for 'view'
-      default:
-        return "black"; // Default color
-    }
-  };
 
   return (
     <TableContainer component={Paper} className="table">
@@ -83,27 +64,46 @@ const CommonTable = ({ columns, rows, onView, onEdit, onDelete, }) => {
                       {/* View Action */}
                       <InfoOutlinedIcon
                         style={{
-                          color: getActionColor("view"),
+                          color: "green",
                           cursor: "pointer",
                         }}
                         onClick={() => onView(row)}
                       />
-                      {/* Edit Action */}
-                      <EditOutlinedIcon
-                        style={{
-                          color: getActionColor("edit"),
-                          cursor: "pointer",
-                        }}
-                        onClick={() => onEdit(row)}
-                      />
-                      {/* Delete Action */}
-                      <DeleteOutlinedIcon
-                        style={{
-                          color: getActionColor("delete"),
-                          cursor: "pointer",
-                        }}
-                        onClick={() => onDelete(row)}
-                      />
+
+                      {/* Conditionally render Accept and Reject buttons only if status is "Approved" and the user is admin */}
+                      {row.status === "Pending" && (
+                        <>
+                          {/* Accept Action */}
+                          <button
+                            style={{
+                              backgroundColor: "green",
+                              color: "white",
+                              border: "none",
+                              padding: "5px 10px",
+                              cursor: "pointer",
+                              borderRadius: "5px",
+                            }}
+                            onClick={() => onAccept(row)}
+                          >
+                            Accept
+                          </button>
+
+                          {/* Reject Action */}
+                          <button
+                            style={{
+                              backgroundColor: "red",
+                              color: "white",
+                              border: "none",
+                              padding: "5px 10px",
+                              cursor: "pointer",
+                              borderRadius: "5px",
+                            }}
+                            onClick={() => onReject(row)}
+                          >
+                            Reject
+                          </button>
+                        </>
+                      )}
                     </div>
                   ) : column.field === "status" ? (
                     <span className={`status ${row[column.field]}`}>
@@ -136,4 +136,4 @@ const CommonTable = ({ columns, rows, onView, onEdit, onDelete, }) => {
   );
 };
 
-export default CommonTable;
+export default BookingTable;
