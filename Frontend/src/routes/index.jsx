@@ -99,6 +99,9 @@ const GlobalRouter = () => {
           path={PATH_DASHBOARD.busScheduleDetail}
           element={<BusScheduleDetail />}
         />
+        {/* Booking modal Route */}
+        <Route 
+        path={PATH_DASHBOARD.booking} element={<BookingList />} />
         {/* <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} /> */}
       </Route>
       <Route element={<AuthGuard roles={staffAccessRoles} />}>
