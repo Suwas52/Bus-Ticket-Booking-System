@@ -13,7 +13,7 @@ namespace BusBooking.Core.Dto
         public string Gender { get; set; }
     }
 
-    public class BookingUpdateDto 
+    public class BookingUpdateDto
     {
         public int BookingId { get; set; }
         public string UserId { get; set; }
@@ -62,4 +62,12 @@ namespace BusBooking.Core.Dto
         public string UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class BookingCountDto
+    {
+        public int TotalBookingCount { get; set; }
+        public int AcceptedCount { get; set; }
+        public int RejectedCount { get; set; }
+    }
+
 }

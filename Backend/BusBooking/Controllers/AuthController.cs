@@ -1,5 +1,6 @@
 
 using BusBooking.Constants;
+using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
@@ -13,10 +14,16 @@ namespace BusBooking.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository authRepository;
+        private readonly IBookingRepo bookingRepo;
+        private readonly IBusRepo busRepo;
+        private readonly IRouteRepo routeRepo;
 
-        public AuthController(IAuthRepository authRepository)
+        public AuthController(IAuthRepository authRepository, IBookingRepo bookingRepo, IBusRepo busRepo, IRouteRepo routeRepo)
         {
             this.authRepository = authRepository;
+            this.bookingRepo = bookingRepo;
+            this.busRepo = busRepo;
+            this.routeRepo = routeRepo;
         }
 
         [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
@@ -117,6 +124,35 @@ namespace BusBooking.Controllers
             else
             {
                 return NotFound("UserName not found");
+            }
+        }
+
+        
+        [HttpGet("count")]
+        [Authorize(Roles = StaticRoleUser.SuperAdminAndAdmin)]
+        public async Task<ActionResult<DashboardDataDto>> GetBookingCounts()
+        {
+            try
+            {
+                var totalBookingCount = await bookingRepo.GetTotalBookingsCountAsync();
+                var totalUserCount = await authRepository.GetTotalUsersCountAsync();
+                var totalBusCount = await busRepo.GetTotalBusCount();
+                var totalRouteCount = await routeRepo.GetTotalRoutesCountAsync();
+
+                var result = new DashboardDataDto
+                {
+                    TotalBookings = totalBookingCount,
+                    TotalBuses = totalBusCount,
+                    TotalRoutes = totalRouteCount,
+                    TotalUsers = totalUserCount,
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, "An error occurred while getting booking counts.");
             }
         }
     }

@@ -94,7 +94,7 @@ const Login = () => {
                 className="text-danger"
               />
             </div>
-            <div className="form-check">
+            {/* <div className="form-check">
               <Field
                 type="checkbox"
                 name="rememberMe"
@@ -107,7 +107,7 @@ const Login = () => {
               <Link to="/forgot-password" className="float-right">
                 Forgot Password?
               </Link>
-            </div>
+            </div> */}
             <button
               type="submit"
               className="btn btn-success"

@@ -16,6 +16,9 @@ export const SEARCH_BUSES = "/routes/available-buses";
 export const MANAGE_TICKET_PRICE = "/Price";
 export const ACCEPT_BOOKING = "/Booking/approve";
 export const REJECT_BOOKING = "/Booking/reject";
+export const MANAGE_SEAT = "/Seat";
+export const USERDASHBOARD_COUNT = "/Booking/Count";
+export const ADMINDASHBOARD_COUNT = "/Auth/Count";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

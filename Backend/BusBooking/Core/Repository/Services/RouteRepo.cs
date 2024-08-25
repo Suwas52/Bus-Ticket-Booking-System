@@ -61,5 +61,10 @@ namespace BusBooking.Core.Repository.Services
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
+
+        public async Task<int> GetTotalRoutesCountAsync()
+        {
+            return await _context.Routes.Where(b => b.IsDeleted == false).CountAsync();
+        }
     }
 }

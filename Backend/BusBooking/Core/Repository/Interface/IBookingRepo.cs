@@ -19,5 +19,11 @@ namespace BusBooking.Core.Repository.Interface
         Task<Booking> GetByIdAsync(int id);
 
         Task DeleteAsync(int id);
+
+        Task<int> GetTotalBookingsCountAsync();
+
+        Task<int> GetTotalBookingsCountAsync(string userId);
+        Task<int> GetAcceptedBookingsCountAsync(string userId);
+        Task<int> GetRejectedBookingsCountAsync(string userId);
     }
 }

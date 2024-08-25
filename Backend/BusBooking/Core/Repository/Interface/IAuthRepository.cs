@@ -23,6 +23,6 @@ namespace BusBooking.Core.Repository.Interface
         Task<UserInformation> GetUserDetailsByUserNameAsync(string username);
 
         // Task<GeneralResponseDto> UpdateRoleAsync(ClaimsPrincipal User, Updaterole)
-
+        Task<int> GetTotalUsersCountAsync();
     }
 }

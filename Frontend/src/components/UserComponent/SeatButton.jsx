@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-const SeatButton = ({ leftSeat1, leftSeat2, rightSeat1, rightSeat2 }) => {
+// const SeatButton = ({ leftSeat1, leftSeat2, rightSeat1, rightSeat2 }) => {
+const SeatButton = ({ data }) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const toggleSeat = (seat) => {
-    setSelectedSeats((prev) =>
-      prev.includes(seat)
-        ? prev.filter((s) => s !== seat)
-        : [...prev, seat]
-    );
+    // setSelectedSeats((prev) =>
+    //   prev.includes(seat) ? prev.filter((s) => s !== seat) : [...prev, seat]
+    // );
+    alert(seat);
   };
 
   return (
@@ -17,40 +17,48 @@ const SeatButton = ({ leftSeat1, leftSeat2, rightSeat1, rightSeat2 }) => {
         <div className="left-side">
           <div>
             <span
-              className={`seat ${selectedSeats.includes(leftSeat1) ? "selected" : ""}`}
-              onClick={() => toggleSeat(leftSeat1)}
+              className={`seat ${
+                selectedSeats.includes(data.leftSeat1) ? "selected" : ""
+              }`}
+              onClick={() => toggleSeat(data.leftSeat1)}
             >
-              {leftSeat1}
-            <span></span>
+              {data.leftSeat1}
+              <span></span>
             </span>
           </div>
           <div>
             <span
-              className={`seat ${selectedSeats.includes(leftSeat2) ? "selected" : ""}`}
-              onClick={() => toggleSeat(leftSeat2)}
+              className={`seat ${
+                selectedSeats.includes(data.leftSeat2) ? "selected" : ""
+              }`}
+              onClick={() => toggleSeat(data.leftSeat2)}
             >
-              {leftSeat2}
-            <span></span>
+              {data.leftSeat2}
+              <span></span>
             </span>
           </div>
         </div>
         <div className="right-side">
           <div>
             <span
-              className={`seat ${selectedSeats.includes(rightSeat1) ? "selected" : ""}`}
-              onClick={() => toggleSeat(rightSeat1)}
+              className={`seat ${
+                selectedSeats.includes(data.rightSeat1) ? "selected" : ""
+              }`}
+              onClick={() => toggleSeat(data.rightSeat1)}
             >
-              {rightSeat1}
-            <span></span>
+              {data.rightSeat1}
+              <span></span>
             </span>
           </div>
           <div>
             <span
-              className={`seat ${selectedSeats.includes(rightSeat2) ? "selected" : ""}`}
-              onClick={() => toggleSeat(rightSeat2)}
+              className={`seat ${
+                selectedSeats.includes(data.rightSeat2) ? "selected" : ""
+              }`}
+              onClick={() => toggleSeat(data.rightSeat2)}
             >
-              {rightSeat2}
-            <span></span>
+              {data.rightSeat2}
+              <span></span>
             </span>
           </div>
         </div>

@@ -102,6 +102,11 @@ namespace BusBooking.Core.Repository.Services
             }
         }
 
+        public async Task<int> GetTotalBusCount()
+        {
+            return await _context.Buses.Where(b => b.IsDeleted == false).CountAsync();
+        }
+
 
 
         public async Task<IEnumerable<Bus>> GetAllAsync()
