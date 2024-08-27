@@ -22,7 +22,7 @@ namespace BusBooking.Core.Repository.Interface
         Task<LoginResponseDto?> MeAsync(MeDto meDto);
         Task<UserInformation> GetUserDetailsByUserNameAsync(string username);
 
-        // Task<GeneralResponseDto> UpdateRoleAsync(ClaimsPrincipal User, Updaterole)
+        Task<GeneralResponseDto> UpdateRoleAsync(ClaimsPrincipal User, UpdateRoleDto updateRoleDto);
         Task<int> GetTotalUsersCountAsync();
     }
 }

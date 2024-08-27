@@ -83,9 +83,9 @@ const Header = () => {
               <NavLink href="/blog">Blog</NavLink>
               <NavLink href="/contact">Contact</NavLink>
             </Nav>
-            <Nav className="ms-auto">
+            {/* <Nav className="ms-auto">
               <button className="btn green-btn btn-sm">BUY TICKETS</button>
-            </Nav>
+            </Nav> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

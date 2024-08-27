@@ -19,6 +19,8 @@ export const REJECT_BOOKING = "/Booking/reject";
 export const MANAGE_SEAT = "/Seat";
 export const USERDASHBOARD_COUNT = "/Booking/Count";
 export const ADMINDASHBOARD_COUNT = "/Auth/Count";
+export const USERDETAIL = "/Auth/users";
+export const UPDATEUSER_ROLE ="/Auth/update-role"
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

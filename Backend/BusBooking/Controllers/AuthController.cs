@@ -87,6 +87,23 @@ namespace BusBooking.Controllers
             return Ok(loginDetail);
         }
 
+        [HttpPost]
+        [Route("update-role")]
+        [Authorize(Roles = StaticRoleUser.SUPERADMIN)]
+        public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRoleDto)
+        {
+            var updateRoleResult = await authRepository.UpdateRoleAsync(User, updateRoleDto);
+
+            if (updateRoleResult.IsSucceed)
+            {
+                return Ok(updateRoleResult.Message);
+            }
+            else
+            {
+                return StatusCode(updateRoleResult.StatusCode, updateRoleResult.Message);
+            }
+        }
+
 
         // Route -> getting data of a user from it's JWT
         [HttpPost]
