@@ -119,6 +119,22 @@
   },
   {
     "ContainingType": "BusBooking.Controllers.AuthController",
+    "Method": "UpdateRole",
+    "RelativePath": "api/Auth/update-role",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateRoleDto",
+        "Type": "BusBooking.Core.Dto.Auth.UpdateRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.AuthController",
     "Method": "GetUserDetailsByUserName",
     "RelativePath": "api/Auth/users/{userName}",
     "HttpMethod": "GET",
