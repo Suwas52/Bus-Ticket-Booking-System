@@ -36,6 +36,7 @@ export const PATH_DASHBOARD = {
   createTicketPrice: "/admin-dashboard/ticketPrice/create",
   ticketPriceDetail: "/admin-dashboard/ticketPrice/detail/:priceId",
   ticketPriceEdit: "/admin-dashboard/ticketPrice/edit/:priceId",
+  updateUserRole: "/admin-dashboard/user/edit-role/:userName"
 };
 
 export const PATH_AUTHUSER = {

@@ -14,12 +14,15 @@ import {
 } from "../../../utils/globalConfig";
 import axiosInstance from "../../../utils/axiosInstance";
 import { format } from "date-fns";
+import BookingTable from "../../../components/AdminComponent/common/BookingTable";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 const Home = () => {
   const [bookingData, setBookingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [count, setCount] = useState();
+  const [bookingDetailData, setBookingDetailData] = useState(null);
 
   console.log(bookingData);
   console.log(count);
@@ -66,14 +69,18 @@ const Home = () => {
   //   setBookedData(booking);
   //   setShowModal(!showModal);
   // };
+  const handleShowDetails = (bookingData) => {
+    setBookingDetailData(bookingData);
+    setShowModal(!showModal);
+  };
 
   const columns = [
     { field: "bookingId", label: "Booking ID" },
     { field: "userId", label: "Tracking ID" },
     { field: "passengerName", label: "Passenger Name" },
-    { field: "busName", label: "Bus Name" },
-    { field: "startLocation", label: "Start Point" },
-    { field: "endLocation", label: "Drop Point" },
+    // { field: "busName", label: "Bus Name" },
+    // { field: "startLocation", label: "Start Point" },
+    // { field: "endLocation", label: "Drop Point" },
     { field: "seatName", label: "SeatName" },
     { field: "status", label: "Status" },
     { field: "action", label: "Action" },
@@ -85,10 +92,10 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget type="user"  />
-          <Widget type="order" />
-          <Widget type="earning" />
-          <Widget type="balance" />
+          <Widget type="user" amount={count?.totalBookings}  />
+          <Widget type="bookings" amount={count?.totalUsers} />
+          <Widget type="bus" amount={count?.totalBuses}/>
+          <Widget type="routes" amount={count?.totalRoutes}/>
         </div>
         {/* <div className="charts">
           <Feature />
@@ -96,10 +103,55 @@ const Home = () => {
         </div> */}
         <div className="listContainer">
           <div className="listTitle">Latest Booking</div>
-          <Table columns={columns} rows={bookingData} />
+          <BookingTable
+                columns={columns}
+                rows={bookingData}
+                onView={handleShowDetails}
+                // onAccept={handleAccept}
+                // onReject={handleReject}
+              />
+                 <Modal show={showModal} onHide={handleShowDetails}>
+            <Modal.Header closeButton>
+              <Modal.Title>Bus Booking Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <Row>
+                  <Col className="col-6">
+                    <strong>PassengerName:</strong>
+                  </Col>
+                  <Col className="col-6">
+                    {bookingDetailData?.passengerName}
+                  </Col>
+                </Row>
+                
+                
+                
+                <Row>
+                  <Col className="col-6">
+                    <strong>SeatName:</strong>
+                  </Col>
+                  <Col className="col-6">{bookingDetailData?.seatName}</Col>
+                </Row>
+                <Row>
+                  <Col className="col-6">
+                    <strong>Status:</strong>
+                  </Col>
+                  <Col className="col-6">{bookingDetailData?.status}</Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleShowDetails}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </div>
+      
     </div>
+    
   );
 };
 

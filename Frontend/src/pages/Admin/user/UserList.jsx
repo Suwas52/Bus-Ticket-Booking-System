@@ -23,7 +23,7 @@ const UserList = () => {
   };
 
   const handleEdit = (user) => {
-    navigate(`/admin-dashboard/route/edit/${user.id}`);
+    navigate(`/admin-dashboard/user/edit-role/${user.userName}`);
   };
   //   const handleDelete = async (user) => {
   //     if (window.confirm("Are you sure you want to delete this bus?")) {

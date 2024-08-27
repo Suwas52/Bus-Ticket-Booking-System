@@ -208,13 +208,13 @@ namespace BusBooking.Core.Repository.Services
             if (user == null)
                 return null;
 
-            if (!await userManager.IsEmailConfirmedAsync(user))
+            /*if (!await userManager.IsEmailConfirmedAsync(user))
             {
                 return new LoginResponseDto()
                 {
                     ErrorMessage = "Email is not confirmed"
                 };
-            }
+            }*/
 
             var isPasswordCorrect = await userManager.CheckPasswordAsync(user, loginDto.Password);
 
@@ -234,6 +234,82 @@ namespace BusBooking.Core.Repository.Services
                 NewToken = newToken,
                 UserInfo = userInfo
             };
+        }
+
+        public async Task<GeneralResponseDto> UpdateRoleAsync(ClaimsPrincipal User, UpdateRoleDto updateRoleDto)
+        {
+            var user = await userManager.FindByNameAsync(updateRoleDto.UserName);
+            if (user is null)
+                return new GeneralResponseDto()
+                {
+                    IsSucceed = false,
+                    StatusCode = 404,
+                    Message = "Invalid UserName"
+                };
+
+            var userRoles = await userManager.GetRolesAsync(user);
+            // Just The OWNER and ADMIN can update roles
+            if (User.IsInRole(StaticRoleUser.ADMIN))
+            {
+                // User is admin
+                if (updateRoleDto.NewRole == RoleType.USER || updateRoleDto.NewRole == RoleType.STAFF)
+                {
+                    // admin can change the role of everyone except for owners and admins
+                    if (userRoles.Any(q => q.Equals(StaticRoleUser.SUPERADMIN) || q.Equals(StaticRoleUser.ADMIN)))
+                    {
+                        return new GeneralResponseDto()
+                        {
+                            IsSucceed = false,
+                            StatusCode = 403,
+                            Message = "You are not allowed to change role of this user"
+                        };
+                    }
+                    else
+                    {
+                        await userManager.RemoveFromRolesAsync(user, userRoles);
+                        await userManager.AddToRoleAsync(user, updateRoleDto.NewRole.ToString());
+                        /*await _logService.SaveNewLog(user.UserName, "User Roles Updated");*/
+                        return new GeneralResponseDto()
+                        {
+                            IsSucceed = true,
+                            StatusCode = 200,
+                            Message = "Role updated successfully"
+                        };
+                    }
+                }
+                else return new GeneralResponseDto()
+                {
+                    IsSucceed = false,
+                    StatusCode = 403,
+                    Message = "You are not allowed to change role of this user"
+                };
+            }
+            else
+            {
+                // user is owner
+                if (userRoles.Any(q => q.Equals(StaticRoleUser.SUPERADMIN)))
+                {
+                    return new GeneralResponseDto()
+                    {
+                        IsSucceed = false,
+                        StatusCode = 403,
+                        Message = "You are not allowed to change role of this user"
+                    };
+                }
+                else
+                {
+                    await userManager.RemoveFromRolesAsync(user, userRoles);
+                    await userManager.AddToRoleAsync(user, updateRoleDto.NewRole.ToString());
+                    /*await _logService.SaveNewLog(user.UserName, "User Roles Updated");*/
+
+                    return new GeneralResponseDto()
+                    {
+                        IsSucceed = true,
+                        StatusCode = 200,
+                        Message = "Role updated successfully"
+                    };
+                }
+            }
         }
 
 

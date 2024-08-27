@@ -31,12 +31,13 @@ import RouteList from "../pages/Admin/Route/RouteList";
 import CreateRoute from "../pages/Admin/Route/CreateRoute";
 import RouteDetail from "../pages/Admin/Route/RouteDetail";
 import UserList from "../pages/Admin/user/UserList";
-import UserCreate from "../pages/Admin/user/UserCreate";
+// import UserCreate from "../pages/Admin/user/UserCreate";
 import AdminProfilePage from "../pages/Admin/ProfileAdmin/AdminProfilePage";
 import DetailComponent from "../components/AdminComponent/common/DetailComponent";
 import TicketPrice from "../pages/Admin/Ticket-Price/TicketPrice";
 import CreateTicketPrice from "../pages/Admin/Ticket-Price/CreateTicketPrice";
 import SeatSelectPage from "../pages/User/SeatSelectPage";
+import UpdateRole from "../pages/Admin/user/UpdateRole";
 
 const GlobalRouter = () => {
   return (
@@ -56,12 +57,15 @@ const GlobalRouter = () => {
         <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
         <Route path={PATH_DASHBOARD.profile} element={<AdminProfilePage />} />
         <Route path={PATH_DASHBOARD.userList} element={<UserList />} />
-        <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} />
+        {/* <Route path={PATH_DASHBOARD.userCreate} element={<UserCreate />} /> */}
         <Route path={PATH_DASHBOARD.busList} element={<BusList />} />
         <Route path={PATH_DASHBOARD.booking} element={<BookingList />} />
         <Route path={PATH_DASHBOARD.busCreate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.busUpdate} element={<CreateBus />} />
         <Route path={PATH_DASHBOARD.busDetail} element={<BusDetail />} />
+
+        {/* updaterole */}
+        <Route path={PATH_DASHBOARD.updateUserRole} element={<UpdateRole />} />
 
         {/* Route model route */}
         <Route path={PATH_DASHBOARD.routeList} element={<RouteList />} />

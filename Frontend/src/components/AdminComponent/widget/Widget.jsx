@@ -1,14 +1,17 @@
 import "./widget.scss";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { ADMINDASHBOARD_COUNT } from "../../../utils/globalConfig";
+import AltRouteIcon from '@mui/icons-material/AltRoute';
 
-const Widget = ({ type }) => {
+const Widget = ({ type,amount=0 }) => {
   // const [count, setCount] = useState();
 
   // console.log(count);
@@ -30,7 +33,6 @@ const Widget = ({ type }) => {
   let data;
 
   //temporary
-  const amount = 100;
   const diff = 20;
 
   switch (type) {
@@ -38,7 +40,7 @@ const Widget = ({ type }) => {
       data = {
         title: "USERS",
         isMoney: false,
-        link: "See all users",
+        link: "",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -50,13 +52,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "bookings":
       data = {
         title: "BOOKINGS",
         isMoney: false,
-        link: "View all orders",
+        link: "",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <EditNoteIcon
             className="icon"
             style={{
               color: "goldenrod",
@@ -66,13 +68,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
+    case "bus":
       data = {
-        title: "EARNINGS",
+        title: "Total Bus",
         isMoney: true,
-        link: "View net earnings",
+        link: "",
         icon: (
-          <MonetizationOnOutlinedIcon
+          <DirectionsBusIcon
             className="icon"
             style={{
               color: "green",
@@ -82,13 +84,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "balance":
+    case "routes":
       data = {
-        title: "BALANCES",
+        title: "Routes",
         isMoney: false,
-        link: "See details",
+        link: "",
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <AltRouteIcon
             className="icon"
             style={{
               color: "purple",
@@ -107,15 +109,18 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && ""} {amount}
         </span>
         <span className="link">{data.link}</span>
       </div>
-      <div className="right">
+      {/* <div className="right">
         <div className="percentage positive">
           <KeyboardArrowUpOutlinedIcon />
           {diff}%
         </div>
+      </div> */}
+      <div >
+
         {data.icon}
       </div>
     </div>

@@ -79,7 +79,7 @@ const Sidebar = () => {
               <span>Routes</span>
             </li>
           </Link>
-          <p className="title">USEFUL</p>
+          <p className="title">Ticket</p>
           <Link
             to={PATH_DASHBOARD.ticketPriceList}
             style={{ textDecoration: "none" }}
@@ -90,10 +90,10 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <li>
+          {/* <li>
             <NotificationsIcon className="icon" />
             <span>Notification</span>
-          </li>
+          </li> */}
           <p className="title">SERVICE</p>
           <Link
             to={PATH_DASHBOARD.booking}
@@ -104,29 +104,29 @@ const Sidebar = () => {
             <span>Booking</span>
           </li>
           </Link>
-          <li>
+          {/* <li>
             <PsychologyIcon className="icon" />
             <span>Logs</span>
           </li>
           <li>
             <SettingsIcon className="icon" />
             <span>Settings</span>
-          </li>
-          <p className="title">USER</p>
+          </li> */}
+          {/* <p className="title">USER</p>
           <li>
             <AccountCircleIcon className="icon" />
             <span>Profile</span>
-          </li>
+          </li> */}
 
-          <Link onClick={logout} style={{ textDecoration: "none" }}>
+          {/* <Link onClick={logout} style={{ textDecoration: "none" }}>
             <li>
               <LogoutIcon className="icon" />
               <span>Logout</span>
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <div
           className="colorOption"
           onClick={() => dispatch({ type: "LIGHT" })}
@@ -135,7 +135,7 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 };
