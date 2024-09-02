@@ -51,7 +51,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
     options.SignIn.RequireConfirmedAccount = false;
-    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedEmail = true;
     options.SignIn.RequireConfirmedPhoneNumber = false;
 });
 
