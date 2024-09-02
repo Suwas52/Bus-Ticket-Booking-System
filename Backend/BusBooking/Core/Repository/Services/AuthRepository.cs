@@ -4,14 +4,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
-using Azure.Core;
 using BusBooking.Constants;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,14 +21,16 @@ namespace BusBooking.Core.Repository.Services
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogService logService;
         private readonly IConfiguration configuration;
+        private readonly ILogger<AuthRepository> _logger;
 
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.logService = logService;
             this.configuration = configuration;
+            _logger = logger;
         }
         public async Task<GeneralResponseDto> SeedRolesAsync()
         {
@@ -61,82 +61,8 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        // public async Task<GeneralResponseDto> ActiveAsync()
-        // {
 
-        // }
-
-
-        // public async Task<GeneralResponseDto> RegisterAsync(RegisterDto registerDto)
-        // {
-        //     var isExitsUser = await userManager.FindByNameAsync(registerDto.UserName);
-
-        //     if (isExitsUser is not null)
-        //         return new GeneralResponseDto()
-        //         {
-        //             IsSucceed = false,
-        //             StatusCode = 409,
-        //             Message = "Username is alread Exists"
-        //         };
-        //     ApplicationUser newUser = new ApplicationUser()
-        //     {
-        //         FirstName = registerDto.FirstName,
-        //         LastName = registerDto.LastName,
-        //         UserName = registerDto.UserName,
-        //         Email = registerDto.Email,
-        //         Address = registerDto.Address,
-        //         IsActive = false,
-        //         IsDeleted = false,
-        //         SecurityStamp = Guid.NewGuid().ToString(),
-        //     };
-
-        //     var createUserResult = await userManager.CreateAsync(newUser, registerDto.Password);
-
-        //     if (!createUserResult.Succeeded)
-        //     {
-        //         var errorString = "User Creation faild because: ";
-
-        //         foreach (var error in createUserResult.Errors)
-        //         {
-        //             errorString += " # " + error.Description;
-        //         }
-
-        //         return new GeneralResponseDto()
-        //         {
-        //             IsSucceed = false,
-        //             StatusCode = 400,
-        //             Message = errorString,
-        //         };
-        //     }
-
-        //     // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-        //     // var param = new Dictionary<string, string?>
-        //     // {
-        //     //     {"token" , token},
-        //     //     {"email",newUser.Email}
-        //     // };
-        //     // var callback = QueryHelpers.AddQueryString(registerDto.EmailConfirmed, param);
-        //     // var message = new Message([newUser.Email], "Email Confirmed Token", callback, null);
-
-        //     // await _emailSender.seder
-
-        //     var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-        //     var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={Uri.EscapeDataString(token)}";
-
-
-        //     await SendEmailAsync(newUser.Email, "Email Confirmation", $"Please confirm your email by clicking on this link: {confirmationLink}");
-
-        //     await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
-        //     await logService.SaveNewLog(newUser.UserName, "Registered to Website");
-
-        //     return new GeneralResponseDto()
-        //     {
-        //         IsSucceed = true,
-        //         StatusCode = 200,
-        //         Message = "User Created Successfully",
-        //     };
-        // }
-
+       
         public async Task<GeneralResponseDto> RegisterAsync(RegisterDto registerDto)
         {
             var existingUser = await userManager.FindByNameAsync(registerDto.UserName);
@@ -160,33 +86,20 @@ namespace BusBooking.Core.Repository.Services
                 IsActive = false,
                 IsDeleted = false,
                 SecurityStamp = Guid.NewGuid().ToString(),
+                EmailConfirmed = false
             };
 
             var createUserResult = await userManager.CreateAsync(newUser, registerDto.Password);
-            if (!createUserResult.Succeeded)
+/*
+            if (createUserResult.Succeeded)
             {
-                var errorString = "User creation failed: " + string.Join(", ", createUserResult.Errors.Select(e => e.Description));
-                return new GeneralResponseDto
-                {
-                    IsSucceed = false,
-                    StatusCode = 400,
-                    Message = errorString,
-                };
-            }
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={Uri.EscapeDataString(token)}";
+                *//*await SendEmailAsync(newUser.Email, "Confirm your email", $"Please confirm your email by clicking on this link: {confirmationLink}");*//*
+                await SendEmailAsync("recipient@example.com", "Welcome to BusBooking!", "<h1>Hello!</h1><p>Thank you for registering.</p>");
 
-            // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-            //     // var param = new Dictionary<string, string?>
-            //     // {
-            //     //     {"token" , token},
-            //     //     {"email",newUser.Email}
-            //     // };
-            //     // var callback = QueryHelpers.AddQueryString(registerDto.EmailConfirmed, param);
-            //     // var message = new Message([newUser.Email], "Email Confirmed Token", callback, null);
 
-            // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-            // var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={WebUtility.UrlEncode(token)}";
-
-            // await SendUserEmailAsync(newUser.Email, "Email Confirmation", $"Please confirm your email by clicking this link: {confirmationLink}");
+            }*/
 
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
@@ -198,6 +111,30 @@ namespace BusBooking.Core.Repository.Services
                 Message = "User created successfully. Please check your email to confirm."
             };
         }
+        /*if (!createUserResult.Succeeded)
+           {
+               var errorString = "User creation failed: " + string.Join(", ", createUserResult.Errors.Select(e => e.Description));
+               return new GeneralResponseDto
+               {
+                   IsSucceed = false,
+                   StatusCode = 400,
+                   Message = errorString,
+               };
+           }*/
+
+        // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
+        //     // var param = new Dictionary<string, string?>
+        //     // {
+        //     //     {"token" , token},
+        //     //     {"email",newUser.Email}
+        //     // };
+        //     // var callback = QueryHelpers.AddQueryString(registerDto.EmailConfirmed, param);
+        //     // var message = new Message([newUser.Email], "Email Confirmed Token", callback, null);
+
+        // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
+        // var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={WebUtility.UrlEncode(token)}";
+
+        // await SendUserEmailAsync(newUser.Email, "Email Confirmation", $"Please confirm your email by clicking this link: {confirmationLink}");
 
 
 
@@ -345,39 +282,81 @@ namespace BusBooking.Core.Repository.Services
         }
 
 
-        private async Task SendUserEmailAsync(string to, string subject, string body)
+        /* private async Task SendEmailAsync(string toEmail, string subject, string message)
+         {
+             var smtpClient = new SmtpClient
+             {
+                 Host = configuration["Smtp:Host"], // Ensure this is not null
+                 Port = int.Parse(configuration["Smtp:Port"]),
+                 Credentials = new NetworkCredential(configuration["Smtp:Username"], configuration["Smtp:Password"]),
+                 EnableSsl = true,
+             };
+
+
+             var mailMessage = new MailMessage
+             {
+                 From = new MailAddress(configuration["Smtp:FromEmail"], configuration["Smtp:FromName"]),
+                 Subject = subject,
+                 Body = message,
+                 IsBodyHtml = true
+             };
+             mailMessage.To.Add(toEmail);
+
+             await smtpClient.SendMailAsync(mailMessage);
+         }*/
+
+        public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
-            // Example using SMTP
-            var smtpClient = new SmtpClient(configuration["Email:Smtp:Host"])
+            try
             {
-                Port = int.Parse(configuration["Email:Smtp:Port"]),
-                Credentials = new NetworkCredential(configuration["Email:Smtp:Username"], configuration["Email:Smtp:Password"]),
-                EnableSsl = true,
-            };
+                // Create a new MailMessage object
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("your-email@example.com", "Your Name"),
+                    Subject = subject,
+                    Body = message,
+                    IsBodyHtml = true
+                };
 
-            var mailMessage = new MailMessage
+                // Add the recipient
+                mailMessage.To.Add(toEmail);
+
+                // Set up the SMTP client
+                using (var smtpClient = new SmtpClient("smtp.example.com", 587)) // Replace with your SMTP server and port
+                {
+                    smtpClient.Credentials = new NetworkCredential("your-email@example.com", "your-password"); // Replace with your email and password
+                    smtpClient.EnableSsl = true; // Set to true if your SMTP server requires SSL
+
+                    // Send the email asynchronously
+                    await smtpClient.SendMailAsync(mailMessage);
+                }
+            }
+            catch (SmtpException ex)
             {
-                From = new MailAddress(configuration["Email:Smtp:From"]),
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true,
-            };
-
-            mailMessage.To.Add(to);
-
-            await smtpClient.SendMailAsync(mailMessage);
+                // Log the detailed error message
+                Console.WriteLine($"SMTP Error: {ex.Message}");
+                throw new Exception("There was an error sending the email. Please try again later.");
+            }
+            catch (Exception ex)
+            {
+                // Log the detailed error message
+                Console.WriteLine($"General Error: {ex.Message}");
+                throw;
+            }
         }
+
+
         private async Task<string> GenerateJWTTokenAsync(ApplicationUser user)
         {
             var userRoles = await userManager.GetRolesAsync(user);
 
             var authClaims = new List<Claim>
-    {
+            {
         new Claim(ClaimTypes.Name, user.UserName),
         new Claim(ClaimTypes.NameIdentifier, user.Id),
         new Claim("FirstName", user.FirstName),
         new Claim("LastName", user.LastName),
-    };
+            };
 
             foreach (var userRole in userRoles)
             {
