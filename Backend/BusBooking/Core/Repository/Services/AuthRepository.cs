@@ -7,6 +7,7 @@ using System.Text;
 using BusBooking.Constants;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Dto.General;
+using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
@@ -22,15 +23,17 @@ namespace BusBooking.Core.Repository.Services
         private readonly ILogService logService;
         private readonly IConfiguration configuration;
         private readonly ILogger<AuthRepository> _logger;
+        private readonly IAuthHelper _authHelper;
 
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger, IAuthHelper authHelper)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.logService = logService;
             this.configuration = configuration;
             _logger = logger;
+            _authHelper = authHelper;
         }
         public async Task<GeneralResponseDto> SeedRolesAsync()
         {
@@ -395,11 +398,6 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        /*public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
-        {
-            
-        }*/
-
         public async Task<IEnumerable<UserInformation>> UserListAsync()
         {
             var users = await userManager.Users.ToListAsync();
@@ -414,6 +412,61 @@ namespace BusBooking.Core.Repository.Services
             }
 
             return userInfoResults;
+        }
+
+        public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
+        {
+            var loginUser = await _authHelper.GetCurrentUserAsync();
+            var user = await userManager.FindByNameAsync(userName);
+
+           
+
+            if (user.IsDeleted == false && user.UserName == loginUser.UserName && user != null)
+            {
+                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedBy = loginUser.UserName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.ProfilePicture = model.ProfilePicture;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Address = model.Address;
+                user.DateOfBirth = model.DateOfBirth;
+                user.Gender = model.Gender;
+
+
+
+                var result = await userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return new GeneralResponseDto
+                    {
+                        IsSucceed = false,
+                        StatusCode = 400,
+                        Message = "Failed to update user information."
+                    };
+                }
+
+                return new GeneralResponseDto
+                {
+                    IsSucceed = true,
+                    StatusCode = 200,
+                    Message = "User information updated successfully."
+                };
+
+            }
+
+            return new GeneralResponseDto
+            {
+                IsSucceed = false,
+                StatusCode = StatusCodes.Status404NotFound,
+                Message = "User not found."
+            };
+
+
+
+
         }
 
         public async Task<UserInformation> GetUserDetailsByUserNameAsync(string username)
@@ -433,5 +486,7 @@ namespace BusBooking.Core.Repository.Services
         {
             return await userManager.Users.Where(b => b.IsDeleted == false).CountAsync();
         }
+
+       
     }
 }
