@@ -58,8 +58,8 @@ namespace BusBooking.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -352,7 +352,8 @@ namespace BusBooking.Migrations
 
                     b.HasKey("PriceId");
 
-                    b.HasIndex("RouteId");
+                    b.HasIndex("RouteId")
+                        .IsUnique();
 
                     b.ToTable("Prices");
                 });
@@ -609,8 +610,8 @@ namespace BusBooking.Migrations
             modelBuilder.Entity("BusBooking.Core.Model.Price", b =>
                 {
                     b.HasOne("BusBooking.Core.Model.Routes", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteId")
+                        .WithOne("Prices")
+                        .HasForeignKey("BusBooking.Core.Model.Price", "RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -689,6 +690,9 @@ namespace BusBooking.Migrations
             modelBuilder.Entity("BusBooking.Core.Model.Routes", b =>
                 {
                     b.Navigation("BusSchedules");
+
+                    b.Navigation("Prices")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

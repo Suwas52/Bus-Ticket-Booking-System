@@ -35,6 +35,7 @@ builder.Services.AddScoped<IBookingRepo, BookingRepo>();
 builder.Services.AddScoped<IRouteServiceRepo, RouteServiceRepo>();
 builder.Services.AddScoped<IPriceRepo, PriceRepo>();
 builder.Services.AddScoped<ISeatRepo, SeatRepo>();
+builder.Services.AddSingleton<IFileService, FileService>();
 
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));

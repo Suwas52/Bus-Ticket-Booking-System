@@ -24,9 +24,10 @@ namespace BusBooking.Core.Repository.Services
         private readonly IConfiguration configuration;
         private readonly ILogger<AuthRepository> _logger;
         private readonly IAuthHelper _authHelper;
+        private readonly IFileService _fileService;
 
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger, IAuthHelper authHelper)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger, IAuthHelper authHelper, IFileService fileService)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -34,6 +35,7 @@ namespace BusBooking.Core.Repository.Services
             this.configuration = configuration;
             _logger = logger;
             _authHelper = authHelper;
+            _fileService = fileService;
         }
         public async Task<GeneralResponseDto> SeedRolesAsync()
         {
@@ -133,10 +135,20 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
         {
-            var user = await userManager.FindByEmailAsync(loginDto.Email);
+            var user = await userManager.FindByNameAsync(loginDto.UserName);
 
-            if (user == null)
-                return null;
+            if (user.UserName == loginDto.UserName)
+            {
+
+            }
+
+            if (user == null || user.IsDeleted)
+            {
+                return new LoginResponseDto
+                {
+                    ErrorMessage = "User not found."
+                };
+            }
 
             /*if (!await userManager.IsEmailConfirmedAsync(user))
             {
@@ -360,6 +372,7 @@ namespace BusBooking.Core.Repository.Services
                 UserName = user.UserName,
                 Email = user.Email,
                 CreatedAt = user.CreatedAt,
+                ProfilePicture = user.ProfilePicture,
                 Roles = Roles
             };
         }
@@ -380,57 +393,174 @@ namespace BusBooking.Core.Repository.Services
             return userInfoResults;
         }
 
+        /* public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
+         {
+             var loginUser = await _authHelper.GetCurrentUserAsync();
+             var user = await userManager.FindByNameAsync(userName);
+
+
+        *//*     var existingUserName = await userManager.FindByNameAsync(model.UserName);
+             if (existingUserName != null)
+             {
+                 return new GeneralResponseDto
+                 {
+                     IsSucceed = false,
+                     StatusCode = 409,
+                     Message = "Username already exists."
+                 };
+             }
+
+             var existingEmail = await userManager.FindByEmailAsync(model.Email);
+             if (existingEmail != null)
+             {
+                 return new GeneralResponseDto
+                 {
+                     IsSucceed = false,
+                     StatusCode = 409,
+                     Message = "Email already exists."
+                 };
+             }*//*
+
+
+             var fileResult = _fileService.SaveFile(model.Image);
+
+
+
+             if (user.IsDeleted == false && user.UserName == loginUser.UserName && user != null)
+             {
+                 user.UpdatedAt = DateTime.UtcNow;
+                 user.UpdatedBy = loginUser.UserName;
+                 user.FirstName = model.FirstName;
+                 user.LastName = model.LastName;
+ *//*                user.UserName = model.UserName;
+                 user.Email = model.Email;*//*
+                 user.PhoneNumber = model.PhoneNumber;
+                 user.Address = model.Address;
+                 *//*user.DateOfBirth = model.DateOfBirth;*//*
+                 user.Gender = model.Gender;
+
+                 if(fileResult.Item1 == 1)
+                 {
+                     user.ProfilePicture = Path.Combine("Uploads", fileResult.Item2);
+                 }
+
+                 var result = await userManager.UpdateAsync(user);
+                 if (!result.Succeeded)
+                 {
+                     return new GeneralResponseDto
+                     {
+                         IsSucceed = false,
+                         StatusCode = 400,
+                         Message = "Failed to update user information."
+                     };
+                 }
+
+                 return new GeneralResponseDto
+                 {
+                     IsSucceed = true,
+                     StatusCode = 200,
+                     Message = "User information updated successfully."
+                 };
+
+             }
+
+             return new GeneralResponseDto
+             {
+                 IsSucceed = false,
+                 StatusCode = StatusCodes.Status404NotFound,
+                 Message = "User not found."
+             };
+
+         }
+
+ */
+
         public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
         {
-            var loginUser = await _authHelper.GetCurrentUserAsync();
-            var user = await userManager.FindByNameAsync(userName);
+            var currentUser = await _authHelper.GetCurrentUserAsync();
+            var userToUpdate = await userManager.FindByNameAsync(userName);
 
-           
-
-            if (user.IsDeleted == false && user.UserName == loginUser.UserName && user != null)
+            if (userToUpdate == null || userToUpdate.IsDeleted)
             {
-                user.UpdatedAt = DateTime.UtcNow;
-                user.UpdatedBy = loginUser.UserName;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.UserName = model.UserName;
-                user.Email = model.Email;
-                /*user.ProfilePicture = model.ProfilePicture;*/
-                user.PhoneNumber = model.PhoneNumber;
-                user.Address = model.Address;
-                /*user.DateOfBirth = model.DateOfBirth;*/
-                user.Gender = model.Gender;
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message = "User not found."
+                };
+            }
 
+            // Check if the current user is the same as the user to be updated or has admin privileges
+            if (currentUser.UserName != userToUpdate.UserName && !(await userManager.IsInRoleAsync(currentUser, StaticRoleUser.ADMIN) || await userManager.IsInRoleAsync(currentUser, StaticRoleUser.SUPERADMIN)))
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status403Forbidden,
+                    Message = "You are not authorized to update this user's information."
+                };
+            }
 
+            // Validate the model (you can use data annotations or manual checks)
+        /*    if (!ModelState.IsValid)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Invalid data provided."
+                };
+            }*/
 
-                var result = await userManager.UpdateAsync(user);
-                if (!result.Succeeded)
+            // Prevent users from changing roles or permissions by excluding such properties from UserUpdateDto
+
+            // Update allowed fields
+            userToUpdate.FirstName = model.FirstName;
+            userToUpdate.LastName = model.LastName;
+            userToUpdate.PhoneNumber = model.PhoneNumber;
+            userToUpdate.Address = model.Address;
+            userToUpdate.Gender = model.Gender;
+            userToUpdate.UpdatedAt = DateTime.UtcNow;
+            userToUpdate.UpdatedBy = currentUser.UserName;
+
+            // Handle profile picture upload if provided
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                var fileResult = _fileService.SaveFile(model.Image);
+                if (fileResult.Item1 == 1)
+                {
+                    userToUpdate.ProfilePicture = Path.Combine("Uploads", fileResult.Item2);
+                }
+                else
                 {
                     return new GeneralResponseDto
                     {
                         IsSucceed = false,
-                        StatusCode = 400,
-                        Message = "Failed to update user information."
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = "Failed to upload profile picture."
                     };
                 }
+            }
 
+            var result = await userManager.UpdateAsync(userToUpdate);
+            if (!result.Succeeded)
+            {
                 return new GeneralResponseDto
                 {
-                    IsSucceed = true,
-                    StatusCode = 200,
-                    Message = "User information updated successfully."
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Failed to update user information."
                 };
-
             }
 
             return new GeneralResponseDto
             {
-                IsSucceed = false,
-                StatusCode = StatusCodes.Status404NotFound,
-                Message = "User not found."
+                IsSucceed = true,
+                StatusCode = StatusCodes.Status200OK,
+                Message = "User information updated successfully."
             };
-
         }
+
 
         public async Task<UserInformation> GetUserDetailsByUserNameAsync(string username)
         {

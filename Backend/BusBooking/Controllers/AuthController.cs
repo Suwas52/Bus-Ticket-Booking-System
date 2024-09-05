@@ -132,13 +132,18 @@ namespace BusBooking.Controllers
 
         [HttpPut]
         [Route("Update-User/{userName}")]
-        public async Task<ActionResult<GeneralResponseDto>> UpdateUser([FromBody] UserUpdateDto model, string userName)
+        public async Task<ActionResult<GeneralResponseDto>> UpdateUser([FromForm] UserUpdateDto model, string userName)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data provided.");
+            }
+
             try
             {
                 var response = await authRepository.UpdateUserAsync(model, userName);
-                return response;
-                
+                return StatusCode(response.StatusCode, response.Message);
+
             }
             catch(Exception ex)
             {
