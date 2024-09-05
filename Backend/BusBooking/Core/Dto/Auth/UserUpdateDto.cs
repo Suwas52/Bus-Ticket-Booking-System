@@ -1,6 +1,7 @@
 
 
 using System.ComponentModel.DataAnnotations.Schema;
+using static BusBooking.Core.Model.ApplicationUser;
 
 namespace BusBooking.Core.Dto.Auth
 {
@@ -15,15 +16,15 @@ namespace BusBooking.Core.Dto.Auth
         public string Email { get; set; }   
 
         public string Address { get; set; }
-        public string? ProfilePicture { get; set; }
+ /*       public string? ProfilePicture { get; set; }*/
 
         public string? PhoneNumber { get; set; }
+        /*
+                public DateOnly? DateOfBirth { get; set; }*/
 
-        public DateOnly? DateOfBirth { get; set; }
+        public Genders? Gender { get; set; }
 
-        public string? Gender { get; set; }
-
-        [NotMapped]
-        public IFormFile Image { get; set; }
+        /* [NotMapped]
+         public IFormFile Image { get; set; }*/
     }
 }

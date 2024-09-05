@@ -93,16 +93,6 @@ namespace BusBooking.Core.Repository.Services
             };
 
             var createUserResult = await userManager.CreateAsync(newUser, registerDto.Password);
-/*
-            if (createUserResult.Succeeded)
-            {
-                var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={Uri.EscapeDataString(token)}";
-                *//*await SendEmailAsync(newUser.Email, "Confirm your email", $"Please confirm your email by clicking on this link: {confirmationLink}");*//*
-                await SendEmailAsync("recipient@example.com", "Welcome to BusBooking!", "<h1>Hello!</h1><p>Thank you for registering.</p>");
-
-
-            }*/
 
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
@@ -284,30 +274,6 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-
-        /* private async Task SendEmailAsync(string toEmail, string subject, string message)
-         {
-             var smtpClient = new SmtpClient
-             {
-                 Host = configuration["Smtp:Host"], // Ensure this is not null
-                 Port = int.Parse(configuration["Smtp:Port"]),
-                 Credentials = new NetworkCredential(configuration["Smtp:Username"], configuration["Smtp:Password"]),
-                 EnableSsl = true,
-             };
-
-
-             var mailMessage = new MailMessage
-             {
-                 From = new MailAddress(configuration["Smtp:FromEmail"], configuration["Smtp:FromName"]),
-                 Subject = subject,
-                 Body = message,
-                 IsBodyHtml = true
-             };
-             mailMessage.To.Add(toEmail);
-
-             await smtpClient.SendMailAsync(mailMessage);
-         }*/
-
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
             try
@@ -429,10 +395,10 @@ namespace BusBooking.Core.Repository.Services
                 user.LastName = model.LastName;
                 user.UserName = model.UserName;
                 user.Email = model.Email;
-                user.ProfilePicture = model.ProfilePicture;
+                /*user.ProfilePicture = model.ProfilePicture;*/
                 user.PhoneNumber = model.PhoneNumber;
                 user.Address = model.Address;
-                user.DateOfBirth = model.DateOfBirth;
+                /*user.DateOfBirth = model.DateOfBirth;*/
                 user.Gender = model.Gender;
 
 
@@ -463,9 +429,6 @@ namespace BusBooking.Core.Repository.Services
                 StatusCode = StatusCodes.Status404NotFound,
                 Message = "User not found."
             };
-
-
-
 
         }
 
