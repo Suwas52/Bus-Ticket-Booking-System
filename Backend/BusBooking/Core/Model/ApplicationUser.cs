@@ -30,7 +30,7 @@ namespace BusBooking.Core.Model
 
         public DateOnly? DateOfBirth { get; set; }
 
-        public string? Gender { get; set; }
+        public Genders? Gender { get; set; }
 
         [NotMapped]
 
@@ -38,5 +38,13 @@ namespace BusBooking.Core.Model
 
         [NotMapped]
         public IFormFile Image { get; set; }
+
+
+        public enum Genders
+        {
+            Male,
+            Female,
+            Other
+        }
     }
 }

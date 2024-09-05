@@ -2,6 +2,7 @@
 using BusBooking.Constants;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.Auth;
+using BusBooking.Core.Dto.General;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -127,6 +128,29 @@ namespace BusBooking.Controllers
                 return Unauthorized("Invalid Token");
             }
         }
+
+
+        [HttpPut]
+        [Route("Update-User/{userName}")]
+        public async Task<ActionResult<GeneralResponseDto>> UpdateUser([FromBody] UserUpdateDto model, string userName)
+        {
+            try
+            {
+                var response = await authRepository.UpdateUserAsync(model, userName);
+                return response;
+                
+            }
+            catch(Exception ex)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Message = ex.Message
+                };
+            }
+        }
+        
 
 
         [HttpGet]

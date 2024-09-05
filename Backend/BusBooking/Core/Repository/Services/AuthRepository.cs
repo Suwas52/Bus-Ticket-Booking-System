@@ -7,6 +7,7 @@ using System.Text;
 using BusBooking.Constants;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Dto.General;
+using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
@@ -22,15 +23,17 @@ namespace BusBooking.Core.Repository.Services
         private readonly ILogService logService;
         private readonly IConfiguration configuration;
         private readonly ILogger<AuthRepository> _logger;
+        private readonly IAuthHelper _authHelper;
 
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogService logService, IConfiguration configuration, ILogger<AuthRepository> logger, IAuthHelper authHelper)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.logService = logService;
             this.configuration = configuration;
             _logger = logger;
+            _authHelper = authHelper;
         }
         public async Task<GeneralResponseDto> SeedRolesAsync()
         {
@@ -90,16 +93,6 @@ namespace BusBooking.Core.Repository.Services
             };
 
             var createUserResult = await userManager.CreateAsync(newUser, registerDto.Password);
-/*
-            if (createUserResult.Succeeded)
-            {
-                var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={Uri.EscapeDataString(token)}";
-                *//*await SendEmailAsync(newUser.Email, "Confirm your email", $"Please confirm your email by clicking on this link: {confirmationLink}");*//*
-                await SendEmailAsync("recipient@example.com", "Welcome to BusBooking!", "<h1>Hello!</h1><p>Thank you for registering.</p>");
-
-
-            }*/
 
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
@@ -281,30 +274,6 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-
-        /* private async Task SendEmailAsync(string toEmail, string subject, string message)
-         {
-             var smtpClient = new SmtpClient
-             {
-                 Host = configuration["Smtp:Host"], // Ensure this is not null
-                 Port = int.Parse(configuration["Smtp:Port"]),
-                 Credentials = new NetworkCredential(configuration["Smtp:Username"], configuration["Smtp:Password"]),
-                 EnableSsl = true,
-             };
-
-
-             var mailMessage = new MailMessage
-             {
-                 From = new MailAddress(configuration["Smtp:FromEmail"], configuration["Smtp:FromName"]),
-                 Subject = subject,
-                 Body = message,
-                 IsBodyHtml = true
-             };
-             mailMessage.To.Add(toEmail);
-
-             await smtpClient.SendMailAsync(mailMessage);
-         }*/
-
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
             try
@@ -395,11 +364,6 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        /*public Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model)
-        {
-            
-        }*/
-
         public async Task<IEnumerable<UserInformation>> UserListAsync()
         {
             var users = await userManager.Users.ToListAsync();
@@ -414,6 +378,58 @@ namespace BusBooking.Core.Repository.Services
             }
 
             return userInfoResults;
+        }
+
+        public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
+        {
+            var loginUser = await _authHelper.GetCurrentUserAsync();
+            var user = await userManager.FindByNameAsync(userName);
+
+           
+
+            if (user.IsDeleted == false && user.UserName == loginUser.UserName && user != null)
+            {
+                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedBy = loginUser.UserName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                /*user.ProfilePicture = model.ProfilePicture;*/
+                user.PhoneNumber = model.PhoneNumber;
+                user.Address = model.Address;
+                /*user.DateOfBirth = model.DateOfBirth;*/
+                user.Gender = model.Gender;
+
+
+
+                var result = await userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return new GeneralResponseDto
+                    {
+                        IsSucceed = false,
+                        StatusCode = 400,
+                        Message = "Failed to update user information."
+                    };
+                }
+
+                return new GeneralResponseDto
+                {
+                    IsSucceed = true,
+                    StatusCode = 200,
+                    Message = "User information updated successfully."
+                };
+
+            }
+
+            return new GeneralResponseDto
+            {
+                IsSucceed = false,
+                StatusCode = StatusCodes.Status404NotFound,
+                Message = "User not found."
+            };
+
         }
 
         public async Task<UserInformation> GetUserDetailsByUserNameAsync(string username)
@@ -433,5 +449,7 @@ namespace BusBooking.Core.Repository.Services
         {
             return await userManager.Users.Where(b => b.IsDeleted == false).CountAsync();
         }
+
+       
     }
 }

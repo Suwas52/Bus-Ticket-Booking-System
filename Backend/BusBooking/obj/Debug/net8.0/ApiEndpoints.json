@@ -135,6 +135,37 @@
   },
   {
     "ContainingType": "BusBooking.Controllers.AuthController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/Auth/Update-User/{userName}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BusBooking.Core.Dto.Auth.UserUpdateDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BusBooking.Core.Dto.General.GeneralResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.AuthController",
     "Method": "GetUserDetailsByUserName",
     "RelativePath": "api/Auth/users/{userName}",
     "HttpMethod": "GET",
