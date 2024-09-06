@@ -2,7 +2,7 @@ import { PATH_DASHBOARD, PATH_PUBLIC } from "../routes/path";
 
 //URLS
 
-export const HOST_API_KEY = "https://localhost:5000/api";
+export const HOST_API_KEY = "http://localhost:5245/api";
 export const REGISTER_URL = "/Auth/register";
 export const LOGIN_URL = "Auth/login";
 export const ME_URL = "/Auth/me";
@@ -20,7 +20,7 @@ export const MANAGE_SEAT = "/Seat";
 export const USERDASHBOARD_COUNT = "/Booking/Count";
 export const ADMINDASHBOARD_COUNT = "/Auth/Count";
 export const USERDETAIL = "/Auth/users";
-export const UPDATEUSER_ROLE ="/Auth/update-role"
+export const UPDATEUSER_ROLE = "/Auth/update-role";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

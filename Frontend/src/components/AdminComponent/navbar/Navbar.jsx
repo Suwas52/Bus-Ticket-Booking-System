@@ -62,7 +62,7 @@ const Navbar = () => {
                 id="dropdown-custom-components"
                 className="dropdown-toggle custom-dropdown-toggle"
               >
-                <img src={img} alt="" className="avatar" />
+                <img src={user?.profilePicture} alt="" className="avatar" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-menu">

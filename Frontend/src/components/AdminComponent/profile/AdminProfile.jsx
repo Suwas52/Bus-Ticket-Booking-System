@@ -10,9 +10,10 @@ import { USER } from "../../../utils/globalConfig";
 
 const ProfileSetting = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
-  console.log(user.id);
   const [loading, setLoading] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
   const [userData, setUserData] = useState();
+  console.log(userData?.profilePicture);
   console.log(userData);
 
   const fetchUserData = async () => {
@@ -28,7 +29,10 @@ const ProfileSetting = () => {
     firstName: userData?.firstName || "",
     lastName: userData?.lastName || "",
     email: userData?.email || "",
-    profilePicture: null,
+    address: userData?.address || "",
+    phoneNumber: userData?.phoneNumber || "",
+    gender: user?.gender || "",
+    profilePicture: userData?.profilePicture || null,
     newPassword: "",
     oldPassword: "",
     confirmPassword: "",
@@ -65,6 +69,10 @@ const ProfileSetting = () => {
     }
   };
 
+  const changePasswordHandler = () => {
+    setChangePassword(!changePassword);
+  };
+
   return (
     <Container className="mt-5">
       <Formik
@@ -76,13 +84,21 @@ const ProfileSetting = () => {
         {({ isValid, dirty, setFieldValue, values }) => (
           <Form>
             <Row>
-              <Col xs={12} md={2} className="d-flex">
+              {/* <Col xs={12} md={2} className="d-flex">
                 <img
                   src={
                     values.profilePicture
                       ? URL.createObjectURL(values.profilePicture)
                       : defaultAvatar
                   }
+                  alt="Profile"
+                  className="avatar-img rounded-circle"
+                  style={{ width: "100px", height: "100px" }}
+                />
+              </Col> */}
+              <Col xs={12} md={2} className="d-flex">
+                <img
+                  src={userData?.profilePicture}
                   alt="Profile"
                   className="avatar-img rounded-circle"
                   style={{ width: "100px", height: "100px" }}
@@ -144,56 +160,55 @@ const ProfileSetting = () => {
                     />
                   </Col>
                 </BootstrapForm.Group>
-
-                <BootstrapForm.Group as={Row} controlId="formPassword">
+                <BootstrapForm.Group as={Row} controlId="formEmail">
                   <BootstrapForm.Label column sm={3}>
-                    Old Password
+                    Address
                   </BootstrapForm.Label>
                   <Col sm={9} className="mb-3">
                     <Field
-                      type="password"
-                      name="password"
+                      type="text"
+                      name="address"
                       className="form-control"
-                      placeholder="Enter new password"
+                      placeholder="Enter your Address"
                     />
                     <ErrorMessage
-                      name="password"
+                      name="address"
                       component="div"
                       className="text-danger"
                     />
                   </Col>
                 </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formPassword">
+                <BootstrapForm.Group as={Row} controlId="formEmail">
                   <BootstrapForm.Label column sm={3}>
-                    New Password
+                    Phone Number
                   </BootstrapForm.Label>
                   <Col sm={9} className="mb-3">
                     <Field
-                      type="password"
-                      name="password"
+                      type="text"
+                      name="phoneNumber"
                       className="form-control"
-                      placeholder="Enter new password"
+                      placeholder="Enter your Address"
                     />
                     <ErrorMessage
-                      name="password"
+                      name="phoneNumber"
                       component="div"
                       className="text-danger"
                     />
                   </Col>
                 </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formPassword">
+                <BootstrapForm.Group as={Row} controlId="formEmail">
                   <BootstrapForm.Label column sm={3}>
-                    Confirm Password
+                    Gender
                   </BootstrapForm.Label>
                   <Col sm={9} className="mb-3">
                     <Field
-                      type="password"
-                      name="password"
+                      type="text"
+                      name="gender"
                       className="form-control"
-                      placeholder="Enter new password"
+                      placeholder="Enter your Address"
                     />
                     <ErrorMessage
-                      name="password"
+                      name="gender"
                       component="div"
                       className="text-danger"
                     />
@@ -224,6 +239,69 @@ const ProfileSetting = () => {
                   </Col>
                 </BootstrapForm.Group>
 
+                {changePassword && (
+                  <>
+                    <BootstrapForm.Group
+                      as={Row}
+                      controlId="formPassword"
+                      className="mt-3"
+                    >
+                      <BootstrapForm.Label column sm={3}>
+                        Old Password
+                      </BootstrapForm.Label>
+                      <Col sm={9} className="mb-3">
+                        <Field
+                          type="password"
+                          name="password"
+                          className="form-control"
+                          placeholder="Enter new password"
+                        />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </Col>
+                    </BootstrapForm.Group>
+                    <BootstrapForm.Group as={Row} controlId="formPassword">
+                      <BootstrapForm.Label column sm={3}>
+                        New Password
+                      </BootstrapForm.Label>
+                      <Col sm={9} className="mb-3">
+                        <Field
+                          type="password"
+                          name="password"
+                          className="form-control"
+                          placeholder="Enter new password"
+                        />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </Col>
+                    </BootstrapForm.Group>
+                    <BootstrapForm.Group as={Row} controlId="formPassword">
+                      <BootstrapForm.Label column sm={3}>
+                        Confirm Password
+                      </BootstrapForm.Label>
+                      <Col sm={9} className="mb-3">
+                        <Field
+                          type="password"
+                          name="password"
+                          className="form-control"
+                          placeholder="Enter new password"
+                        />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </Col>
+                    </BootstrapForm.Group>
+                  </>
+                )}
+
                 <BootstrapForm.Group as={Row}>
                   <Col sm={{ span: 9, offset: 3 }}>
                     <button
@@ -232,6 +310,13 @@ const ProfileSetting = () => {
                       disabled={!isValid || !dirty || loading}
                     >
                       {loading ? "Updating Profile..." : "Update Profile"}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary mt-3 mx-4"
+                      onClick={changePasswordHandler}
+                    >
+                      Change Password
                     </button>
                   </Col>
                 </BootstrapForm.Group>

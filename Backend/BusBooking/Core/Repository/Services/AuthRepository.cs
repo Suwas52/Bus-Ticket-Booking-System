@@ -135,9 +135,9 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
         {
-            var user = await userManager.FindByNameAsync(loginDto.UserName);
+            var user = await userManager.FindByEmailAsync(loginDto.Email);
 
-            if (user.UserName == loginDto.UserName)
+            if (user.UserName == loginDto.Email)
             {
 
             }
@@ -254,6 +254,38 @@ namespace BusBooking.Core.Repository.Services
             }
         }
 
+        public async Task<GeneralResponseDto> ChangePasswordAsync(string userId, ChangePasswordDto model)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed=false,
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message = "User not found"
+                };
+            }
+
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed=false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = string.Join(", ", result.Errors.Select(e => e.Description))
+                };
+            }
+
+            return new GeneralResponseDto
+            {
+                IsSucceed = true,
+                StatusCode = StatusCodes.Status200OK,
+                Message = "User Password Update Successfully"
+            };
+        }
 
         public async Task<LoginResponseDto?> MeAsync(MeDto meDto)
         {
@@ -371,9 +403,13 @@ namespace BusBooking.Core.Repository.Services
                 LastName = user.LastName,
                 UserName = user.UserName,
                 Email = user.Email,
-                CreatedAt = user.CreatedAt,
+                Gender = user.Gender,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth,
                 ProfilePicture = user.ProfilePicture,
-                Roles = Roles
+                Roles = Roles,
+                CreatedAt = user.CreatedAt,
             };
         }
 
@@ -392,88 +428,6 @@ namespace BusBooking.Core.Repository.Services
 
             return userInfoResults;
         }
-
-        /* public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
-         {
-             var loginUser = await _authHelper.GetCurrentUserAsync();
-             var user = await userManager.FindByNameAsync(userName);
-
-
-        *//*     var existingUserName = await userManager.FindByNameAsync(model.UserName);
-             if (existingUserName != null)
-             {
-                 return new GeneralResponseDto
-                 {
-                     IsSucceed = false,
-                     StatusCode = 409,
-                     Message = "Username already exists."
-                 };
-             }
-
-             var existingEmail = await userManager.FindByEmailAsync(model.Email);
-             if (existingEmail != null)
-             {
-                 return new GeneralResponseDto
-                 {
-                     IsSucceed = false,
-                     StatusCode = 409,
-                     Message = "Email already exists."
-                 };
-             }*//*
-
-
-             var fileResult = _fileService.SaveFile(model.Image);
-
-
-
-             if (user.IsDeleted == false && user.UserName == loginUser.UserName && user != null)
-             {
-                 user.UpdatedAt = DateTime.UtcNow;
-                 user.UpdatedBy = loginUser.UserName;
-                 user.FirstName = model.FirstName;
-                 user.LastName = model.LastName;
- *//*                user.UserName = model.UserName;
-                 user.Email = model.Email;*//*
-                 user.PhoneNumber = model.PhoneNumber;
-                 user.Address = model.Address;
-                 *//*user.DateOfBirth = model.DateOfBirth;*//*
-                 user.Gender = model.Gender;
-
-                 if(fileResult.Item1 == 1)
-                 {
-                     user.ProfilePicture = Path.Combine("Uploads", fileResult.Item2);
-                 }
-
-                 var result = await userManager.UpdateAsync(user);
-                 if (!result.Succeeded)
-                 {
-                     return new GeneralResponseDto
-                     {
-                         IsSucceed = false,
-                         StatusCode = 400,
-                         Message = "Failed to update user information."
-                     };
-                 }
-
-                 return new GeneralResponseDto
-                 {
-                     IsSucceed = true,
-                     StatusCode = 200,
-                     Message = "User information updated successfully."
-                 };
-
-             }
-
-             return new GeneralResponseDto
-             {
-                 IsSucceed = false,
-                 StatusCode = StatusCodes.Status404NotFound,
-                 Message = "User not found."
-             };
-
-         }
-
- */
 
         public async Task<GeneralResponseDto> UpdateUserAsync(UserUpdateDto model, string userName)
         {
@@ -501,18 +455,6 @@ namespace BusBooking.Core.Repository.Services
                 };
             }
 
-            // Validate the model (you can use data annotations or manual checks)
-        /*    if (!ModelState.IsValid)
-            {
-                return new GeneralResponseDto
-                {
-                    IsSucceed = false,
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = "Invalid data provided."
-                };
-            }*/
-
-            // Prevent users from changing roles or permissions by excluding such properties from UserUpdateDto
 
             // Update allowed fields
             userToUpdate.FirstName = model.FirstName;
@@ -529,7 +471,7 @@ namespace BusBooking.Core.Repository.Services
                 var fileResult = _fileService.SaveFile(model.Image);
                 if (fileResult.Item1 == 1)
                 {
-                    userToUpdate.ProfilePicture = Path.Combine("Uploads", fileResult.Item2);
+                    userToUpdate.ProfilePicture = Path.Combine("http://localhost:5245/Uploads", fileResult.Item2);
                 }
                 else
                 {

@@ -88,6 +88,10 @@ namespace BusBooking.Controllers
             return Ok(loginDetail);
         }
 
+         
+
+
+
         [HttpPost]
         [Route("update-role")]
         [Authorize(Roles = StaticRoleUser.SUPERADMIN)]
@@ -155,7 +159,30 @@ namespace BusBooking.Controllers
                 };
             }
         }
-        
+
+        [HttpPut]
+        [Route("change-password/{id}")]
+        public async Task<ActionResult<GeneralResponseDto>> ChangePassword([FromBody] ChangePasswordDto model,string id)
+        {
+            try
+            {
+                var result = await authRepository.ChangePasswordAsync(id, model);
+                if(result.StatusCode == 200)
+                {
+                    return result;
+                }
+                return result;
+
+            }catch(Exception ex)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Message = ex.Message
+                };
+            }
+        }
 
 
         [HttpGet]

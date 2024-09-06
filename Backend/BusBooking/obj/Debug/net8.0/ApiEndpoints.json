@@ -21,6 +21,37 @@
   },
   {
     "ContainingType": "BusBooking.Controllers.AuthController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/Auth/change-password/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BusBooking.Core.Dto.Auth.ChangePasswordDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BusBooking.Core.Dto.General.GeneralResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "BusBooking.Controllers.AuthController",
     "Method": "GetBookingCounts",
     "RelativePath": "api/Auth/count",
     "HttpMethod": "GET",
