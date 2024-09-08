@@ -21,6 +21,8 @@ export const USERDASHBOARD_COUNT = "/Booking/Count";
 export const ADMINDASHBOARD_COUNT = "/Auth/Count";
 export const USERDETAIL = "/Auth/users";
 export const UPDATEUSER_ROLE = "/Auth/update-role";
+export const CHANGEPASSWORD = "/Auth/change-password";
+export const UPDATEUSER = "/Auth/Update-User";
 //Auth Routes
 
 export const PATH_AFTER_REGISTER = PATH_PUBLIC.login;

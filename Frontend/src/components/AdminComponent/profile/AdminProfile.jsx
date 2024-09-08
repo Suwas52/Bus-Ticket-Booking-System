@@ -33,8 +33,11 @@ const ProfileSetting = () => {
     phoneNumber: userData?.phoneNumber || "",
     gender: user?.gender || "",
     profilePicture: userData?.profilePicture || null,
-    newPassword: "",
+  };
+
+  const initialValuesForChangePassword = {
     oldPassword: "",
+    newPassword: "",
     confirmPassword: "",
   };
 
@@ -52,6 +55,19 @@ const ProfileSetting = () => {
       .required("Profile picture is required"),
   });
 
+  // Validation Scheme for Change Password
+  const validationSchemaForChangePassword = Yup.object({
+    oldPassword: Yup.string()
+      .required("Old Password is required")
+      .min(8, "Enter atleast 8 characters"),
+    newPassword: Yup.string()
+      .required("New Password is Required")
+      .min(8, "Enter atleast 8 characters"),
+    confirmPassword: Yup.string()
+      .required()
+      .oneOf([Yup.ref("newPassword"), null], "Passwords must match"),
+  });
+
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
@@ -60,7 +76,7 @@ const ProfileSetting = () => {
         email: values.email,
         password: values.password,
         profilePicture: values.profilePicture,
-      }); // Assuming `profile_edit` is a function that accepts an object
+      });
       toast.success("Profile updated successfully");
     } catch (error) {
       toast.error("Failed to update profile");
@@ -254,7 +270,7 @@ const ProfileSetting = () => {
                           type="password"
                           name="password"
                           className="form-control"
-                          placeholder="Enter new password"
+                          placeholder="Enter Password Old Password"
                         />
                         <ErrorMessage
                           name="password"
@@ -272,7 +288,7 @@ const ProfileSetting = () => {
                           type="password"
                           name="password"
                           className="form-control"
-                          placeholder="Enter new password"
+                          placeholder="Enter New Password"
                         />
                         <ErrorMessage
                           name="password"
@@ -290,7 +306,7 @@ const ProfileSetting = () => {
                           type="password"
                           name="password"
                           className="form-control"
-                          placeholder="Enter new password"
+                          placeholder="Enter Confirm Password"
                         />
                         <ErrorMessage
                           name="password"
