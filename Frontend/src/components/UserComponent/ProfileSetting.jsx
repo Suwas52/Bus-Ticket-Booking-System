@@ -1,36 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { ErrorMessage, Field, Formik, Form } from "formik";
+import { USERDETAIL } from "../../utils/globalConfig";
+import axiosInstance from "../../utils/axiosInstance";
+import useAuth from "../../hooks/useAuth";
 
 const ProfileSetting = () => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState([]);
+  console.log(userData);
+
+  const fetchLoginUser = async () => {
+    const response = await axiosInstance.get(`${USERDETAIL}/${user.userName}`);
+    setUserData(response.data);
+  };
+  useEffect(() => {
+    fetchLoginUser();
+  }, []);
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    password: "",
-    address: "",
-    state: "",
-    zip_code: "",
-    country: "",
+    firstName: userData?.firstName || "",
+    lastName: userData?.lastName || "",
+    userName: userData?.userName || "",
+    email: userData?.email || "",
+    address: userData?.address || "",
+    phoneNumber: userData?.phoneNumber || "",
+    gender: user?.gender || "",
+    profilePicture: userData?.profilePicture || null,
   };
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Please provide firstname"),
     lastName: Yup.string().required("Please provide lastname"),
     userName: Yup.string().required("Please enter username"),
     email: Yup.string()
-      .email("Please enter valid email")
-      .required("Please enter email"),
-    password: Yup.string().min(8, "Please enter at least 8 characters"),
+      .email("Invalid email address")
+      .required("Email is required"),
     address: Yup.string().required("Please enter address"),
-    state: Yup.string().required("Please enter state"),
-    zip_code: Yup.string().required("Please enter zip code"),
-    country: Yup.string().required("Please enter country"),
+    phoneNumber: Yup.string().required("Please enter address"),
+    gender: Yup.string().required("Select Gender"),
+    profilePicture: Yup.mixed()
+      .nullable()
+      .required("Profile picture is required"),
   });
 
   const handleSubmit = async (values) => {
@@ -60,6 +74,7 @@ const ProfileSetting = () => {
         <h4>Profile Settings</h4>
         <div className="profile-form">
           <Formik
+            enableReinitialize
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -136,32 +151,31 @@ const ProfileSetting = () => {
 
                 <div className="row">
                   <div className="form-group custom-form-group col-12 col-md-6">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Address</label>
                     <Field
                       type="text"
-                      id="password"
-                      name="password"
+                      id="address"
+                      name="address"
                       className="form-control"
-                      placeholder="Enter Your Password"
+                      placeholder="Enter Your address"
                     />
                     <ErrorMessage
-                      name="password"
+                      name="address"
                       className="text-danger"
                       component="span"
                     />
                   </div>
 
                   <div className="form-group custom-form-group col-12 col-md-6">
-                    <label htmlFor="state">State</label>
-                    <Field
-                      type="text"
-                      id="state"
-                      name="state"
-                      className="form-control"
-                      placeholder="Enter Your State"
-                    />
+                    <label htmlFor="state">Gender</label>
+                    <Field as="select" name="gender" className="form-control">
+                      <option hidden>Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </Field>
                     <ErrorMessage
-                      name="state"
+                      name="gender"
                       className="text-danger"
                       component="span"
                     />

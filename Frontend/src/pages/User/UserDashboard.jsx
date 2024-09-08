@@ -113,8 +113,8 @@ const UserDashboard = () => {
                 {/* <NavDropdown title="Booking" id="booking">
                   <NavDropdown.Item href="#action1">action1</NavDropdown.Item>
                   <NavDropdown.Item href="#action2">action2</NavDropdown.Item>
-                </NavDropdown> */}
-                {/* <NavDropdown title="Profile" id="profile">
+                </NavDropdown>{" "} */}
+                <NavDropdown title="Profile" id="profile">
                   <Link
                     to={PATH_AUTHUSER.userProfileSetting}
                     className="text-decoration-none"
@@ -122,10 +122,10 @@ const UserDashboard = () => {
                     <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
                   </Link>
                   <NavDropdown.Item href="#action2">Logout</NavDropdown.Item>
-                </NavDropdown> */}
+                </NavDropdown>
               </Nav>
               <Nav className="ms-auto">
-                {/* <button className="btn green-btn btn-sm">BUY TICKETS</button> */}
+                <button className="btn green-btn btn-sm">BUY TICKETS</button>
               </Nav>
             </Navbar.Collapse>
           </Container>
