@@ -365,10 +365,10 @@ namespace BusBooking.Core.Repository.Services
 
             var authClaims = new List<Claim>
             {
-        new Claim(ClaimTypes.Name, user.UserName),
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim("FirstName", user.FirstName),
-        new Claim("LastName", user.LastName),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
             };
 
             foreach (var userRole in userRoles)
@@ -473,7 +473,7 @@ namespace BusBooking.Core.Repository.Services
                 {
                     userToUpdate.ProfilePicture = Path.Combine("http://localhost:5245/Uploads", fileResult.Item2);
                 }
-                else
+               /* else
                 {
                     return new GeneralResponseDto
                     {
@@ -481,7 +481,7 @@ namespace BusBooking.Core.Repository.Services
                         StatusCode = StatusCodes.Status400BadRequest,
                         Message = "Failed to upload profile picture."
                     };
-                }
+                }*/
             }
 
             var result = await userManager.UpdateAsync(userToUpdate);

@@ -33,12 +33,13 @@ const Login = () => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      await login(values.email, values.password);
+      const response = await login(values.email, values.password);
+      toast(response.data.message);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      toast.error("error");
       console.log(error);
+      toast.error(error.data.message);
     }
   };
 

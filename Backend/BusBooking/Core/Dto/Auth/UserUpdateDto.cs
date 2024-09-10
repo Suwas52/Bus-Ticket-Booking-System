@@ -14,6 +14,6 @@ namespace BusBooking.Core.Dto.Auth
                 public DateOnly? DateOfBirth { get; set; }*/
 
         public string? Gender { get; set; }
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

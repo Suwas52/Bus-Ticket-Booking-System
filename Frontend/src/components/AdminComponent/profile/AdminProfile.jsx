@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import defaultAvatar from "../../../assets/7309681.jpg";
 import useAuth from "../../../hooks/useAuth";
 import axiosInstance from "../../../utils/axiosInstance";
-import { USER } from "../../../utils/globalConfig";
+import { UPDATEUSER, USER } from "../../../utils/globalConfig";
 
 const ProfileSetting = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
@@ -28,11 +28,9 @@ const ProfileSetting = () => {
   const initialValues = {
     firstName: userData?.firstName || "",
     lastName: userData?.lastName || "",
-    email: userData?.email || "",
     address: userData?.address || "",
     phoneNumber: userData?.phoneNumber || "",
     gender: user?.gender || "",
-    profilePicture: userData?.profilePicture || null,
   };
 
   const initialValuesForChangePassword = {
@@ -43,16 +41,11 @@ const ProfileSetting = () => {
 
   // Validation Schema
   const validationSchema = Yup.object({
-    name: Yup.string().required("Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
-    profilePicture: Yup.mixed()
-      .nullable()
-      .required("Profile picture is required"),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    address: Yup.string().required("Address is requried"),
+    phoneNumber: Yup.string().required("Phone Number is required"),
+    gender: Yup.string().required("Gender is required"),
   });
 
   // Validation Scheme for Change Password
@@ -69,21 +62,23 @@ const ProfileSetting = () => {
   });
 
   const handleSubmit = async (values) => {
+    console.log(values);
     setLoading(true);
     try {
-      await profile_edit({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        profilePicture: values.profilePicture,
-      });
-      toast.success("Profile updated successfully");
+      const response = await axiosInstance.put(
+        `${UPDATEUSER}/${user.userName}`,
+        values
+      );
+      console.log(response);
+      toast.success(response.data.message);
     } catch (error) {
       toast.error("Failed to update profile");
     } finally {
       setLoading(false);
     }
   };
+
+  const passwordChangeHandle = async (values) => {};
 
   const changePasswordHandler = () => {
     setChangePassword(!changePassword);
@@ -152,25 +147,6 @@ const ProfileSetting = () => {
                     />
                     <ErrorMessage
                       name="lastName"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
-
-                <BootstrapForm.Group as={Row} controlId="formEmail">
-                  <BootstrapForm.Label column sm={3}>
-                    Email
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="email"
-                      name="email"
-                      className="form-control"
-                      placeholder="Enter your email"
-                    />
-                    <ErrorMessage
-                      name="email"
                       component="div"
                       className="text-danger"
                     />
@@ -255,7 +231,7 @@ const ProfileSetting = () => {
                   </Col>
                 </BootstrapForm.Group>
 
-                {changePassword && (
+                {/* {changePassword && (
                   <>
                     <BootstrapForm.Group
                       as={Row}
@@ -316,7 +292,7 @@ const ProfileSetting = () => {
                       </Col>
                     </BootstrapForm.Group>
                   </>
-                )}
+                )} */}
 
                 <BootstrapForm.Group as={Row}>
                   <Col sm={{ span: 9, offset: 3 }}>
@@ -329,7 +305,11 @@ const ProfileSetting = () => {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-primary mt-3 mx-4"
+                      className={
+                        changePassword
+                          ? "btn btn-primary mt-3 mx-4"
+                          : "btn btn-secondary mt-3 mx-4"
+                      }
                       onClick={changePasswordHandler}
                     >
                       Change Password
@@ -341,6 +321,94 @@ const ProfileSetting = () => {
           </Form>
         )}
       </Formik>
+      {changePassword && (
+        <Formik
+          enableReinitialize
+          initialValues={initialValuesForChangePassword}
+          validationSchema={validationSchemaForChangePassword}
+          onSubmit={passwordChangeHandle}
+        >
+          {({ isValid, dirty, setFieldValue, values }) => (
+            <Form>
+              <Row>
+                <Col xs={12} md={2} className="d-flex"></Col>
+                <Col xs={12} md={10}>
+                  <BootstrapForm.Group
+                    as={Row}
+                    controlId="formPassword"
+                    className="mt-3"
+                  >
+                    <BootstrapForm.Label column sm={3}>
+                      Old Password
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        placeholder="Enter Password Old Password"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formPassword">
+                    <BootstrapForm.Label column sm={3}>
+                      New Password
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        placeholder="Enter New Password"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formPassword">
+                    <BootstrapForm.Label column sm={3}>
+                      Confirm Password
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        placeholder="Enter Confirm Password"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+
+                  <BootstrapForm.Group as={Row}>
+                    <Col sm={{ span: 9, offset: 3 }}>
+                      <button
+                        type="submit"
+                        className="btn btn-success mt-3"
+                        disabled={!isValid || !dirty || loading}
+                      >
+                        {loading ? "Changing Password..." : "Update Passowrd"}
+                      </button>
+                    </Col>
+                  </BootstrapForm.Group>
+                </Col>
+              </Row>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Container>
   );
 };
