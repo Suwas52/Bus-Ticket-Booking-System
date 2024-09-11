@@ -31,6 +31,7 @@ const ProfileSetting = () => {
     address: userData?.address || "",
     phoneNumber: userData?.phoneNumber || "",
     gender: user?.gender || "",
+    image: null,
   };
 
   const initialValuesForChangePassword = {
@@ -62,15 +63,28 @@ const ProfileSetting = () => {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    const formData = new FormData();
+    formData.append("FirstName", values.firstName);
+    formData.append("LastName", values.lastName);
+    formData.append("Address", values.address);
+    formData.append("PhoneNumber", values.phoneNumber);
+    formData.append("Gender", values.gender);
+
+    if (values.image) {
+      formData.append("Image", values.image);
+    }
+
     setLoading(true);
     try {
       const response = await axiosInstance.put(
         `${UPDATEUSER}/${user.userName}`,
-        values
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
       console.log(response);
-      toast.success(response.data.message);
+      toast.success("update Successfully");
     } catch (error) {
       toast.error("Failed to update profile");
     } finally {
@@ -214,17 +228,14 @@ const ProfileSetting = () => {
                   <Col sm={9}>
                     <input
                       type="file"
-                      name="profilePicture"
+                      name="image"
                       onChange={(event) => {
-                        setFieldValue(
-                          "profilePicture",
-                          event.currentTarget.files[0]
-                        );
+                        setFieldValue("image", event.currentTarget.files[0]);
                       }}
                       className="form-control"
                     />
                     <ErrorMessage
-                      name="profilePicture"
+                      name="image"
                       component="div"
                       className="text-danger"
                     />
