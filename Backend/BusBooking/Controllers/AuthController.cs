@@ -160,12 +160,12 @@ namespace BusBooking.Controllers
         }
 
         [HttpPut]
-        [Route("change-password/{id}")]
-        public async Task<ActionResult<GeneralResponseDto>> ChangePassword([FromBody] ChangePasswordDto model,string id)
+        [Route("change-password/{userName}")]
+        public async Task<ActionResult<GeneralResponseDto>> ChangePassword([FromBody] ChangePasswordDto model,string userName)
         {
             try
             {
-                var result = await authRepository.ChangePasswordAsync(id, model);
+                var result = await authRepository.ChangePasswordAsync(userName, model);
                 if(result.StatusCode == 200)
                 {
                     return result;

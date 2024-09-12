@@ -6,11 +6,12 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import defaultAvatar from "../../../assets/7309681.jpg";
 import useAuth from "../../../hooks/useAuth";
 import axiosInstance from "../../../utils/axiosInstance";
-import { UPDATEUSER, USER } from "../../../utils/globalConfig";
+import { CHANGEPASSWORD, UPDATEUSER, USER } from "../../../utils/globalConfig";
 
 const ProfileSetting = () => {
   const { isAuthLoading, isAuthenticated, user, logout } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [changePasswordLoading, setChangePasswordIsLoading] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [userData, setUserData] = useState();
   console.log(userData?.profilePicture);
@@ -35,7 +36,7 @@ const ProfileSetting = () => {
   };
 
   const initialValuesForChangePassword = {
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   };
@@ -51,7 +52,7 @@ const ProfileSetting = () => {
 
   // Validation Scheme for Change Password
   const validationSchemaForChangePassword = Yup.object({
-    oldPassword: Yup.string()
+    currentPassword: Yup.string()
       .required("Old Password is required")
       .min(8, "Enter atleast 8 characters"),
     newPassword: Yup.string()
@@ -92,7 +93,27 @@ const ProfileSetting = () => {
     }
   };
 
-  const passwordChangeHandle = async (values) => {};
+  const passwordChangeHandle = async (values) => {
+    console.log(values);
+    setChangePasswordIsLoading(true);
+    try {
+      const response = await axiosInstance.put(
+        `${CHANGEPASSWORD}/${user.userName}`,
+        values
+      );
+      console.log(response);
+      if (response.data.statusCode === 200) {
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+
+      setChangePasswordIsLoading(false);
+    } catch (error) {
+      toast.error(error.data.message);
+      setChangePasswordIsLoading(false);
+    }
+  };
 
   const changePasswordHandler = () => {
     setChangePassword(!changePassword);
@@ -100,16 +121,17 @@ const ProfileSetting = () => {
 
   return (
     <Container className="mt-5">
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isValid, dirty, setFieldValue, values }) => (
-          <Form>
-            <Row>
-              {/* <Col xs={12} md={2} className="d-flex">
+      {!changePassword && (
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isValid, dirty, setFieldValue, values }) => (
+            <Form>
+              <Row>
+                {/* <Col xs={12} md={2} className="d-flex">
                 <img
                   src={
                     values.profilePicture
@@ -121,128 +143,128 @@ const ProfileSetting = () => {
                   style={{ width: "100px", height: "100px" }}
                 />
               </Col> */}
-              <Col xs={12} md={2} className="d-flex">
-                <img
-                  src={userData?.profilePicture}
-                  alt="Profile"
-                  className="avatar-img rounded-circle"
-                  style={{ width: "100px", height: "100px" }}
-                />
-              </Col>
-              <Col xs={12} md={10}>
-                <BootstrapForm.Group as={Row} controlId="formName">
-                  <BootstrapForm.Label column sm={3}>
-                    First Name
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="text"
-                      name="firstName"
-                      className="form-control"
-                      placeholder="Enter First name"
-                    />
-                    <ErrorMessage
-                      name="firstName"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formName">
-                  <BootstrapForm.Label column sm={3}>
-                    Last Name
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="text"
-                      name="lastName"
-                      className="form-control"
-                      placeholder="Enter Last name"
-                    />
-                    <ErrorMessage
-                      name="lastName"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formEmail">
-                  <BootstrapForm.Label column sm={3}>
-                    Address
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="text"
-                      name="address"
-                      className="form-control"
-                      placeholder="Enter your Address"
-                    />
-                    <ErrorMessage
-                      name="address"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formEmail">
-                  <BootstrapForm.Label column sm={3}>
-                    Phone Number
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="text"
-                      name="phoneNumber"
-                      className="form-control"
-                      placeholder="Enter your Address"
-                    />
-                    <ErrorMessage
-                      name="phoneNumber"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
-                <BootstrapForm.Group as={Row} controlId="formEmail">
-                  <BootstrapForm.Label column sm={3}>
-                    Gender
-                  </BootstrapForm.Label>
-                  <Col sm={9} className="mb-3">
-                    <Field
-                      type="text"
-                      name="gender"
-                      className="form-control"
-                      placeholder="Enter your Address"
-                    />
-                    <ErrorMessage
-                      name="gender"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
+                <Col xs={12} md={2} className="d-flex">
+                  <img
+                    src={userData?.profilePicture}
+                    alt="Profile"
+                    className="avatar-img rounded-circle"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                </Col>
+                <Col xs={12} md={10}>
+                  <BootstrapForm.Group as={Row} controlId="formName">
+                    <BootstrapForm.Label column sm={3}>
+                      First Name
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="text"
+                        name="firstName"
+                        className="form-control"
+                        placeholder="Enter First name"
+                      />
+                      <ErrorMessage
+                        name="firstName"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formName">
+                    <BootstrapForm.Label column sm={3}>
+                      Last Name
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="text"
+                        name="lastName"
+                        className="form-control"
+                        placeholder="Enter Last name"
+                      />
+                      <ErrorMessage
+                        name="lastName"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formEmail">
+                    <BootstrapForm.Label column sm={3}>
+                      Address
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="text"
+                        name="address"
+                        className="form-control"
+                        placeholder="Enter your Address"
+                      />
+                      <ErrorMessage
+                        name="address"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formEmail">
+                    <BootstrapForm.Label column sm={3}>
+                      Phone Number
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="text"
+                        name="phoneNumber"
+                        className="form-control"
+                        placeholder="Enter your Address"
+                      />
+                      <ErrorMessage
+                        name="phoneNumber"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formEmail">
+                    <BootstrapForm.Label column sm={3}>
+                      Gender
+                    </BootstrapForm.Label>
+                    <Col sm={9} className="mb-3">
+                      <Field
+                        type="text"
+                        name="gender"
+                        className="form-control"
+                        placeholder="Enter your Address"
+                      />
+                      <ErrorMessage
+                        name="gender"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Row} controlId="formProfilePicture">
-                  <BootstrapForm.Label column sm={3}>
-                    Profile Picture
-                  </BootstrapForm.Label>
-                  <Col sm={9}>
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(event) => {
-                        setFieldValue("image", event.currentTarget.files[0]);
-                      }}
-                      className="form-control"
-                    />
-                    <ErrorMessage
-                      name="image"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </Col>
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group as={Row} controlId="formProfilePicture">
+                    <BootstrapForm.Label column sm={3}>
+                      Profile Picture
+                    </BootstrapForm.Label>
+                    <Col sm={9}>
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={(event) => {
+                          setFieldValue("image", event.currentTarget.files[0]);
+                        }}
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="image"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </Col>
+                  </BootstrapForm.Group>
 
-                {/* {changePassword && (
+                  {/* {changePassword && (
                   <>
                     <BootstrapForm.Group
                       as={Row}
@@ -305,44 +327,53 @@ const ProfileSetting = () => {
                   </>
                 )} */}
 
-                <BootstrapForm.Group as={Row}>
-                  <Col sm={{ span: 9, offset: 3 }}>
-                    <button
-                      type="submit"
-                      className="btn btn-success mt-3"
-                      disabled={!isValid || !dirty || loading}
-                    >
-                      {loading ? "Updating Profile..." : "Update Profile"}
-                    </button>
-                    <button
-                      type="button"
-                      className={
-                        changePassword
-                          ? "btn btn-primary mt-3 mx-4"
-                          : "btn btn-secondary mt-3 mx-4"
-                      }
-                      onClick={changePasswordHandler}
-                    >
-                      Change Password
-                    </button>
-                  </Col>
-                </BootstrapForm.Group>
-              </Col>
-            </Row>
-          </Form>
-        )}
-      </Formik>
+                  <BootstrapForm.Group as={Row}>
+                    <Col sm={{ span: 9, offset: 3 }}>
+                      <button
+                        type="submit"
+                        className="btn btn-success mt-3"
+                        disabled={!isValid || !dirty || changePasswordLoading}
+                      >
+                        {changePasswordLoading
+                          ? "Updating Profile..."
+                          : "Update Profile"}
+                      </button>
+                      <button
+                        type="button"
+                        className={
+                          changePassword
+                            ? "btn btn-primary mt-3 mx-4"
+                            : "btn btn-secondary mt-3 mx-4"
+                        }
+                        onClick={changePasswordHandler}
+                      >
+                        Change Password
+                      </button>
+                    </Col>
+                  </BootstrapForm.Group>
+                </Col>
+              </Row>
+            </Form>
+          )}
+        </Formik>
+      )}
       {changePassword && (
         <Formik
-          enableReinitialize
           initialValues={initialValuesForChangePassword}
           validationSchema={validationSchemaForChangePassword}
           onSubmit={passwordChangeHandle}
         >
-          {({ isValid, dirty, setFieldValue, values }) => (
+          {({ isValid, dirty }) => (
             <Form>
               <Row>
-                <Col xs={12} md={2} className="d-flex"></Col>
+                <Col xs={12} md={2} className="d-flex">
+                  <img
+                    src={userData?.profilePicture}
+                    alt="Profile"
+                    className="avatar-img rounded-circle"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                </Col>
                 <Col xs={12} md={10}>
                   <BootstrapForm.Group
                     as={Row}
@@ -355,12 +386,12 @@ const ProfileSetting = () => {
                     <Col sm={9} className="mb-3">
                       <Field
                         type="password"
-                        name="password"
+                        name="currentPassword"
                         className="form-control"
                         placeholder="Enter Password Old Password"
                       />
                       <ErrorMessage
-                        name="password"
+                        name="currentPassword"
                         component="div"
                         className="text-danger"
                       />
@@ -373,12 +404,12 @@ const ProfileSetting = () => {
                     <Col sm={9} className="mb-3">
                       <Field
                         type="password"
-                        name="password"
+                        name="newPassword"
                         className="form-control"
                         placeholder="Enter New Password"
                       />
                       <ErrorMessage
-                        name="password"
+                        name="newPassword"
                         component="div"
                         className="text-danger"
                       />
@@ -391,12 +422,12 @@ const ProfileSetting = () => {
                     <Col sm={9} className="mb-3">
                       <Field
                         type="password"
-                        name="password"
+                        name="confirmPassword"
                         className="form-control"
                         placeholder="Enter Confirm Password"
                       />
                       <ErrorMessage
-                        name="password"
+                        name="confirmPassword"
                         component="div"
                         className="text-danger"
                       />
@@ -411,6 +442,17 @@ const ProfileSetting = () => {
                         disabled={!isValid || !dirty || loading}
                       >
                         {loading ? "Changing Password..." : "Update Passowrd"}
+                      </button>
+                      <button
+                        type="button"
+                        className={
+                          changePassword
+                            ? "btn btn-primary mt-3 mx-4"
+                            : "btn btn-secondary mt-3 mx-4"
+                        }
+                        onClick={changePasswordHandler}
+                      >
+                        Change Password
                       </button>
                     </Col>
                   </BootstrapForm.Group>

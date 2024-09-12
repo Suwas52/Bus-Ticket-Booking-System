@@ -22,7 +22,7 @@
   {
     "ContainingType": "BusBooking.Controllers.AuthController",
     "Method": "ChangePassword",
-    "RelativePath": "api/Auth/change-password/{id}",
+    "RelativePath": "api/Auth/change-password/{userName}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -33,7 +33,7 @@
         "IsRequired": true
       },
       {
-        "Name": "id",
+        "Name": "userName",
         "Type": "System.String",
         "IsRequired": true
       }

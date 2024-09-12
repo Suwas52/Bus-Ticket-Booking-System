@@ -254,9 +254,9 @@ namespace BusBooking.Core.Repository.Services
             }
         }
 
-        public async Task<GeneralResponseDto> ChangePasswordAsync(string userId, ChangePasswordDto model)
+        public async Task<GeneralResponseDto> ChangePasswordAsync(string userName, ChangePasswordDto model)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByNameAsync(userName);
 
             if(user == null)
             {

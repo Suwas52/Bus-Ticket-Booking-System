@@ -34,7 +34,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await login(values.email, values.password);
-      toast(response.data.message);
+      toast.success(response.data.message);
       setLoading(false);
     } catch (error) {
       setLoading(false);
