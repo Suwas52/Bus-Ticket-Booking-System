@@ -71,6 +71,11 @@ const ProfileSetting = () => {
   return (
     <Container>
       <div className="profile-container mt-5 mb-5">
+        <img
+          src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
+          alt="dafadf"
+          style={{ height: 200, width: 500 }}
+        />
         <h4>Profile Settings</h4>
         <div className="profile-form">
           <Formik
