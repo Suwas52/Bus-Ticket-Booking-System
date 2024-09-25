@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { ErrorMessage, Field, Formik, Form } from "formik";
@@ -71,11 +71,11 @@ const ProfileSetting = () => {
   return (
     <Container>
       <div className="profile-container mt-5 mb-5">
-        <img
+        {/* <img
           src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
           alt="dafadf"
           style={{ height: 200, width: 500 }}
-        />
+        /> */}
         <h4>Profile Settings</h4>
         <div className="profile-form">
           <Formik
@@ -85,7 +85,34 @@ const ProfileSetting = () => {
             onSubmit={handleSubmit}
           >
             {({ isValid, dirty }) => (
-              <Form className="signup-form">
+              <Form className="signup-form p-3">
+                <div className="row mb-4">
+                  <Col xs={12} md={6} className="d-flex align-items-center">
+                    <img
+                      src={userData?.profilePicture}
+                      alt="Profile"
+                      className="avatar-img rounded-circle "
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                    <div className="mx-3">
+                      <h5>
+                        {userData?.firstName} {userData?.lastName}
+                      </h5>
+                      <label htmlFor="">{userData?.email}</label>
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6} className="d-flex align-items-center">
+                    <label className="form-label">Profile Picture</label>
+                    <input
+                      type="file"
+                      name="image"
+                      onChange={(event) => {
+                        setFieldValue("image", event.currentTarget.files[0]);
+                      }}
+                      className="form-control"
+                    />
+                  </Col>
+                </div>
                 <div className="row">
                   <div className="form-group custom-form-group  col-12 col-md-6">
                     <label htmlFor="firstName">First Name</label>

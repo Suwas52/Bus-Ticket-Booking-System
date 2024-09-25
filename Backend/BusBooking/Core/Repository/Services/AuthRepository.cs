@@ -10,9 +10,12 @@ using BusBooking.Core.Dto.General;
 using BusBooking.Core.Helpers;
 using BusBooking.Core.Model;
 using BusBooking.Core.Repository.Interface;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
 
 namespace BusBooking.Core.Repository.Services
 {
@@ -95,7 +98,22 @@ namespace BusBooking.Core.Repository.Services
             };
 
             var createUserResult = await userManager.CreateAsync(newUser, registerDto.Password);
+            if (!createUserResult.Succeeded)
+            {
+                var errorMessage = "User Creationg Faild " + string.Join(", ", createUserResult.Errors.Select(e => e.Description));
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = errorMessage
+                };
+            }
 
+            var _user = await userManager.FindByEmailAsync(registerDto.Email);
+
+            var emailCode = await userManager.GenerateEmailConfirmationTokenAsync(_user);
+            string sendEmail = SendEmail(_user!.Email!, emailCode);
+           
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
 
@@ -106,41 +124,37 @@ namespace BusBooking.Core.Repository.Services
                 Message = "User created successfully. Please check your email to confirm."
             };
         }
-        /*if (!createUserResult.Succeeded)
-           {
-               var errorString = "User creation failed: " + string.Join(", ", createUserResult.Errors.Select(e => e.Description));
-               return new GeneralResponseDto
-               {
-                   IsSucceed = false,
-                   StatusCode = 400,
-                   Message = errorString,
-               };
-           }*/
 
-        // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-        //     // var param = new Dictionary<string, string?>
-        //     // {
-        //     //     {"token" , token},
-        //     //     {"email",newUser.Email}
-        //     // };
-        //     // var callback = QueryHelpers.AddQueryString(registerDto.EmailConfirmed, param);
-        //     // var message = new Message([newUser.Email], "Email Confirmed Token", callback, null);
+        private string SendEmail(string email, string emailCode)
+        {
+            StringBuilder emailMessage = new StringBuilder();
+            emailMessage.AppendLine("<html>");
+            emailMessage.AppendLine("<body>");
+            emailMessage.AppendLine($"<p>Dear {email}, </p>");
+            emailMessage.AppendLine($"<p>Thank you for registering with us. To verify your email</p>");
+            emailMessage.AppendLine($"<h2>Verification Code: {emailCode}</h2>");
+            emailMessage.AppendLine("<p>Best regards,</p>");
+            emailMessage.AppendLine("</body>");
+            emailMessage.AppendLine("</html>");
 
-        // var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-        // var confirmationLink = $"{configuration["AppUrl"]}/api/auth/confirm-email?userId={newUser.Id}&token={WebUtility.UrlEncode(token)}";
+            string message = emailMessage.ToString();
+            var _email = new MimeMessage();
+            _email.To.Add(MailboxAddress.Parse("raphaelle.zemlak39@ethereal.email"));
+            _email.From.Add(MailboxAddress.Parse("raphaelle.zemlak39@ethereal.email"));
+            _email.Subject = "Email Confirmation";
+            _email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message };
 
-        // await SendUserEmailAsync(newUser.Email, "Email Confirmation", $"Please confirm your email by clicking this link: {confirmationLink}");
-
-
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Connect("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate("raphaelle.zemlak39@ethereal.email", "BER7gyZSJ98SeneYna");
+            smtp.Send(_email);
+            smtp.Disconnect(true);
+            return "Thank you for your registration, kindly check your email for confirmation code";
+        }
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
         {
             var user = await userManager.FindByEmailAsync(loginDto.Email);
-
-            if (user.UserName == loginDto.Email)
-            {
-
-            }
 
             if (user == null || user.IsDeleted)
             {
@@ -318,7 +332,7 @@ namespace BusBooking.Core.Repository.Services
             };
         }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string message)
+        /*public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
             try
             {
@@ -357,7 +371,7 @@ namespace BusBooking.Core.Repository.Services
                 throw;
             }
         }
-
+*/
 
         private async Task<string> GenerateJWTTokenAsync(ApplicationUser user)
         {
