@@ -73,14 +73,28 @@ namespace BusBooking.Core.Repository.Services
        
         public async Task<GeneralResponseDto> RegisterAsync(RegisterDto registerDto)
         {
-            var existingUser = await userManager.FindByNameAsync(registerDto.UserName);
-            if (existingUser != null)
+            var existingUsername = await userManager.FindByNameAsync(registerDto.UserName);
+            var existingEmail = await userManager.FindByEmailAsync(registerDto.Email);
+
+
+
+            if (existingUsername != null || !existingUsername.IsDeleted)
             {
                 return new GeneralResponseDto
                 {
                     IsSucceed = false,
                     StatusCode = 409,
                     Message = "Username already exists."
+                };
+            }
+
+            if(existingEmail != null || !existingEmail.IsDeleted)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message ="This User Email is already existed !"
                 };
             }
 
@@ -108,14 +122,15 @@ namespace BusBooking.Core.Repository.Services
                     Message = errorMessage
                 };
             }
-
-            var _user = await userManager.FindByEmailAsync(registerDto.Email);
-
-            var emailCode = await userManager.GenerateEmailConfirmationTokenAsync(_user);
-            string sendEmail = SendEmail(_user!.Email!, emailCode);
            
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
+
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
+
+
+
+
 
             return new GeneralResponseDto
             {

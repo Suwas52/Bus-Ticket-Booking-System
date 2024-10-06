@@ -79,6 +79,9 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+// Configure email server
+ConfigureEmailServer(builder.Configuration);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -142,3 +145,15 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void ConfigureEmailServer(IConfiguration configuration)
+{
+    EmailServerSettings emailServerSettings = new EmailServerSettings();
+    configuration.GetSection("EmailSettings").Bind(emailServerSettings);
+    if (string.IsNullOrEmpty(emailServerSettings.SMTPServer) || string.IsNullOrEmpty(emailServerSettings.SMTPUser))
+    {
+        throw new Exception("Email server configuration is invalid.");
+    }
+    EmailHelper._Config = emailServerSettings;
+}

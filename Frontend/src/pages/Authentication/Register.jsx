@@ -31,9 +31,9 @@ const Register = () => {
   });
 
   const handleSubmit = async (values) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      await register(
+      const resopnse = await register(
         values.firstName,
         values.lastName,
         values.userName,
@@ -41,8 +41,11 @@ const Register = () => {
         values.password,
         values.address
       );
+
       setLoading(false);
+      toast.success(response.data.message);
     } catch (error) {
+      setLoading(false);
       toast.error("Something is failed during register");
     }
   };
