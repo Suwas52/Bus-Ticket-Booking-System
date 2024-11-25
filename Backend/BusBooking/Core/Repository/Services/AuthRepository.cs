@@ -122,15 +122,26 @@ namespace BusBooking.Core.Repository.Services
                     Message = errorMessage
                 };
             }
-           
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            var encodedToken = WebUtility.UrlEncode(token);
+
+
+            var confirmationLink = $"{configuration["AppSettings:BaseUrl"]}/api/Auth/confirmemail?userId={newUser.Id}&token={encodedToken}";
+
+
+            var MailBody = $"Please confirm your email by clicking <a href='{confirmationLink}'>Confirm Email</a>.";
+
+
+            EmailHelper.SendEmail(
+                registerDto.Email,
+                "Confirm your email",
+                MailBody,
+                SendEvenIfNotificationDisabled: true
+                );
+
+
             await userManager.AddToRoleAsync(newUser, StaticRoleUser.USER);
             await logService.SaveNewLog(newUser.UserName, "Registered to Website");
-
-            var token = await userManager.GenerateEmailConfirmationTokenAsync(newUser);
-
-
-
-
 
             return new GeneralResponseDto
             {
@@ -138,6 +149,60 @@ namespace BusBooking.Core.Repository.Services
                 StatusCode = 200,
                 Message = "User created successfully. Please check your email to confirm."
             };
+        }
+
+
+        public async Task<GeneralResponseDto> ConfirmEmailAsync(string userId, string token)
+        {
+            if(string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Invalid Email Confirmation !"
+                };
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    Message = "User is not found",
+                    StatusCode = StatusCodes.Status404NotFound,
+                };
+            }
+
+            string decodeToken = WebUtility.UrlEncode(token);
+            decodeToken = decodeToken.Replace(" ", "+");
+
+            var result = await userManager.ConfirmEmailAsync(user, decodeToken);
+
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                return new GeneralResponseDto
+                {
+                    IsSucceed = false,
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = $"Email confirmation failed: {errors}"
+                };
+            }
+
+            user.IsActive = true;
+
+            await userManager.UpdateAsync(user);
+
+            return new GeneralResponseDto
+            {
+                IsSucceed = true,
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Email Confirm Successfully"
+            };
+
         }
 
         private string SendEmail(string email, string emailCode)

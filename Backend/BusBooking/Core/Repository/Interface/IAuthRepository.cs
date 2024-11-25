@@ -20,6 +20,8 @@ namespace BusBooking.Core.Repository.Interface
 
         Task<GeneralResponseDto> ChangePasswordAsync(string userId, ChangePasswordDto model);
 
+        Task<GeneralResponseDto> ConfirmEmailAsync(string userId, string token);
+
         Task<IEnumerable<UserInformation>> UserListAsync();
         Task<LoginResponseDto?> MeAsync(MeDto meDto);
         Task<UserInformation> GetUserDetailsByUserNameAsync(string username);

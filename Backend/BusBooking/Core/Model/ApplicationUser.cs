@@ -32,8 +32,6 @@ namespace BusBooking.Core.Model
 
         public string? Gender { get; set; }
 
-        public int? EmailConfirmationCode { get; set; }
-
         [NotMapped]
 
         public IList<string> Roles { get; set; }
