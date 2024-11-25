@@ -1,9 +1,9 @@
-﻿using BusBooking.Core.Repository.Interface;
+﻿using BusBooking.Core.Interface.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Net.Mail;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class EmailService : IEmailService
     {

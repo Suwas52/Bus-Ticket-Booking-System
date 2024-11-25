@@ -8,8 +8,8 @@ using BusBooking.Constants;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class AuthRepository : IAuthRepository
     {
@@ -70,7 +70,7 @@ namespace BusBooking.Core.Repository.Services
         }
 
 
-       
+
         public async Task<GeneralResponseDto> RegisterAsync(RegisterDto registerDto)
         {
             var existingUsername = await userManager.FindByNameAsync(registerDto.UserName);
@@ -78,7 +78,7 @@ namespace BusBooking.Core.Repository.Services
 
 
 
-            if (existingUsername != null || !existingUsername.IsDeleted)
+            if (existingUsername != null && existingUsername.IsDeleted)
             {
                 return new GeneralResponseDto
                 {
@@ -88,13 +88,13 @@ namespace BusBooking.Core.Repository.Services
                 };
             }
 
-            if(existingEmail != null || !existingEmail.IsDeleted)
+            if (existingEmail != null && existingEmail.IsDeleted)
             {
                 return new GeneralResponseDto
                 {
                     IsSucceed = false,
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message ="This User Email is already existed !"
+                    Message = "This User Email is already existed !"
                 };
             }
 
@@ -154,7 +154,7 @@ namespace BusBooking.Core.Repository.Services
 
         public async Task<GeneralResponseDto> ConfirmEmailAsync(string userId, string token)
         {
-            if(string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
             {
                 return new GeneralResponseDto
                 {
@@ -166,7 +166,7 @@ namespace BusBooking.Core.Repository.Services
 
             var user = await userManager.FindByIdAsync(userId);
 
-            if(user == null)
+            if (user == null)
             {
                 return new GeneralResponseDto
                 {
@@ -352,11 +352,11 @@ namespace BusBooking.Core.Repository.Services
         {
             var user = await userManager.FindByNameAsync(userName);
 
-            if(user == null)
+            if (user == null)
             {
                 return new GeneralResponseDto
                 {
-                    IsSucceed=false,
+                    IsSucceed = false,
                     StatusCode = StatusCodes.Status404NotFound,
                     Message = "User not found"
                 };
@@ -367,7 +367,7 @@ namespace BusBooking.Core.Repository.Services
             {
                 return new GeneralResponseDto
                 {
-                    IsSucceed=false,
+                    IsSucceed = false,
                     StatusCode = StatusCodes.Status400BadRequest,
                     Message = string.Join(", ", result.Errors.Select(e => e.Description))
                 };
@@ -567,15 +567,15 @@ namespace BusBooking.Core.Repository.Services
                 {
                     userToUpdate.ProfilePicture = Path.Combine("http://localhost:5245/Uploads", fileResult.Item2);
                 }
-               /* else
-                {
-                    return new GeneralResponseDto
-                    {
-                        IsSucceed = false,
-                        StatusCode = StatusCodes.Status400BadRequest,
-                        Message = "Failed to upload profile picture."
-                    };
-                }*/
+                /* else
+                 {
+                     return new GeneralResponseDto
+                     {
+                         IsSucceed = false,
+                         StatusCode = StatusCodes.Status400BadRequest,
+                         Message = "Failed to upload profile picture."
+                     };
+                 }*/
             }
 
             var result = await userManager.UpdateAsync(userToUpdate);
@@ -616,6 +616,6 @@ namespace BusBooking.Core.Repository.Services
             return await userManager.Users.Where(b => b.IsDeleted == false).CountAsync();
         }
 
-       
+
     }
 }

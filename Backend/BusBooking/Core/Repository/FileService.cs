@@ -1,6 +1,6 @@
-﻿using BusBooking.Core.Repository.Interface;
+﻿using BusBooking.Core.Interface.IRepository;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class FileService : IFileService
     {
@@ -12,9 +12,9 @@ namespace BusBooking.Core.Repository.Services
         public async Task DeleteFile(string fileName)
         {
             var contentPath = _webHostEnvironment.ContentRootPath;
-            var path = Path.Combine(contentPath, $"Uploads",fileName);
-            if(File.Exists(path))
-                File.Delete(path);  
+            var path = Path.Combine(contentPath, $"Uploads", fileName);
+            if (File.Exists(path))
+                File.Delete(path);
         }
 
         public Tuple<int, string> SaveFile(IFormFile imageFile)
@@ -57,7 +57,7 @@ namespace BusBooking.Core.Repository.Services
                 stream.Close();
                 return new Tuple<int, string>(1, newFileName);
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 return new Tuple<int, string>(0, "Error has occured");
             }

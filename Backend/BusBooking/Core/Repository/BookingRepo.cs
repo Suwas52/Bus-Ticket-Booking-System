@@ -2,12 +2,12 @@
 using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using static BusBooking.Core.Model.Seat;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class BookingRepo : IBookingRepo
     {
@@ -24,7 +24,7 @@ namespace BusBooking.Core.Repository.Services
         {
             var seat = await _context.Seats.FindAsync(model.SeatId);
 
-            if(seat == null  )
+            if (seat == null)
             {
                 return new GeneralResponseDto
                 {
@@ -43,7 +43,7 @@ namespace BusBooking.Core.Repository.Services
                     Message = "Seat is unaviable"
                 };
             }
-             if (seat.Status == SeatStatus.Booked)
+            if (seat.Status == SeatStatus.Booked)
             {
                 return new GeneralResponseDto
                 {
@@ -104,7 +104,7 @@ namespace BusBooking.Core.Repository.Services
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
             var booking = await _context.Bookings.FindAsync(id);
-            if(booking == null || booking.IsDeleted) 
+            if (booking == null || booking.IsDeleted)
             {
                 return new GeneralResponseDto()
                 {
@@ -143,7 +143,7 @@ namespace BusBooking.Core.Repository.Services
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
             var booking = await _context.Bookings.FindAsync(id);
-            if(booking == null && booking.IsDeleted)
+            if (booking == null && booking.IsDeleted)
             {
                 return new GeneralResponseDto()
                 {
@@ -161,7 +161,7 @@ namespace BusBooking.Core.Repository.Services
             // make seat available again
             var seat = await _context.Seats.FindAsync(booking.SeatId);
 
-            if(seat != null)
+            if (seat != null)
             {
                 seat.Status = SeatStatus.Available;
                 _context.Seats.Update(seat);

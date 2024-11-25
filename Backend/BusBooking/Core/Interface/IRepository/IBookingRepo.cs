@@ -2,7 +2,7 @@
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Model;
 
-namespace BusBooking.Core.Repository.Interface
+namespace BusBooking.Core.Interface.IRepository
 {
     public interface IBookingRepo
     {

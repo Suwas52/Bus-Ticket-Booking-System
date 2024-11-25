@@ -1,6 +1,6 @@
 ﻿using BusBooking.Core.Dto;
 
-namespace BusBooking.Core.Repository.Interface
+namespace BusBooking.Core.Interface.IRepository
 {
     public interface ISeatRepo
     {

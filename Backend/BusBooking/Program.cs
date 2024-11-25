@@ -2,9 +2,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using BusBooking.Core.Context;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
+using BusBooking.Core.Interface.IServices;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
-using BusBooking.Core.Repository.Services;
+using BusBooking.Core.Repository;
+using BusBooking.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +28,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("busBookingConString"));
 });
 
-
+// Repository DI
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
@@ -36,7 +38,12 @@ builder.Services.AddScoped<IBookingRepo, BookingRepo>();
 builder.Services.AddScoped<IRouteServiceRepo, RouteServiceRepo>();
 builder.Services.AddScoped<IPriceRepo, PriceRepo>();
 builder.Services.AddScoped<ISeatRepo, SeatRepo>();
+
+
+// Service DI
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<IFileService, FileService>();
+
 
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
@@ -55,7 +62,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
-    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+});
+
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromHours(48); // or any preferred duration
 });
 
 builder.Services.AddAuthentication(options =>

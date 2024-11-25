@@ -3,7 +3,7 @@ using BusBooking.Constants;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Dto.Auth;
 using BusBooking.Core.Dto.General;
-using BusBooking.Core.Repository.Interface;
+using BusBooking.Core.Interface.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

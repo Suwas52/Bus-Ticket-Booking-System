@@ -2,12 +2,11 @@
 using BusBooking.Core.Dto.General;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
-using BusBooking.Core.Repository.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BusBooking.Constants;
+using BusBooking.Core.Interface.IRepository;
 
 namespace BusBooking.Controllers
 {

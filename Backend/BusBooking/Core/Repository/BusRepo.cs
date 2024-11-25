@@ -1,12 +1,11 @@
-
 using BusBooking.Core.Context;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using static BusBooking.Core.Model.Seat;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class BusRepo : IBusRepo
     {
@@ -57,7 +56,7 @@ namespace BusBooking.Core.Repository.Services
                 model.CreatedBy = loginUser.UserName;
                 model.IsDeleted = false;
 
-               
+
                 await _context.Buses.AddAsync(model);
                 await _context.SaveChangesAsync();
 
@@ -68,8 +67,8 @@ namespace BusBooking.Core.Repository.Services
                 for (int i = 1; i <= model.Capacity; i++)
                 {
                     int rowGroup = i / (columns * rows.Length); // Handle cases beyond "Z"
-                    int rowIndex = (i / columns) % rows.Length;
-                    int columnIndex = (i % columns) + 1;
+                    int rowIndex = i / columns % rows.Length;
+                    int columnIndex = i % columns + 1;
 
                     string seatName;
                     if (rowGroup > 0)
@@ -168,7 +167,7 @@ namespace BusBooking.Core.Repository.Services
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
             var bus = await _context.Buses.FindAsync(id).ConfigureAwait(false);
-            if(bus != null)
+            if (bus != null)
             {
                 bus.IsDeleted = true;
                 bus.UpdatedBy = loginUser.UserName;

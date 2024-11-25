@@ -1,6 +1,4 @@
-
-
-namespace BusBooking.Core.Repository.Interface
+namespace BusBooking.Core.Interface.IRepository
 {
     public interface IGenericRepo<T, TKey> where T : class
     {

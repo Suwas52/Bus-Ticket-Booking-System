@@ -5,10 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BusBooking.Core.Context;
 using BusBooking.Core.Dto.Log;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class LogService : ILogService
     {

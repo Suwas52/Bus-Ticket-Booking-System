@@ -1,9 +1,8 @@
-
 using BusBooking.Core.Context;
-using BusBooking.Core.Repository.Interface;
+using BusBooking.Core.Interface.IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class GenericRepo<T, Tkey> : IGenericRepo<T, Tkey> where T : class
     {

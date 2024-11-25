@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BusBooking.Core.Dto;
 using BusBooking.Core.Helpers;
-using BusBooking.Core.Repository.Interface;
+using BusBooking.Core.Interface.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

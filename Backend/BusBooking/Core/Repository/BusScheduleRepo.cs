@@ -1,47 +1,50 @@
 ﻿using BusBooking.Core.Context;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
-    public class PriceRepo : IPriceRepo
+    public class BusScheduleRepo : IBusScheduleRepo
     {
         private readonly ApplicationDbContext _context;
         private readonly IAuthHelper _authHelper;
-        public PriceRepo(ApplicationDbContext context, IAuthHelper authHelper)
+        public BusScheduleRepo(ApplicationDbContext context, IAuthHelper authHelper)
         {
             _context = context;
             _authHelper = authHelper;
         }
-        public async Task CreateAsync(Price model)
+        public async Task CreateAsync(BusSchedule model)
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
 
             model.CreatedAt = DateTime.Now;
             model.CreatedBy = loginUser.UserName;
             model.IsDeleted = false;
-            await _context.Prices.AddAsync(model);
+            await _context.BusSchedules.AddAsync(model);
             await _context.SaveChangesAsync();
         }
-        public async Task<IEnumerable<Price>> GetAllAsync()
+
+
+        public async Task<IEnumerable<BusSchedule>> GetAllAsync()
         {
-            return await _context.Prices
-                .Include(r => r.Route)
+            return await _context.BusSchedules
+                .Include(bs => bs.Bus)
+                .Include(bs => bs.Routes)
                 .Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-
-
-        public async Task<Price> GetByIdAsync(int id)
+        public async Task<BusSchedule> GetByIdAsync(int id)
         {
-            return await _context.Prices
-                .Include(p => p.Route)
-                .FirstOrDefaultAsync(p => p.PriceId == id && p.IsDeleted == false);
+            return await _context.BusSchedules
+                .Include(bs => bs.Bus)
+                .Include(bs => bs.Routes)
+                .FirstOrDefaultAsync(bs => bs.ScheduleId == id && bs.IsDeleted == false);
+
         }
 
-        public async Task UpdateAsync(Price model)
+        public async Task UpdateAsync(BusSchedule model)
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
             if (model.IsDeleted == false)
@@ -55,14 +58,14 @@ namespace BusBooking.Core.Repository.Services
         public async Task DeleteAsync(int id)
         {
             var loginUser = await _authHelper.GetCurrentUserAsync();
-            var price = await _context.Prices.FindAsync(id).ConfigureAwait(false);
-            if (price != null)
+            var schedule = await _context.BusSchedules.FindAsync(id).ConfigureAwait(false);
+            if (schedule != null)
             {
-                price.IsDeleted = true;
-                price.UpdatedBy = loginUser.UserName;
-                price.UpdatedAt = DateTime.Now;
+                schedule.IsDeleted = true;
+                schedule.UpdatedBy = loginUser.UserName;
+                schedule.UpdatedAt = DateTime.Now;
 
-                _context.Entry(price).State = EntityState.Modified;
+                _context.Entry(schedule).State = EntityState.Modified;
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
         }

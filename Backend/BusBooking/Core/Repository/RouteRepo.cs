@@ -1,10 +1,10 @@
 ﻿using BusBooking.Core.Context;
 using BusBooking.Core.Helpers;
+using BusBooking.Core.Interface.IRepository;
 using BusBooking.Core.Model;
-using BusBooking.Core.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BusBooking.Core.Repository.Services
+namespace BusBooking.Core.Repository
 {
     public class RouteRepo : IRouteRepo
     {

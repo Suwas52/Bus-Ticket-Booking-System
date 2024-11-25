@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BusBooking.Core.Dto.Log;
 
-namespace BusBooking.Core.Repository.Interface
+namespace BusBooking.Core.Interface.IRepository
 {
     public interface ILogService
     {
